@@ -3,7 +3,8 @@
     include_once 'conexion/conexion.php';
     include_once 'clases/JSON.php';
     include_once 'clases/Usuario.php';
-    include_once './clases/Personal.php';
+    include_once 'clases/Personal.php';
+    include_once 'clases/Festivo.php';
 //    include_once 'clases/Correspondencia.php';
 //    include_once 'clases/Persona.php';
 //    include_once 'clases/Municipio.php';
@@ -14,6 +15,7 @@
 //    include_once 'clases/Notificacion.php';
     $objUsu = new Usuario();
     $objPer = new Personal();
+    $objFes = new Festivo();
 //    $objCor = new Correspondencia();
 //    $objPer = new Persona();
 //    $objViv = new Vivienda();
@@ -240,6 +242,75 @@
                     $res = 0;
                 }          
                 break;
+            case 'buscarxTipo':
+                $sql = "SELECT * FROM personal WHERE tipoper='".$_REQUEST['tip']."'";
+//                print_r($sql);
+                if($objPer->buscar($sql, $conexion)){
+                    $fila = $conexion->devolver_recordset();
+                    
+                    if($conexion->registros > 0){
+                        $i = 0;
+                        do{
+                            $res[$i] = $conexion->devolver_recordset();
+                            $i++;
+                        }while(($conexion->siguiente()) && ($i != $conexion->registros));
+                    }else{
+                        $res = 0;
+                    }
+                }else{
+                    $res = 0;
+                }
+                break;
+            case 'eliminarPer'://fina
+                if($_REQUEST['param'] != ''){
+                    $ids = explode(',', $_REQUEST['param']);
+//                    print_r($ids);
+                    for($i = 0;$i < count($ids); $i++){
+                        $sql = "DELETE FROM personal WHERE idper='".$ids[$i]."'";
+                        print_r($sql);
+                        $objPer->modificar($sql, $conexion);
+                    }
+                    $res = 1;
+                }else{
+                    $res = 0;
+                } 
+                break;
+            case 'guardarFes':
+                $objFes->setPropiedades($_REQUEST['des'], $_REQUEST['fec']);    
+                if($objFes->ingresar($conexion)){
+                    $res = 1;
+                }else{
+                    $res = 0;
+                }
+            break;
+                 case 'buscarTodosFes'://fina
+                if($objFes->buscar("SELECT * FROM diasfestivo ORDER BY descfest DESC", $conexion)){
+                    if($conexion->registros > 0){
+                        $i = 0;
+                        do{
+                            $res[$i] = $conexion->devolver_recordset();
+                            $i++;
+                        }while(($conexion->siguiente()) && ($i != $conexion->registros));
+                    }else{
+                        $res = 0;
+                    }
+                }else{
+                    $res = 0;
+                }          
+                break;
+            case 'eliminarFes'://fina
+                if($_REQUEST['param'] != ''){
+                    $ids = explode(',', $_REQUEST['param']);
+//                    print_r($ids);
+                    for($i = 0;$i < count($ids); $i++){
+                        $sql = "DELETE FROM diasfestivo WHERE idfestivo='".$ids[$i]."'";
+                        $objFes->modificar($sql, $conexion);
+                    }
+                    $res = 1;
+                }else{
+                    $res = 0;
+                } 
+                break;
 //            case 'guardarCor':
 //                $codigoPer = '';
 //                $cedula = '';
@@ -357,39 +428,7 @@
 //                    $res = 0;
 //                }
 //                break;
-            case 'buscarxTipo':
-                $sql = "SELECT * FROM personal WHERE tipoper='".$_REQUEST['tip']."'";
-//                print_r($sql);
-                if($objPer->buscar($sql, $conexion)){
-                    $fila = $conexion->devolver_recordset();
-                    
-                    if($conexion->registros > 0){
-                        $i = 0;
-                        do{
-                            $res[$i] = $conexion->devolver_recordset();
-                            $i++;
-                        }while(($conexion->siguiente()) && ($i != $conexion->registros));
-                    }else{
-                        $res = 0;
-                    }
-                }else{
-                    $res = 0;
-                }
-                break;
-            case 'eliminarPer'://fina
-                if($_REQUEST['param'] != ''){
-                    $ids = explode(',', $_REQUEST['param']);
-//                    print_r($ids);
-                    for($i = 0;$i < count($ids); $i++){
-                        $sql = "DELETE FROM personal WHERE idper='".$ids[$i]."'";
-                        print_r($sql);
-                        $objPer->modificar($sql, $conexion);
-                    }
-                    $res = 1;
-                }else{
-                    $res = 0;
-                } 
-                break;
+            
 //            case 'maxRegViv':
 //                $res = $objUsu->maxId("vivienda","idvivienda",$conexion);
 //                break;
