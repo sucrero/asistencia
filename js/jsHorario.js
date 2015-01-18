@@ -149,23 +149,23 @@ function limpiarFormHor(){
 //    limpiarForm('formFiscal','itxtcedula');
 //}
 //
-//function cargarTodosFis(){
-//    AjaxRequest.post(
-//        {
-//            'parameters':{'opcion':'buscarTodosFis'},
-//            'url':'../Operaciones.php',
-//            'onSuccess':function(req){
-//                 crearTablaFis(req.responseText,-1,-1);
-//            }
-//        }
-//    )
-//          
-//    $("#myModal").modal({                           
-//        "backdrop" : "static",
-//        "keyboard" : true,
-//        "show" : true // this parameter ensures the modal is shown immediately
-//    });
-//}
+function cargarTodosHor(){
+    AjaxRequest.post(
+        {
+            'parameters':{'opcion':'buscarTodosHor'},
+            'url':'../Operaciones.php',
+            'onSuccess':function(req){
+                 crearTablaHor(req.responseText,-1,-1);
+            }
+        }
+    )
+          
+    $("#myModal").modal({                           
+        "backdrop" : "static",
+        "keyboard" : true,
+        "show" : true // this parameter ensures the modal is shown immediately
+    });
+}
 //
 //function buscarFisLe(obj,e){
 //     if(e.keyCode == 13 || e.keyCode == 9)return;
@@ -207,83 +207,92 @@ function limpiarFormHor(){
 //     
 //}
 //
-//function crearTablaFis(req,tipo,param){
-//    ids = '';
-//    resp = eval("(" + req + ")");
-//    $("#contFis").empty();
-//    if(resp != 0){
-//        
+function crearTablaHor(req,tipo,param){
+    ids = '';
+    resp = eval("(" + req + ")");
+    $("#contCor").empty();
+    if(resp != 0){
+        
 //        $("a#guardar").attr("onclick","valForm('formFiscal','guardarFis(\\'m\\')');");
-////        desbloquearFis();
-//        for(var i = 0;i < resp.length; i++){
+//        desbloquearFis();
+        for(var i = 0;i < resp.length; i++){
 //            if(ids == ''){
 //                ids = resp[i]['idpersona'];
 //            }else{
 //                ids = ids+','+resp[i]['idpersona'];
 //            }
-//            if(i % 2 == 0){
-//                clase = "info";
-//            }else{
-//                clase = "";
-//            }
-//            $("#contFis").append($("<tr>")
-//                     .css("cursor", "pointer")
-//                     .addClass(clase)
-//                     .append($("<td>")
-//                         .text(i+1)
-//                     )
-//                     .append($("<td>")
-//                         .text(resp[i]['cedulaper'])
-//                     )
-//                     .append($("<td>")
-//                         .text(resp[i]['nombreper']+' '+resp[i]['apellidoper'])
-//                     )
-//                     .append($("<td>")
-//                        .attr("style", "text-align: center;")
-//                        .append($(document.createElement('i')).attr({
-//                            onclick: 'cargarFis('+JSON.stringify(resp[i])+');',
-//                            class: 'icon-edit'
-//                        })
-//                        .attr("data-dismiss","modal")
-//                        )
-//                     )
-//                     .append($("<td>")
-//                        .attr("style", "text-align: center;")
-//                        .append($(document.createElement('input')).attr({
-//                            name: 'eli_ch[]',
-//                            value: resp[i]['idpersona'],
-//                            type: 'checkbox'
-//                        })
-//
-//                        )
-//                     )
-////                     .attr("onclick","cargarFis("+JSON.stringify(resp[i])+")")
-////                     .attr("data-dismiss", "modal")
-//                     .attr("title","Haga click para cargar los datos de este registro")
-//                     .attr("id","fiscal")
-//                 );
-//        }
-//        $("a#imprimirFis").attr("onclick","window.open('reporte_fiscal.php?parametro="+param+"&tipo="+tipo+"','reportefiscal','_blank');")
-//                .removeClass("disabled");
-//        $("a#eliminarFis").removeClass("disabled");
-//    }else{
-//        $("a#imprimirFis").addClass("disabled")
-//                .removeAttr("onclick");
-//        $("a#eliminarFis").addClass("disabled")
-//                .removeAttr("onclick");
-//        $("#contFis").append($("<tr>")
-//                      .addClass("error alert-error")
-//                      .append($("<td>")
-//                         .attr("colspan","4")
-//                         .append($("<h5>")
-//                             .text("No existen registros para mostrar")
-//                         )
-//                      )
-//                      .attr("title","No existen registros para mostrar")
-//                      .attr("id","fiscal")
-//         );
-//    }
-//}
+            if(i % 2 == 0){
+                clase = "info";
+            }else{
+                clase = "";
+            }
+            $("#contCor").append($("<tr>")
+                     .css("cursor", "pointer")
+                     .addClass(clase)
+                     .append($("<td>")
+                         .text(i+1)
+                     )
+                     .append($("<td>")
+                         .text(capitalizar(resp[i]['descripcionhor']))
+                     )
+                     .append($("<td>")
+                         .text(resp[i]['horainiman'])
+                     )
+                     .append($("<td>")
+                         .text(resp[i]['horafinmanana'])
+                     )
+                     .append($("<td>")
+                         .text(resp[i]['horainitar'])
+                     )
+                     .append($("<td>")
+                         .text(resp[i]['horafintar'])
+                     )
+                     .append($("<td>")
+                        .attr("style", "text-align: center;")
+                        .append($(document.createElement('i')).attr({
+                            onclick: 'cargarHor('+JSON.stringify(resp[i])+');',
+                            class: 'icon-edit'
+                        })
+                        .attr("data-dismiss","modal")
+                        )
+                     )
+                     .append($("<td>")
+                        .attr("style", "text-align: center;")
+                        .append($(document.createElement('input')).attr({
+                            name: 'eli_ch[]',
+                            value: resp[i]['idhor'],
+                            type: 'checkbox'
+                        })
+
+                        )
+                     )
+//                     .attr("onclick","cargarFis("+JSON.stringify(resp[i])+")")
+//                     .attr("data-dismiss", "modal")
+                     .attr("title","Haga click para cargar los datos de este registro")
+                     .attr("id","fiscal")
+                 );
+        }
+        $("a#imprimirHor").attr("onclick","window.open('reporte_fiscal.php?parametro="+param+"&tipo="+tipo+"','reportehorario','_blank');")
+                .removeClass("disabled");
+        $("a#eliminarHor").removeClass("disabled");
+    }else{
+        $("a#imprimirHor").addClass("disabled")
+                .removeAttr("onclick");
+        $("a#eliminarHor").addClass("disabled")
+                .removeAttr("onclick");
+        $("#contCor").append($("<tr>")
+                      .addClass("error alert-error")
+                      .append($("<td>")
+                         .attr("colspan","8")
+                         .append($("<h5>")
+                             .text("No existen registros para mostrar")
+                         )
+                      )
+                      .attr("title","No existen registros para mostrar")
+                      .attr("id","fiscal")
+         );
+    }
+}
 //
 //function limpiarTabFis(op){
 //    if(op == 1){
@@ -298,36 +307,42 @@ function limpiarFormHor(){
 //    cargarTodosFis();
 //}
 //
-//function eliminarFis(){
-//    
-//    $("a#eliminarFis").confirmation('hide');
-//    $("#myModal").modal('hide');
-//    var checkboxValues = "";
-//    $('input[name="eli_ch[]"]:checked').each(function() {
-//            checkboxValues += $(this).val() + ",";
-//    });
-//    checkboxValues = checkboxValues.substring(0, checkboxValues.length-1);
-//    if(checkboxValues != ''){
-//        AjaxRequest.post(
-//        {
-//            'parameters':{'opcion':'eliminarFis','param':checkboxValues},
-//            'url':'../Operaciones.php',
-//            'onSuccess':function(req){
-//                 if(req.responseText == 1){
-//                    clase = "exito";
-//                    cad[0] = "Registro(s) eliminado(s) exisotamente";
-//                 }else{
-//                    clase = "error";
-//                    cad[0] = "No se pudo eliminar el registro";
-//                 }
-//            }
-//        })
-//    }else{
-//        clase = "error";
-//        cad[0] = "No se ha seleccionado ningun registro para eliminar";
-//    }
-//    claseError('#contmsj',cad,clase); 
-//}
+function eliminarHor(){
+    
+    $("a#eliminarHor").confirmation('hide');
+    $("#myModal").modal('hide');
+    var checkboxValues = "";
+    $('input[name="eli_ch[]"]:checked').each(function() {
+            checkboxValues += $(this).val() + ",";
+    });
+    checkboxValues = checkboxValues.substring(0, checkboxValues.length-1);
+    if(checkboxValues != ''){
+        AjaxRequest.post(
+        {
+            'parameters':{'opcion':'eliminarHor','param':checkboxValues},
+            'url':'../Operaciones.php',
+            'onSuccess':function(req){
+                 if(req.responseText == 1){
+                    clase = "exito";
+                    cad[0] = "Registro(s) eliminado(s) exisotamente";
+                 }else if(req.responseText == 0){
+                    clase = "error";
+                    cad[0] = "No se eliminaron los registros, poseen registros asociados";
+                 }else if(req.responseText == 2){
+                    clase = "error";
+                    cad[0] = "No se eliminaron todos registros, algunos poseen registros asociados";
+                 }else{
+                    clase = "error";
+                    cad[0] = "No se ha seleccionado ningun registro para eliminar";
+                 }
+            }
+        })
+    }else{
+        clase = "error";
+        cad[0] = "No se ha seleccionado ningun registro para eliminar";
+    }
+    claseError('#contmsj',cad,clase); 
+}
 //
 //function limpiarFormFis(){
 //    var ced = xGetElementById('itxtcedula');
@@ -347,18 +362,18 @@ function limpiarFormHor(){
 //    ced.focus();
 //}
 //
-//function cargarFis(datos){
-//    var ced = xGetElementById('itxtcedula');
-//    var nom = xGetElementById('itxtnombre');
-//    var ape = xGetElementById('itxtapellido');
-//
-//    codfis = datos['idpersona'];
-//    
-//    ced.value = datos['cedulaper'];
-//    nom.value = datos['nombreper'];
-//    ape.value = datos['apellidoper'];
-//    ced.disabled = true;
-//    nom.disabled = false;
-//    ape.disabled = false;
-//    $("a#guardar").attr("onclick","valForm('formFiscal','guardarFis(\\'f\\')');");
-//}
+function cargarHor(datos){
+     var des = document.getElementById('itxtdescrip');
+    var desdeM = document.getElementById('time1');
+    var hastaM = document.getElementById('time2');
+    var desdeT = document.getElementById('time3');
+    var hastaT = document.getElementById('time4');
+    des.value = datos['descripcionhor'];
+    desdeM.value = datos['horainiman'];
+    hastaM.value = datos['horafinmanana'];
+    desdeT.value = datos['horainitar'];
+    hastaT.value = datos['horafintar'];
+    des.focus();
+
+    $("a#guardar").attr("onclick","valForm('formHorario','guardarHor(\\'f\\')');");
+}
