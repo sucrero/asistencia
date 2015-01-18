@@ -71,11 +71,11 @@
                             <i class="icon-ok-sign icon-white"></i>
                                 Guardar
                         </a>
-                        <a id="openBtn" class="btn btn-danger"  onclick="cargarTodosCor();">
+                        <a id="openBtn" class="btn btn-danger"  onclick="cargarTodosHor();">
                             <i class="icon-eye-open icon-white"></i>
                                 Mostrar
                         </a>
-                        <a class="btn btn-danger" id="limpiar" onclick="limpiarFormCor();">
+                        <a class="btn btn-danger" id="limpiar" onclick="limpiarFormHor();">
                             <i class="icon-trash icon-white"></i>
                                 Limpiar
                         </a>
@@ -86,101 +86,19 @@
        <div id="myModal" class="modal hide fade" style="display: none; width: 70%; left: 40%">
             <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
-            <h3>Correspondencias Registradas</h3>
+            <h3>Horarios Registrados</h3>
             </div>
             <div class="modal-body">
-                <ul id="tab" class="nav nav-tabs">
-                    <li class="">
-                        <a>B&uacute;squeda por: </a>
-                    </li>
-                    <li class="active">
-                        <a href="#contribuyente" data-toggle="tab">Contribuyente</a>
-                    </li>
-                    <li class="">
-                        <a href="#fecha" data-toggle="tab">Fecha</a>
-                    </li>
-                    <li class="">
-                        <a href="#operador" data-toggle="tab">Operador</a>
-                    </li>
-                </ul>
-                <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane fade active in" id="contribuyente">
-                        <form class="form-horizontal" id="formBusCorDocCont">
-                            <fieldset>
-                                <div class="offset4 span4">
-                                    <input type="text" name="Documento Contribuyente" id="itxtdoccont" class="span10 search-query" placeholder="Ingrese el R.I.F. &oacute; C.I.">
-                                </div>
-                            </fieldset>
-                        </form>
-                        <div class="form-actions">
-                            <div id="contmsjmodal1"></div>
-                            <a class="btn btn-danger" id="guardar" onclick="buscarxCont();">
-                                <i class="icon-search icon-white"></i>
-                                    Buscar
-                            </a>
-                            <a class="btn btn-danger" id="limpiar" onclick="limpiarTabCor(1);">
-                                <i class="icon-trash icon-white"></i>
-                                    Limpiar
-                            </a>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="fecha">
-                        <form class="form-inline" id="formBusCorFec">
-                            <fieldset>
-                                <div class="offset2 span3">
-                                    <label class="control-label" for="dp1">Desde:</label>
-                                    <input type="text" class="span8" value="<?php echo date('d/m/Y'); ?>" data-date-format="dd/mm/yyyy" id="dp1"/>
-                                </div>
-                                <div class="offset2 span3">
-                                    <label class="control-label" for="dp2">Hasta:</label>
-                                    <input type="text" class="span8" value="<?php echo date('d/m/Y'); ?>" data-date-format="dd/mm/yyyy" id="dp2"/>
-                                </div>
-                            </fieldset>
-                        </form>
-                        <div class="form-actions">
-                            <div id="contmsjmodal2"></div>
-                            <a class="btn btn-danger" id="guardar" onclick="buscarxFech();">
-                                <i class="icon-search icon-white"></i>
-                                    Buscar
-                            </a>
-                            <a class="btn btn-danger" id="limpiar" onclick="limpiarTabCor(2);">
-                                <i class="icon-trash icon-white"></i>
-                                    Limpiar
-                            </a>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="operador">
-                        <form class="form-horizontal" id="formBusCorCedOpe">
-                            <fieldset>
-                                <div class="offset4 span4">
-                                    <input type="text" name="Cédula Operador" id="itxtcedope" class="span10 search-query" onKeyPress="return numeros(event);" placeholder="Ingrese una C&eacute;dula">
-                                </div>
-                            </fieldset>
-                        </form>
-                        <div class="form-actions">
-                            <div id="contmsjmodal3"></div>
-                            <a class="btn btn-danger" id="guardar" onclick="buscarxOper();">
-                                <i class="icon-search icon-white"></i>
-                                    Buscar
-                            </a>
-                            <a class="btn btn-danger" id="limpiar" onclick="limpiarTabCor(3);">
-                                <i class="icon-trash icon-white"></i>
-                                    Limpiar
-                            </a>
-                        </div>
-                    </div>
-                </div>
                 <hr>
                 <table class="table table-hover table-bordered">
                     <thead style="text-align: center;">
                         <tr>
                             <th>Item</th>
-                            <th>Operador</th>
-                            <th>Contribuyente</th>
-                            <th>Tipo</th>
-                            <th>Tipo Solicitud</th>
-                            <th>Asunto</th>
-                            <th>Fecha</th>
+                            <th>Descripci&oacute;n</th>
+                            <th>Inicio Ma&ntilde;ana</th>
+                            <th>Fin Ma&ntilde;ana</th>
+                            <th>Inicio Tarde</th>
+                            <th>Fin Tarde</th>
                             <th style="text-align: center">Editar</th>
                             <th style="text-align: center;">Eliminar <input type="checkbox" id="elico" title="Seleccionar todos" onclick="verSel('all');"></th>
                             
@@ -211,46 +129,17 @@
 			
 //            });
 
-                $(function() {
-                    $('#datetimepicker1').datetimepicker({pickDate: false});
-                    $('#datetimepicker2').datetimepicker({pickDate: false});
-                    $('#datetimepicker3').datetimepicker({pickDate: false});
-                    $('#datetimepicker4').datetimepicker({pickDate: false});
-                    $('#datetimepicker5').datetimepicker({pickDate: false});
-                    $('#datetimepicker6').datetimepicker({pickDate: false});
-                    $('#datetimepicker7').datetimepicker({pickDate: false});
-                    $('#datetimepicker8').datetimepicker({pickDate: false});
-                    $('#datetimepicker9').datetimepicker({pickDate: false});
-                    $('#datetimepicker10').datetimepicker({pickDate: false});
-                    $('#datetimepicker11').datetimepicker({pickDate: false});
-                    $('#datetimepicker12').datetimepicker({pickDate: false});
-                    $('#datetimepicker13').datetimepicker({pickDate: false});
-                    $('#datetimepicker14').datetimepicker({pickDate: false});
-                    $('#datetimepicker15').datetimepicker({pickDate: false});
-                    $('#datetimepicker16').datetimepicker({pickDate: false});
-                    $('#datetimepicker17').datetimepicker({pickDate: false});
-                    $('#datetimepicker18').datetimepicker({pickDate: false});
-                    $('#datetimepicker19').datetimepicker({pickDate: false});
-                    $('#datetimepicker20').datetimepicker({pickDate: false});
-                    $('#datetimepicker21').datetimepicker({pickDate: false});
-                    $('#datetimepicker22').datetimepicker({pickDate: false});
-                    $('#datetimepicker23').datetimepicker({pickDate: false});
-                    $('#datetimepicker24').datetimepicker({pickDate: false});
-                    $('#datetimepicker25').datetimepicker({pickDate: false});
-                    $('#datetimepicker26').datetimepicker({pickDate: false});
-                    $('#datetimepicker27').datetimepicker({pickDate: false});
-                    $('#datetimepicker28').datetimepicker({pickDate: false});
-                  });
-            $('a[data-toggle="tab"]').on('shown', function (e) {
-                $("#contmsjmodal1").empty();
-                $("#contmsjmodal2").empty();
-                $("#contmsjmodal3").empty();
-                xGetElementById('itxtdoccont').value = "";
-                xGetElementById('itxtcedope').value = "";
-                xGetElementById('dp1').value = fechaActual();
-                xGetElementById('dp2').value = fechaActual();
-                cargarTodosHor();
-            })
+                
+//            $('a[data-toggle="tab"]').on('shown', function (e) {
+//                $("#contmsjmodal1").empty();
+//                $("#contmsjmodal2").empty();
+//                $("#contmsjmodal3").empty();
+//                xGetElementById('itxtdoccont').value = "";
+//                xGetElementById('itxtcedope').value = "";
+//                xGetElementById('dp1').value = fechaActual();
+//                xGetElementById('dp2').value = fechaActual();
+//                cargarTodosHor();
+//            })
 
 //            $('#eliminarCor').confirmation('show');
             $('[data-toggle="confirmation"]').confirmation(
