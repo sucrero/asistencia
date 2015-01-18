@@ -15,13 +15,13 @@ class Horario
         $this->_horafinman = $horafinman;
         $this->_horainitar = $horainitar;
         $this->_horafintar = $horafintar;
-        $this->_descripcion = $descripcion;
+        $this->_descripcion = strtoupper($descripcion);
         $this->_dias = $dias;
     }
     
     public function ingresar($conexion){
             $sql = "INSERT INTO horario (horainiman,horafinmanana,horainitar,horafintar,descripcionhor,dias) VALUES 
-                ($this->_horainiman','$this->_horafinman','$this->_horainitar','$this->_horafintar',$this->_descripcion,$this->_dias)";
+                ('$this->_horainiman','$this->_horafinman','$this->_horainitar','$this->_horafintar','$this->_descripcion','$this->_dias')";
 //            print_r($sql);            exit();
             if($consulta = $conexion->ejecutarSql($sql)){
                 return $consulta;
