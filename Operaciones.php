@@ -5,6 +5,7 @@
     include_once 'clases/Usuario.php';
     include_once 'clases/Personal.php';
     include_once 'clases/Festivo.php';
+    include_once './clases/Horario.php';
 //    include_once 'clases/Correspondencia.php';
 //    include_once 'clases/Persona.php';
 //    include_once 'clases/Municipio.php';
@@ -16,6 +17,7 @@
     $objUsu = new Usuario();
     $objPer = new Personal();
     $objFes = new Festivo();
+    $objHor = new Horario();
 //    $objCor = new Correspondencia();
 //    $objPer = new Persona();
 //    $objViv = new Vivienda();
@@ -283,7 +285,7 @@
                     $res = 0;
                 }
             break;
-                 case 'buscarTodosFes'://fina
+            case 'buscarTodosFes'://fina
                 if($objFes->buscar("SELECT * FROM diasfestivo ORDER BY descfest DESC", $conexion)){
                     if($conexion->registros > 0){
                         $i = 0;
@@ -309,6 +311,95 @@
                     $res = 1;
                 }else{
                     $res = 0;
+                } 
+                break;
+            case 'buscarxFechFes':
+                $sql = "SELECT * FROM diasfestivo WHERE fecha BETWEEN '".$_REQUEST['fe1']."' AND '".$_REQUEST['fe2']."' ORDER BY fecha";
+                if($objFes->buscar($sql, $conexion)){
+                    if($conexion->registros > 0){
+                        $i = 0;
+                        do{
+                            $res[$i] = $conexion->devolver_recordset();
+                            $i++;
+                        }while(($conexion->siguiente()) && ($i != $conexion->registros));
+                    }else{
+                        $res = 0;
+                    }
+                }else{
+                    $res = 0;
+                }
+                break;
+             case 'buscarxPalFes':
+                $sql = "SELECT * FROM diasfestivo WHERE descfest LIKE '%".strtoupper($_REQUEST['pal'])."%' ORDER BY fecha";
+                if($objFes->buscar($sql, $conexion)){
+                    if($conexion->registros > 0){
+                        $i = 0;
+                        do{
+                            $res[$i] = $conexion->devolver_recordset();
+                            $i++;
+                        }while(($conexion->siguiente()) && ($i != $conexion->registros));
+                    }else{
+                        $res = 0;
+                    }
+                }else{
+                    $res = 0;
+                }
+                break;
+            case 'guardarH'://fina
+                $objHor->setPropiedades($_REQUEST['desdeM'], $_REQUEST['hastaM'], $_REQUEST['desdeT'], $_REQUEST['hastaT'], $_REQUEST['des'], 0);
+                if($objHor->ingresar($conexion)){
+                    $res = 1;
+                }else{
+                    $res = 0;
+                }
+                break;
+            case 'buscarTodosHor'://fina
+                if($objHor->buscar("SELECT * FROM horario ORDER BY descripcionhor DESC", $conexion)){
+                    if($conexion->registros > 0){
+                        $i = 0;
+                        do{
+                            $res[$i] = $conexion->devolver_recordset();
+                            $i++;
+                        }while(($conexion->siguiente()) && ($i != $conexion->registros));
+                    }else{
+                        $res = 0;
+                    }
+                }else{
+                    $res = 0;
+                }          
+                break;
+            case 'eliminarHor'://fina
+                $si = 0;
+                $no = 0;
+                if($_REQUEST['param'] != ''){
+                    $ids = explode(',', $_REQUEST['param']);
+//                    print_r($ids);
+                    for($i = 0;$i < count($ids); $i++){
+                        $sql = "SELECT * FROM horario_persona WHERE idhor = '".$ids[$i]."'";
+                        if($objHor->buscar($sql, $conexion)){
+//                            print_r('si: '.$sql);
+                            if($conexion->registros > 0){
+                                $no++;
+                            }else{
+                                $sql = "DELETE FROM horario WHERE idhor='".$ids[$i]."'";
+                                $objFes->modificar($sql, $conexion);
+                                $si++;
+                            }
+                        }else{
+                            $sql = "DELETE FROM horario WHERE idhor='".$ids[$i]."'";
+                            $objFes->modificar($sql, $conexion);
+                            $si++;
+                        }
+                    }
+                    if($no == 0){
+                        $res = 0;
+                    }else if($si == 0){
+                        $res = 1;
+                    }else{
+                        $res = 2;
+                    }
+                }else{
+                    $res = 3;
                 } 
                 break;
 //            case 'guardarCor':
@@ -890,28 +981,7 @@
 //                    $res = 0;
 //                }
 //                break;
-//            case 'buscarxFechT':
-//                $sql = "SELECT * FROM tierra WHERE fectierra BETWEEN '".$_REQUEST['fe1']."' AND '".$_REQUEST['fe2']."' ORDER BY fectierra";
-//                if($objTie->buscar($sql, $conexion)){
-//                    if($conexion->registros > 0){
-//                        $i = 0;
-//                        do{
-//                            $res[$i] = $conexion->devolver_recordset();
-//                            $i++;
-//                        }while(($conexion->siguiente()) && ($i != $conexion->registros));
-//                        for($i = 0;$i < count($res);$i++){
-//                            $objPer->buscar("SELECT * FROM persona WHERE idpersona='".$res[$i]['per_idpersona']."'", $conexion);
-//                            $res[$i]['c'] = $conexion->devolver_recordset();
-//                            $objPer->buscar("SELECT * FROM persona WHERE idpersona='".$res[$i]['idpersona']."'", $conexion);
-//                            $res[$i]['p'] = $conexion->devolver_recordset();
-//                        }
-//                    }else{
-//                        $res = 0;
-//                    }
-//                }else{
-//                    $res = 0;
-//                }
-//                break;
+            
 //            case 'buscarxUbicT':
 //                $sql = "SELECT * FROM tierra WHERE idparroquia='".$_REQUEST['par']."' ORDER BY fectierra";
 //                if($objViv->buscar($sql, $conexion)){
