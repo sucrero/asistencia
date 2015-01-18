@@ -89,7 +89,7 @@
             <h3>Horarios Registrados</h3>
             </div>
             <div class="modal-body">
-                <hr>
+               
                 <table class="table table-hover table-bordered">
                     <thead style="text-align: center;">
                         <tr>
@@ -122,12 +122,12 @@
         <!--FIN MENSAJE MODAL-->
         <script>
 //            document.getElementById('itxtnrodocumento').focus();
-//            $(function(){
-//                        $('#datetimepicker4').datetimepicker({
-//                            pickDate: false
-//                        });
-			
-//            });
+            $(function(){
+                $('#datetimepicker1').datetimepicker({pickDate: false});
+                $('#datetimepicker2').datetimepicker({pickDate: false});
+                $('#datetimepicker3').datetimepicker({pickDate: false});
+                $('#datetimepicker4').datetimepicker({pickDate: false});	
+            });
 
                 
 //            $('a[data-toggle="tab"]').on('shown', function (e) {
