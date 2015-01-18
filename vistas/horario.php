@@ -67,7 +67,7 @@
                     <div id="contmsj"></div>
             
                     <div class="form-actions">
-                        <a class="btn btn-danger" id="guardar" onclick="valForm('formHorario','verificarHoras(\'g\')');">
+                        <a class="btn btn-danger" id="guardar" onclick="valForm('formHorario','guardarH(\'g\')');">
                             <i class="icon-ok-sign icon-white"></i>
                                 Guardar
                         </a>
