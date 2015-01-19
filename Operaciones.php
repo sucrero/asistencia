@@ -5,7 +5,9 @@
     include_once 'clases/Usuario.php';
     include_once 'clases/Personal.php';
     include_once 'clases/Festivo.php';
-    include_once './clases/Horario.php';
+    include_once 'clases/Horario.php';
+    include_once 'clases/PermisoPer.php';
+    include_once 'clases/Horper.php';
 //    include_once 'clases/Correspondencia.php';
 //    include_once 'clases/Persona.php';
 //    include_once 'clases/Municipio.php';
@@ -18,6 +20,8 @@
     $objPer = new Personal();
     $objFes = new Festivo();
     $objHor = new Horario();
+    $objPerPer = new PermisoPer();
+    $objHorPer = new Horper();
 //    $objCor = new Correspondencia();
 //    $objPer = new Persona();
 //    $objViv = new Vivienda();
@@ -188,6 +192,8 @@
                 if($objPer->buscar($sql, $conexion)){
                     if($conexion->registros > 0){
                         $res = $conexion->devolver_recordset();
+                        $objPer->buscar("SELECT * FROM horario_persona WHERE idper='".$res['idper']."'", $conexion);
+                        $res['h'] = $conexion->devolver_recordset();
 //                        $res = 0;//existe una persona con la cedula
                     }else{
                         $res = 2;
@@ -197,6 +203,21 @@
                 }
                 
                 break;
+            case 'buscarPerMod':
+                $sql = "SELECT * FROM personal WHERE idper='".$_REQUEST['cod']."'";
+                if($objPer->buscar($sql, $conexion)){
+                    if($conexion->registros > 0){
+                        $res = $conexion->devolver_recordset();
+                        $objPer->buscar("SELECT * FROM horario_persona WHERE idper='".$_REQUEST['cod']."'", $conexion);
+                        $res['h'] = $conexion->devolver_recordset();
+//                        $res = 0;//existe una persona con la cedula
+                    }else{
+                        $res = 0;
+                    }
+                }else{
+                    $res = 0;
+                }
+                break;
             case 'guardarPer':
                 
                 if($_REQUEST['idPer'] != ''){//MODIFICAR
@@ -204,6 +225,13 @@
                 }else{//GUARDAR
                     $objPer->setPropiedades($_REQUEST['doc'], $_REQUEST['nom'], $_REQUEST['ape'], $_REQUEST['cor'], $_REQUEST['tip'], $_REQUEST['tel']);
                     if($objPer->ingresar($conexion)){
+                        $sql = "SELECT * FROM personal WHERE cedper = '".$_REQUEST['doc']."'";
+//                        print_r($sql);                        die();
+                        $objPer->buscar($sql, $conexion);
+                        $res = $conexion->devolver_recordset();
+                        $objHorPer->setPropiedades($res['idper'], $_REQUEST['hor']);
+                        $objHorPer->ingresar($conexion);
+                        
                         $res = 1;
                     }else{
                         $res = 2;
@@ -402,67 +430,37 @@
                     $res = 3;
                 } 
                 break;
-//            case 'guardarCor':
-//                $codigoPer = '';
-//                $cedula = '';
-//                $rif = '';
-//                if(ctype_alpha($_REQUEST['doc'][0])){
-//                    $rif = $_REQUEST['doc'];
-//                }else{
-//                    $cedula = $_REQUEST['doc'];
-//                }
-//                if($_REQUEST['idPer'] == ''){
-//                    $correo = '';
-//                    $telefono = '';
-//                    $tipoPer = 'titular';
-//                    $codigoPer = $objUsu->maxId('persona', 'idpersona', $conexion);
-//                    $objPer->setPropiedades($codigoPer, $cedula, $rif, $correo, $telefono, $_REQUEST['nom'], $_REQUEST['ape'], $tipoPer);
-//                    if($objPer->ingresar($conexion)){
-//                        $w = TRUE;
-//                    }else{
-//                        $w = FALSE;
-//                    }
-//                }else{
-//                    $codigoPer = $_REQUEST['idPer'];
-//                    $w = TRUE;
-//                }
-//                if($w){
-//                    $codigoCor = $objUsu->maxId('correspondencia', 'idcorrespondencia', $conexion);
-//                    $objCor->setPropiedades($codigoCor, $codigoPer, $_SESSION['id'], $_REQUEST['tip'], $_REQUEST['rec'], $_REQUEST['asu']);
-//                    if($objCor->ingresar($conexion)){
-//                        $res = 1;
-//                    }else{
-//                        $res = 2;
-//                    }
-//                }else{
-//                    $res = 3;
-//                }
-//                break;
+            case 'guardarPerm':
+                $objPerPer->setPropiedades($_REQUEST['persona'], $_REQUEST['des'], cambiarFormatoFecha($_REQUEST['desde'],'bdd'), cambiarFormatoFecha($_REQUEST['hasta'],'bdd'));
+                if($objPerPer->ingresar($conexion)){
+                    $res = 1;
+                }else{
+                    $res = 2;
+                }
+                break;
 //            case 'maxRegCor':
 //                $res = $objUsu->maxId("correspondencia","idcorrespondencia",$conexion);
 //                break;
 //            
-//            case 'buscarTodosCor':
-//                if($objCor->buscar("SELECT * FROM correspondencia ORDER BY feccorres DESC", $conexion)){
-//                    if($conexion->registros > 0){
-//                        $i = 0;
-//                        do{
-//                            $res[$i] = $conexion->devolver_recordset();
-//                            $i++;
-//                        }while(($conexion->siguiente()) && ($i != $conexion->registros));
-//                        for ($i = 0; $i < count($res);$i++){
-//                            $objPer->buscar("SELECT * FROM persona WHERE idpersona='".$res[$i]['idpersona']."'", $conexion);
-//                            $res[$i]['p'] = $conexion->devolver_recordset();
-//                            $objUsu->buscar("SELECT * FROM usuario WHERE idusuario='".$res[$i]['idusuario']."'", $conexion);
-//                            $res[$i]['u'] = $conexion->devolver_recordset();
-//                        }
-//                    }else{
-//                        $res = 0;
-//                    }
-//                }else{
-//                    $res = 0;
-//                }        
-//                break;
+            case 'buscarTodosPerm':
+                if($objPerPer->buscar("SELECT * FROM permiso_persona ORDER BY desde DESC", $conexion)){
+                    if($conexion->registros > 0){
+                        $i = 0;
+                        do{
+                            $res[$i] = $conexion->devolver_recordset();
+                            $i++;
+                        }while(($conexion->siguiente()) && ($i != $conexion->registros));
+                        for ($i = 0; $i < count($res);$i++){
+                            $objPer->buscar("SELECT * FROM personal WHERE idper='".$res[$i]['idper']."'", $conexion);
+                            $res[$i]['p'] = $conexion->devolver_recordset();
+                        }
+                    }else{
+                        $res = 0;
+                    }
+                }else{
+                    $res = 0;
+                }        
+                break;
 //            case 'buscarxCont':
 //                if(ctype_alpha($_REQUEST['doc'][0])){
 //                    $rif = $_REQUEST['doc'];
