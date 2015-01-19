@@ -14,6 +14,7 @@ function buscarPer(){ //fina
     var cor = xGetElementById('txtemail');
     var tel = xGetElementById('txttelefono');
     var tip = xGetElementById('ilsttipo');
+    var hor = xGetElementById('ilsthorario');
     $("#contmsj2").empty("");
     nom.value = "";
     ape.value = "";
@@ -33,12 +34,14 @@ function buscarPer(){ //fina
                             cor.disabled = true;
                             tel.disabled = true;
                             tip.disabled = true;
+                            hor.disabled = true;
                             doc.value = resp['cedper'];
                             nom.value = resp['nomper'];
                             ape.value = resp['apeper'];
                             cor.value = resp['emailper'];
                             tel.value = resp['telfper'];
                             tip.value = resp['tipoper'];
+                            hor.value = resp['h']['idhor'];
                             idPer = resp['idper'];
                             nom.focus();
                         }else{
@@ -47,6 +50,7 @@ function buscarPer(){ //fina
                             cor.disabled = false;
                             tel.disabled = false;
                             tip.disabled = false;
+                            hor.disabled = false;
                             nom.focus();
                         }
                     }
@@ -66,10 +70,10 @@ function guardarPer(){//fina
     var cor = xGetElementById('txtemail');
     var tel = xGetElementById('txttelefono');
     var tip = xGetElementById('ilsttipo');
-    
+    var hor = xGetElementById('ilsthorario');
     AjaxRequest.post(
         {
-            'parameters':{'opcion':'guardarPer','doc':doc.value,'nom':nom.value,'ape':ape.value,'cor':cor.value,'tel':tel.value,'tip':tip.value,'idPer':idPer},
+            'parameters':{'opcion':'guardarPer','doc':doc.value,'nom':nom.value,'ape':ape.value,'cor':cor.value,'tel':tel.value,'tip':tip.value,'idPer':idPer,'hor':hor.value},
             'url':'../Operaciones.php',
             'onSuccess':function(req){
                 var resp = eval("(" + req.responseText + ")");
@@ -95,6 +99,7 @@ function limpiarFormPer(){//fina
     var cor = xGetElementById('txtemail');
     var tel = xGetElementById('txttelefono');
     var tip = xGetElementById('ilsttipo');
+    var hor = xGetElementById('ilsthorario');
     var nroElement = objForm.length;
     for(i=0;i<nroElement;i++){
         if(objForm.elements[i].type == 'text' || objForm.elements[i].type == 'textarea' || objForm.elements[i].type == 'password'){
@@ -102,6 +107,7 @@ function limpiarFormPer(){//fina
         }
     }
     tip.value = -1;
+    hor.value = -1;
     $("a#guardar").attr("onclick","valForm('formConsulta','guardarCon(\'g\')');");
     ids = '';
     nom.disabled = true;
@@ -109,6 +115,7 @@ function limpiarFormPer(){//fina
     cor.disabled = true;
     tel.disabled = true;
     tip.disabled = true;
+    hor.disabled = true;
     objFoco.disabled = false;
     objFoco.focus();
 }
@@ -354,39 +361,38 @@ function eliminarPer(){//fino
     claseError('#contmsj',cad,clase);  
 }
 
-//function cargarCon(codigo){
-//    var docTit = xGetElementById('itxtnrodocumento');
-//    var nomTit = xGetElementById('itxtnombre');
-//    var apeTit = xGetElementById('itxtapellido');
-//    var con = xGetElementById('itxtconsulta');
-//    
-//    if(codigo != ''){
-//        mod = codigo;
-//        AjaxRequest.post(
-//            {
-//                'parameters':{'opcion':'modCon','cod':codigo},
-//                'url':'../Operaciones.php',
-//                'onSuccess':function(req){
-//                    resp = eval("(" + req.responseText + ")");
-//                    if(resp != 0){
-//                        $("#itxtcodigoCon").text(resp['con']['idconsulta']);
-//                        if(resp['pe']['cedulaper'] != ''){
-//                            docTit.value = resp['pe']['cedulaper'];
-//                        }else{
-//                            docTit.value = resp['pe']['rifper'];
-//                        }
-//                        nomTit.value = resp['pe']['nombreper'];
-//                        apeTit.value = resp['pe']['apellidoper'];
-//                        con.value = resp['con']['descripcioncons'];
-//                    }
-//                    $("a#guardar").attr("onclick","valForm('formConsulta','modificarCon()');");
-//                }
-//            }
-//        )
-//    }else{
-//        alert('no entro');
-//    }
-//}
+function cargarPer(codigo){
+    var nom = xGetElementById('itxtnombre');
+    var ape = xGetElementById('itxtapellido');
+    var cor = xGetElementById('txtemail');
+    var tel = xGetElementById('txttelefono');
+    var tip = xGetElementById('ilsttipo');
+    var hor = xGetElementById('ilsthorario');
+    
+    if(codigo != ''){
+        mod = codigo;
+        AjaxRequest.post(
+            {
+                'parameters':{'opcion':'buscarPerMod','cod':codigo},
+                'url':'../Operaciones.php',
+                'onSuccess':function(req){
+                    resp = eval("(" + req.responseText + ")");
+                    if(resp != 0){
+                        nom.value = resp['nomper'];
+                        ape.value = resp['apeper'];
+                        cor.value = resp['emailper'];
+                        tel.value = resp['telfper'];
+                        tip.value = resp['tipoper'];
+                        hor.value = resp['h']['idhor'];
+                    }
+                    $("a#guardar").attr("onclick","valForm('formPersonal','modificarPer()');");
+                }
+            }
+        )
+    }else{
+        alert('no entro');
+    }
+}
 
 //function modificarCon(){
 //    var docTit = xGetElementById('itxtnrodocumento');
