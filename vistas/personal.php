@@ -64,7 +64,39 @@
                 </select>
             </div>
         </div>
-        
+        <div class="control-group">
+            <label class="control-label" for="ilstpersonal">Tipo de horario:</label>
+            <div class="controls">
+                <?php
+                    include_once '../conexion/conexion.php';
+                    include_once '../clases/Horario.php';
+                    $objHor = new Horario();
+                    $consulta =  $objHor->buscar("SELECT * FROM horario ORDER BY descripcionhor ASC", $conexion);
+                    if($conexion){
+                        if($consulta){
+                           if($conexion->registros > 0){
+                              echo'<select id="ilsthorario" name="Fiscal" disabled="" class="span7">';
+                              echo '<option value="-1">Seleccione...</option>';
+                              $i = 0;
+                              do{
+                                 $fila = $conexion->devolver_recordset();
+                                 echo '<option value="'.$fila['idhor'].'">'.htmlentities(strtoupper($fila['descripcionhor']),ENT_QUOTES,'UTF-8').'</option>';
+                                 $i++;
+                              }while(($conexion->siguiente())&&($i!=$conexion->registros));
+
+                           }else{
+                               echo'<select id="ilsthorario" disabled class="span8">';
+                               echo '<option value="-1">No se encontraron registros...</option>';
+                           }
+                        }else{
+                            echo'<select id="ilsthorario" disabled class="span8">';
+                            echo '<option value="-1">No se encontraron registros...</option>';
+                        }
+                        echo'</select>';
+                    }
+                ?>
+            </div>
+        </div>
         <div id="contmsj"></div>
 
             <div class="form-actions">
