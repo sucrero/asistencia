@@ -89,14 +89,26 @@ function guardarPer(){//fina
 function limpiarFormPer(){//fina
     var objForm = xGetElementById('formPersonal');
     var objFoco = xGetElementById('itxtnrodocumento');
+    
+    var nom = xGetElementById('itxtnombre');
+    var ape = xGetElementById('itxtapellido');
+    var cor = xGetElementById('txtemail');
+    var tel = xGetElementById('txttelefono');
+    var tip = xGetElementById('ilsttipo');
     var nroElement = objForm.length;
     for(i=0;i<nroElement;i++){
         if(objForm.elements[i].type == 'text' || objForm.elements[i].type == 'textarea' || objForm.elements[i].type == 'password'){
             objForm.elements[i].value = "";
         }
     }
+    tip.value = -1;
     $("a#guardar").attr("onclick","valForm('formConsulta','guardarCon(\'g\')');");
     ids = '';
+    nom.disabled = true;
+    ape.disabled = true;
+    cor.disabled = true;
+    tel.disabled = true;
+    tip.disabled = true;
     objFoco.disabled = false;
     objFoco.focus();
 }
