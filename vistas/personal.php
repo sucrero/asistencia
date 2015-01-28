@@ -2,7 +2,7 @@
     <fieldset>
         <legend>Registro de Personal
             <div class="pull-right">
-                <a class="btn btn-danger" href="index.php">
+                <a class="btn btn-primary" href="index.php">
                     <i class="icon-home icon-white"></i>
                         Inicio
                 </a>
@@ -13,8 +13,8 @@
         <div class="span12 control-group">
             <label for="itxtnrodocumento">N&uacute;mero de C&eacute;dula:</label>
             <div class="input-append controls">
-                <input id="itxtnrodocumento" name="N&uacute;mero de C&eacute;dula" onkeyup="" placeholder="Ingrese la c&eacute;dula"  size="75px" type="text" maxlength="8" autofocus>
-                <a class="btn btn-danger" id="btnbuscarper" onclick="buscarPer();">
+                <input id="itxtnrodocumento" name="N&uacute;mero de C&eacute;dula" onKeyPress="return numeros(event);" placeholder="Ingrese la c&eacute;dula"  size="75px" type="text" maxlength="8" autofocus>
+                <a class="btn btn-primary" id="btnbuscarper" onclick="buscarPer();">
                     <i class="icon-search icon-white"></i>
                 </a>
             </div>
@@ -55,12 +55,38 @@
 
         </div>
         <div class="control-group">
-            <label class="control-label" for="ilsttipo">Tipo de Personal</label>
+            <label class="control-label" for="ilstcargo">Cargo</label>
             <div class="controls">
-                <select id="ilsttipo" disabled="" class="span7" name="Tipo de Personal"> 
+                <select id="ilstcargo" disabled="" class="span7" name="Tipo de Personal"> 
                     <option value="-1" selected="">Seleccione...</option>
+                    <option value="ADMINISTRATIVO">Administrativo</option>
+                    <option value="OBRERO">Obrero</option>
+                    <option value="MADRE PROCESADORA">Madre Procesadora</option>
+                    <option value="VIGILANTE">Vigilante</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="ilstdependencia">Dependencia</label>
+            <div class="controls">
+                <select id="ilstdependencia" disabled="" class="span7" name="Tipo de Personal"> 
+                    <option value="-1" selected="">Seleccione...</option>
+                    <option value="ALCALDIA">Alcaldia</option>
                     <option value="ESTADAL">Estadal</option>
                     <option value="NACIONAL">Nacional</option>
+                    <option value="OTRO">Otro</option>
+                </select>
+            </div>
+        </div>
+         <div class="control-group">
+             <label class="control-label" for="ilstcondicion">Condici&oacute;n</label>
+            <div class="controls">
+                <select id="ilstcondicion" disabled="" class="span7" name="Tipo de Personal"> 
+                    <option value="-1" selected="">Seleccione...</option>
+                    <option value="COLABORADOR">Colaborador</option>
+                    <option value="INTERINO">Interino</option>
+                    <option value="SUPLENTE">Suplente</option>
+                    <option value="TITULAR">Titular</option>
                 </select>
             </div>
         </div>
@@ -100,15 +126,15 @@
         <div id="contmsj"></div>
 
             <div class="form-actions">
-                <a class="btn btn-danger" id="guardar" onclick="valForm('formPersonal','guardarPer(\'g\')');">
+                <a class="btn btn-primary" id="guardar" onclick="valForm('formPersonal','guardarPer(\'g\')');">
                     <i class="icon-ok-sign icon-white"></i>
                         Guardar
                 </a>
-                <a id="openBtn" class="btn btn-danger"  onclick="cargarTodosPer();">
+                <a id="openBtn" class="btn btn-primary"  onclick="cargarTodosPer();">
                     <i class="icon-eye-open icon-white"></i>
                         Mostrar
                 </a>
-                <a class="btn btn-danger" id="limpiar" onclick="limpiarFormPer();">
+                <a class="btn btn-primary" id="limpiar" onclick="limpiarFormPer();">
                     <i class="icon-trash icon-white"></i>
                         Limpiar
                 </a>
@@ -129,21 +155,29 @@
                         <a>B&uacute;squeda por: </a>
                     </li>
                     <li class="active">
-                        <a href="#tipo" data-toggle="tab">Tipo</a>
+                        <a href="#cargo" data-toggle="tab">Cargo</a>
+                    </li>
+                    <li class="">
+                        <a href="#dependencia" data-toggle="tab">Dependencia</a>
+                    </li>
+                    <li class="">
+                        <a href="#cargo" data-toggle="tab">Cargo</a>
                     </li>
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     
-                    <div class="tab-pane fade active in" id="contribuyente">
-                        <form class="form-inline" id="formBusTip">
+                    <div class="tab-pane fade active in" id="cargo">
+                        <form class="form-inline" id="formBusCarg">
                             <fieldset>
                                 <div class="control-group">
-                                    <label class="control-label" for="ilsttipobus">Tipo de Personal</label>
+                                    <label class="control-label" for="ilsttipobus">Cargo</label>
                                     <div class="controls">
-                                        <select id="ilsttipobus" class="span7" name="Tipo de Personal"> 
+                                        <select id="ilstcargobus" class="span7" name="Tipo de Personal"> 
                                             <option value="-1" selected="">Seleccione...</option>
-                                            <option value="ESTADAL">Estadal</option>
-                                            <option value="NACIONAL">Nacional</option>
+                                            <option value="ADMINISTRATIVO">Administrativo</option>
+                                            <option value="OBRERO">Obrero</option>
+                                            <option value="MADRE PROCESADORA">Madre Procesadora</option>
+                                            <option value="VIGILANTE">Vigilante</option>
                                         </select>
                                     </div>
                                 </div>
@@ -151,11 +185,69 @@
                         </form>
                         <div class="form-actions">
                             <div id="contmsjmodal1"></div>
-                            <a class="btn btn-danger" id="guardar" onclick="buscarxTipo();">
+                            <a class="btn btn-primary" id="guardar" onclick="buscarxTipo();">
                                 <i class="icon-search icon-white"></i>
                                     Buscar
                             </a>
-                            <a class="btn btn-danger" id="limpiar" onclick="limpiarTabPer(1);">
+                            <a class="btn btn-primary" id="limpiar" onclick="limpiarTabPer(1);">
+                                <i class="icon-trash icon-white"></i>
+                                    Limpiar
+                            </a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade in" id="dependencia">
+                        <form class="form-inline" id="formBusDep">
+                            <fieldset>
+                                <div class="control-group">
+                                    <label class="control-label" for="ilstdependenciabus">Dependencia</label>
+                                    <div class="controls">
+                                        <select id="ilstdependenciabus" class="span7" name="Dependencia de Personal"> 
+                                            <option value="-1" selected="">Seleccione...</option>
+                                            <option value="ALCALDIA">Alcaldia</option>
+                                            <option value="ESTADAL">Estadal</option>
+                                            <option value="NACIONAL">Nacional</option>
+                                            <option value="OTRO">Otro</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                        <div class="form-actions">
+                            <div id="contmsjmodal2"></div>
+                            <a class="btn btn-primary" id="guardar" onclick="buscarxTipo();">
+                                <i class="icon-search icon-white"></i>
+                                    Buscar
+                            </a>
+                            <a class="btn btn-primary" id="limpiar" onclick="limpiarTabPer(1);">
+                                <i class="icon-trash icon-white"></i>
+                                    Limpiar
+                            </a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade in" id="condicion">
+                        <form class="form-inline" id="formBusCond">
+                            <fieldset>
+                                <div class="control-group">
+                                    <label class="control-label" for="ilstcondicionbus">Condici&oacute;n</label>
+                                    <div class="controls">
+                                        <select id="ilstcondicionbus" class="span7" name="Condicion de Personal"> 
+                                            <option value="-1" selected="">Seleccione...</option>
+                                            <option value="COLABORADOR">Colaborador</option>
+                                            <option value="INTERINO">Interino</option>
+                                            <option value="SUPLENTE">Suplente</option>
+                                            <option value="TITULAR">Titular</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                        <div class="form-actions">
+                            <div id="contmsjmodal3"></div>
+                            <a class="btn btn-primary" id="guardar" onclick="buscarxTipo();">
+                                <i class="icon-search icon-white"></i>
+                                    Buscar
+                            </a>
+                            <a class="btn btn-primary" id="limpiar" onclick="limpiarTabPer(1);">
                                 <i class="icon-trash icon-white"></i>
                                     Limpiar
                             </a>
@@ -169,7 +261,9 @@
                             <th>Item</th>
                             <th>C&eacute;dula</th>
                             <th>Nombre</th>
-                            <th>Tipo</th>
+                            <th>Cargo</th>
+                            <th>Dependencia</th>
+                            <th>Condici&oacute;n</th>
                             <th style="text-align: center">Editar</th>
                             <th style="text-align: center;">Eliminar <input type="checkbox" id="elico" title="Seleccionar todos" onclick="verSel('all');"></th>
                         </tr>
@@ -178,7 +272,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-danger" id="eliminarCon" data-toggle="confirmation" data-title="Seguro desea eliminar los registros seleccionados?">
+                <a class="btn btn-primary" id="eliminarCon" data-toggle="confirmation" data-title="Seguro desea eliminar los registros seleccionados?">
                     <i class="icon-remove icon-white"></i>
                         Eliminar
                 </a>
@@ -191,7 +285,7 @@
         </div>
         <!--FIN MENSAJE MODAL-->
         <script>
-            document.getElementById('ilsttipobus').focus();
+            document.getElementById('itxtnrodocumento').focus();
 //            $(function(){
 //                        $('#dp1').datepicker();
 //                        $('#dp2').datepicker();
@@ -199,22 +293,20 @@
                       
             $('a[data-toggle="tab"]').on('shown', function (e) {
                 $("#contmsjmodal1").empty();
-//                $("#contmsjmodal2").empty();
-//                $("#contmsjmodal3").empty();
+                $("#contmsjmodal2").empty();
+                $("#contmsjmodal3").empty();
 //                $("#contmsjmodal4").empty();
-                xGetElementById('ilsttipobus').value = -1;
-//                xGetElementById('dp1').value = fechaActual();
-//                xGetElementById('dp2').value = fechaActual();
-//                xGetElementById('itxtpalabrabus').value = "";
-//                xGetElementById('itxtcedope').value = "";
-                cargarTodosCon();
+                xGetElementById('ilstcargobus').value = -1;
+                xGetElementById('ilstdependenciabus').value = -1;
+                xGetElementById('ilstcondicionbus').value = -1;
+                cargarTodosPer();
             })
             $('[data-toggle="confirmation"]').confirmation(
                 {
                     
                     "placement" : "top",
                     "btnOkLabel" : '<i class="icon-ok-sign icon-white"></i> Si',
-                    "btnOkClass" : "btn-danger",
+                    "btnOkClass" : "btn-primary",
                     "onConfirm" : function(){eliminarPer();}
                     
                 }
