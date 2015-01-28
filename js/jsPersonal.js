@@ -13,8 +13,10 @@ function buscarPer(){ //fina
     var ape = xGetElementById('itxtapellido');
     var cor = xGetElementById('txtemail');
     var tel = xGetElementById('txttelefono');
-    var tip = xGetElementById('ilsttipo');
+    var car = xGetElementById('ilstcargo');
     var hor = xGetElementById('ilsthorario');
+    var dep = xGetElementById('ilstdependencia');
+    var con = xGetElementById('ilstcondicion');
     $("#contmsj2").empty("");
     nom.value = "";
     ape.value = "";
@@ -28,20 +30,24 @@ function buscarPer(){ //fina
                     'onSuccess':function(req){
                         var resp = eval("(" + req.responseText + ")");
                         if(resp != 2){
-                            doc.disabled = true;
-                            nom.disabled = true;
-                            ape.disabled = true;
-                            cor.disabled = true;
-                            tel.disabled = true;
-                            tip.disabled = true;
-                            hor.disabled = true;
+//                            doc.disabled = true;
+//                            nom.disabled = true;
+//                            ape.disabled = true;
+//                            cor.disabled = true;
+//                            tel.disabled = true;
+//                            car.disabled = true;
+//                            hor.disabled = true;
+//                            dep.disabled = true;
+//                            con.disabled = true;
                             doc.value = resp['cedper'];
                             nom.value = resp['nomper'];
                             ape.value = resp['apeper'];
                             cor.value = resp['emailper'];
                             tel.value = resp['telfper'];
-                            tip.value = resp['tipoper'];
+                            car.value = resp['cargo'];
                             hor.value = resp['h']['idhor'];
+                            dep.value = resp['dependencia'];
+                            con.value = resp['condicion'];
                             idPer = resp['idper'];
                             nom.focus();
                         }else{
@@ -49,8 +55,10 @@ function buscarPer(){ //fina
                             ape.disabled = false;
                             cor.disabled = false;
                             tel.disabled = false;
-                            tip.disabled = false;
+                            car.disabled = false;
                             hor.disabled = false;
+                            dep.disabled = false;
+                            con.disabled = false;
                             nom.focus();
                         }
                     }
@@ -69,53 +77,75 @@ function guardarPer(){//fina
     var ape = xGetElementById('itxtapellido');
     var cor = xGetElementById('txtemail');
     var tel = xGetElementById('txttelefono');
-    var tip = xGetElementById('ilsttipo');
+    var car = xGetElementById('ilstcargo');
     var hor = xGetElementById('ilsthorario');
-    AjaxRequest.post(
-        {
-            'parameters':{'opcion':'guardarPer','doc':doc.value,'nom':nom.value,'ape':ape.value,'cor':cor.value,'tel':tel.value,'tip':tip.value,'idPer':idPer,'hor':hor.value},
-            'url':'../Operaciones.php',
-            'onSuccess':function(req){
-                var resp = eval("(" + req.responseText + ")");
-                if(resp == 1){
-                    limpiarFormPer('formPersonal');
-                    clase = "exito";
-                    cad[0] = "Registro guardado exitosamente";
-                }else{
-                    clase = "error";
-                    cad[0] = "No se pudo guarda el registro";
+    var dep = xGetElementById('ilstdependencia');
+    var con = xGetElementById('ilstcondicion');
+    if(val_Email('txtemail')){
+        if(valTelf('txttelefono')){
+            AjaxRequest.post(
+                {
+                    'parameters':{'opcion':'guardarPer','doc':doc.value,'nom':nom.value,'ape':ape.value,'cor':cor.value,'tel':tel.value,'car':car.value,'idPer':idPer,'hor':hor.value,'dep':dep.value,'con':con.value},
+                    'url':'../Operaciones.php',
+                    'onSuccess':function(req){
+                        var resp = eval("(" + req.responseText + ")");
+                        if(resp == 1){
+                            limpiarFormPer('formPersonal');
+                            clase = "exito";
+                            cad[0] = "Registro guardado exitosamente";
+                            claseError('#contmsj',cad,clase);
+                        }else{
+                            clase = "error";
+                            cad[0] = "No se pudo guarda el registro";
+                            claseError('#contmsj',cad,clase);
+                        }
+
+                    }
                 }
-                claseError('#contmsj',cad,clase);
-            }
+            ) 
+        }else{
+            clase = "error";
+            cad[0] = "Formato de telefono invalido. Debe contener 11 digitos numericos, verifique";
+            claseError('#contmsj',cad,clase);
         }
-    ) 
+    }else{
+        clase = "error";
+        cad[0] = "Formato de correo invalido, verifique";
+        claseError('#contmsj',cad,clase);
+    }
 }
 function limpiarFormPer(){//fina
     var objForm = xGetElementById('formPersonal');
     var objFoco = xGetElementById('itxtnrodocumento');
-    
     var nom = xGetElementById('itxtnombre');
     var ape = xGetElementById('itxtapellido');
     var cor = xGetElementById('txtemail');
     var tel = xGetElementById('txttelefono');
-    var tip = xGetElementById('ilsttipo');
+    var car = xGetElementById('ilstcargo');
     var hor = xGetElementById('ilsthorario');
+    var dep = xGetElementById('ilstdependencia');
+    var con = xGetElementById('ilstcondicion');
     var nroElement = objForm.length;
     for(i=0;i<nroElement;i++){
         if(objForm.elements[i].type == 'text' || objForm.elements[i].type == 'textarea' || objForm.elements[i].type == 'password'){
             objForm.elements[i].value = "";
         }
     }
-    tip.value = -1;
+    car.value = -1;
+    dep.value = -1;
     hor.value = -1;
-    $("a#guardar").attr("onclick","valForm('formConsulta','guardarCon(\'g\')');");
-    ids = '';
+    con.value = -1;
+//    $("a#guardar").attr("onclick","valForm('formConsulta','guardarPer(\'g\')');");
+    $("a#guardar").attr("onclick","valForm('formPersonal','guardarPer()');");
+    idPer = '';
     nom.disabled = true;
     ape.disabled = true;
     cor.disabled = true;
     tel.disabled = true;
-    tip.disabled = true;
+    car.disabled = true;
     hor.disabled = true;
+    dep.disabled = true;
+    con.disabled = true;
     objFoco.disabled = false;
     objFoco.focus();
 }
@@ -169,7 +199,13 @@ function crearTablaPer(req,tipo,param){//fina
                      )
                      
                      .append($("<td>")
-                         .text(resp[i]['tipoper'])
+                         .text(capitalizar(resp[i]['cargo']))
+                     )
+                    .append($("<td>")
+                         .text(capitalizar(resp[i]['dependencia']))
+                     )
+                    .append($("<td>")
+                         .text(capitalizar(resp[i]['condicion']))
                      )
                      .append($("<td>")
                         .attr("style", "text-align: center;")
@@ -366,8 +402,10 @@ function cargarPer(codigo){
     var ape = xGetElementById('itxtapellido');
     var cor = xGetElementById('txtemail');
     var tel = xGetElementById('txttelefono');
-    var tip = xGetElementById('ilsttipo');
+    var car = xGetElementById('ilstcargo');
     var hor = xGetElementById('ilsthorario');
+    var dep = xGetElementById('ilstdependencia');
+    var con = xGetElementById('ilstcondicion');
     
     if(codigo != ''){
         mod = codigo;
@@ -382,8 +420,10 @@ function cargarPer(codigo){
                         ape.value = resp['apeper'];
                         cor.value = resp['emailper'];
                         tel.value = resp['telfper'];
-                        tip.value = resp['tipoper'];
+                        car.value = resp['cargo'];
                         hor.value = resp['h']['idhor'];
+                        dep.value = resp['dependencia'];
+                        con.value = resp['condicion'];
                     }
                     $("a#guardar").attr("onclick","valForm('formPersonal','modificarPer()');");
                 }
