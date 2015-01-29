@@ -2,7 +2,7 @@
     <fieldset>
         <legend>Registro de D&iacute;s Festivos
             <div class="pull-right">
-                <a class="btn btn-danger" href="index.php">
+                <a class="btn btn-primary" href="index.php">
                     <i class="icon-home icon-white"></i>
                         Inicio
                 </a>
@@ -10,32 +10,40 @@
         </legend>
         <div id="contmsj2"></div>         
                             
-        <div class="span12 control-group">
-            <label for="itxtdescrip">Descripci&oacute;n:</label>
-            <div class="input-append controls">
-                <input id="itxtdescrip" name="D&iacute;a Festivo" placeholder="Ingrese una descripci&oacute;n"  size="75px" type="text" maxlength="90" autofocus>
+        <div class="control-group">
+            <div class="row">
+                <div class="offset1 span12">
+                    <label for="itxtdescrip">Descripci&oacute;n:</label>
+                    <div class="input-append controls">
+                        <input id="itxtdescrip" name="D&iacute;a Festivo" placeholder="Ingrese una descripci&oacute;n"  size="75px" type="text" maxlength="90" autofocus>
+                    </div>
+                </div>
             </div>
         </div>
                     
-        <div class="span control-group">
-            <div class="span6">
-                <label class="control-label" for="dp1">Fecha:</label>
-                <input type="text" class="span8" value="<?php echo date('d/m/Y'); ?>" data-date-format="dd/mm/yyyy" id="fecharg1"/>
+        <div class="control-group">
+            <div class="row">
+                <div class="offset1 span12">
+                    <label class="control-label" for="dp1">Fecha:</label>
+                    <div class="input-append controls">
+                        <input type="text" class="span8" value="<?php echo date('d/m/Y'); ?>" data-date-format="dd/mm/yyyy" id="fecharg1"/>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div id="contmsj"></div>
 
             <div class="form-actions">
-                <a class="btn btn-danger" id="guardar" onclick="valForm('formFestivo','guardarFes(\'g\')');">
+                <a class="btn btn-primary" id="guardar" onclick="valForm('formFestivo','guardarFes(\'g\')');">
                     <i class="icon-ok-sign icon-white"></i>
                         Guardar
                 </a>
-                <a id="openBtn" class="btn btn-danger"  onclick="cargarTodosFes();">
+                <a id="openBtn" class="btn btn-primary"  onclick="cargarTodosFes();">
                     <i class="icon-eye-open icon-white"></i>
                         Mostrar
                 </a>
-                <a class="btn btn-danger" id="limpiar" onclick="limpiarFormFes();">
+                <a class="btn btn-primary" id="limpiar" onclick="limpiarFormFes();">
                     <i class="icon-trash icon-white"></i>
                         Limpiar
                 </a>
@@ -73,11 +81,11 @@
                         </form>
                         <div class="form-actions">
                             <div id="contmsjmodal1"></div>
-                            <a class="btn btn-danger" id="guardar" onclick="buscarxPalFes();">
+                            <a class="btn btn-primary" id="guardar" onclick="buscarxPalFes();">
                                 <i class="icon-search icon-white"></i>
                                     Buscar
                             </a>
-                            <a class="btn btn-danger" id="limpiar" onclick="limpiarTabFes(1);">
+                            <a class="btn btn-primary" id="limpiar" onclick="limpiarTabFes(1);">
                                 <i class="icon-trash icon-white"></i>
                                     Limpiar
                             </a>
@@ -98,11 +106,11 @@
                         </form>
                         <div class="form-actions">
                             <div id="contmsjmodal2"></div>
-                            <a class="btn btn-danger" id="guardar" onclick="buscarxFechFes();">
+                            <a class="btn btn-primary" id="guardar" onclick="buscarxFechFes();">
                                 <i class="icon-search icon-white"></i>
                                     Buscar
                             </a>
-                            <a class="btn btn-danger" id="limpiar" onclick="limpiarTabFes(2);">
+                            <a class="btn btn-primary" id="limpiar" onclick="limpiarTabFes(2);">
                                 <i class="icon-trash icon-white"></i>
                                     Limpiar
                             </a>
@@ -124,7 +132,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-danger" id="eliminarTie" data-toggle="confirmation" data-title="Seguro desea eliminar los registros seleccionados?">
+                <a class="btn btn-primary" id="eliminarTie" data-toggle="confirmation" data-title="Seguro desea eliminar los registros seleccionados?">
                     <i class="icon-remove icon-white"></i>
                         Eliminar
                 </a>
@@ -157,7 +165,7 @@
                     
                     "placement" : "top",
                     "btnOkLabel" : '<i class="icon-ok-sign icon-white"></i> Si',
-                    "btnOkClass" : "btn-danger",
+                    "btnOkClass" : "btn-primary",
                     "onConfirm" : function(){eliminarFes();}
                     
                 }
