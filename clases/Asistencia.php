@@ -8,7 +8,7 @@
         
         public function __construct(){
             $this->_id = "";
-            $this->_hora = date('h:i:s A');
+            $this->_hora = date('h:i:s');
             $this->_fecha = date('Y-m-d');
             $this->_idpersona = "";
         }
