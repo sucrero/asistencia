@@ -2,7 +2,7 @@
                 <fieldset>
                   <legend>Registro de Horarios
                   <div class="pull-right">
-                    <a class="btn btn-danger" href="index.php">
+                    <a class="btn btn-primary" href="index.php">
                         <i class="icon-home icon-white"></i>
                             Inicio
                     </a>
@@ -20,7 +20,7 @@
                         <div class="row">
                             <div class="span8 offset2">
                                 <div class="span3">
-                                    <label class="control-label" for="dp1">Ma&ntilde;ana desde:</label>
+                                    <label class="control-label" for="dp1">Entrada:</label>
                                     <div id="datetimepicker1" class="input-append">
                                         <input data-format="hh:mm:ss" id="time1" type="text" class="span8" value="07:00:00" readonly=""></input>
                                         <span class="add-on">
@@ -30,29 +30,9 @@
                                     </div>
                                 </div>
                                 <div class="span3">
-                                    <label class="control-label" for="dp2">Ma&ntilde;ana hasta:</label>
+                                    <label class="control-label" for="dp2">Salida:</label>
                                     <div id="datetimepicker2" class="input-append">
                                         <input data-format="hh:mm:ss"  id="time2" type="text" class="span8" value="12:00:00" readonly=""></input>
-                                        <span class="add-on">
-                                            <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-                                            </i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="span3">
-                                    <label class="control-label" for="dp1">Tarde desde:</label>
-                                    <div id="datetimepicker3" class="input-append">
-                                        <input data-format="hh:mm:ss"  id="time3" type="text" class="span8" value="13:00:00" readonly=""></input>
-                                        <span class="add-on">
-                                            <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-                                            </i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="span3">
-                                    <label class="control-label" for="dp2">Tarde hasta:</label>
-                                    <div id="datetimepicker4" class="input-append">
-                                        <input data-format="hh:mm:ss"  id="time4" type="text" class="span8" value="17:00:00" readonly=""></input>
                                         <span class="add-on">
                                             <i data-time-icon="icon-time" data-date-icon="icon-calendar">
                                             </i>
@@ -67,15 +47,15 @@
                     <div id="contmsj"></div>
             
                     <div class="form-actions">
-                        <a class="btn btn-danger" id="guardar" onclick="valForm('formHorario','guardarH(\'g\')');">
+                        <a class="btn btn-primary" id="guardar" onclick="valForm('formHorario','guardarH(\'g\')');">
                             <i class="icon-ok-sign icon-white"></i>
                                 Guardar
                         </a>
-                        <a id="openBtn" class="btn btn-danger"  onclick="cargarTodosHor();">
+                        <a id="openBtn" class="btn btn-primary"  onclick="cargarTodosHor();">
                             <i class="icon-eye-open icon-white"></i>
                                 Mostrar
                         </a>
-                        <a class="btn btn-danger" id="limpiar" onclick="limpiarFormHor();">
+                        <a class="btn btn-primary" id="limpiar" onclick="limpiarFormHor();">
                             <i class="icon-trash icon-white"></i>
                                 Limpiar
                         </a>
@@ -95,10 +75,8 @@
                         <tr>
                             <th>Item</th>
                             <th>Descripci&oacute;n</th>
-                            <th>Inicio Ma&ntilde;ana</th>
-                            <th>Fin Ma&ntilde;ana</th>
-                            <th>Inicio Tarde</th>
-                            <th>Fin Tarde</th>
+                            <th>Hora Entrada</th>
+                            <th>Hora Salida</th>
                             <th style="text-align: center">Editar</th>
                             <th style="text-align: center;">Eliminar <input type="checkbox" id="elico" title="Seleccionar todos" onclick="verSel('all');"></th>
                             
@@ -108,7 +86,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-danger" id="eliminarCor" data-toggle="confirmation" data-title="Seguro desea eliminar los registros seleccionados?">
+                <a class="btn btn-primary" id="eliminarCor" data-toggle="confirmation" data-title="Seguro desea eliminar los registros seleccionados?">
                     <i class="icon-remove icon-white"></i>
                         Eliminar
                 </a>
@@ -125,8 +103,8 @@
             $(function(){
                 $('#datetimepicker1').datetimepicker({pickDate: false});
                 $('#datetimepicker2').datetimepicker({pickDate: false});
-                $('#datetimepicker3').datetimepicker({pickDate: false});
-                $('#datetimepicker4').datetimepicker({pickDate: false});	
+//                $('#datetimepicker3').datetimepicker({pickDate: false});
+//                $('#datetimepicker4').datetimepicker({pickDate: false});	
             });
 
                 
@@ -147,7 +125,7 @@
                     
                     "placement" : "top",
                     "btnOkLabel" : '<i class="icon-ok-sign icon-white"></i> Si',
-                    "btnOkClass" : "btn-danger",
+                    "btnOkClass" : "btn-primary",
                     "onConfirm" : function(){eliminarHor();}
                     
                 }

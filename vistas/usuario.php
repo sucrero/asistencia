@@ -2,7 +2,7 @@
                 <fieldset>
                   <legend>Registro de Usuario
                   <div class="pull-right">
-                    <a class="btn btn-danger" href="index.php">
+                    <a class="btn btn-primary" href="index.php">
                         <i class="icon-home icon-white"></i>
                             Inicio
                     </a>
@@ -13,7 +13,7 @@
                         <div class="controls">
                             <div class="input-append">
                                 <input id="itxtcedula" name="C&eacute;dula" onkeyup="accionUsu(event);" placeholder="Ingrese una c&eacute;dula" class="span7" maxlength="8" size="75px" type="text" onKeyPress="return numeros(event);" autofocus>
-                                <a class="btn btn-danger" id="btnbuscarusu" onclick="buscarUsu();">
+                                <a class="btn btn-primary" id="btnbuscarusu" onclick="buscarUsu();">
                                     <i class="icon-search icon-white"></i>
                                 </a>
                             </div>
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     
-                    <hr class="btn-danger">
+                    <hr class="btn-primary">
                     <div class="control-group">
                         <label class="control-label" for="itxtlogin">Nombre de Usuario</label>
                         <div class="controls">
@@ -65,15 +65,15 @@
                     <div id="contmsj"></div>
             
                     <div class="form-actions">
-                        <a class="btn btn-danger" id="guardar" onclick="valForm('formUsuario','guardarUsu(\'g\')');">
+                        <a class="btn btn-primary" id="guardar" onclick="valForm('formUsuario','guardarUsu(\'g\')');">
                             <i class="icon-ok-sign icon-white"></i>
                                 Guardar
                         </a>
-                        <a id="openBtn" class="btn btn-danger"  onclick="cargarTodosUsu();">
+                        <a id="openBtn" class="btn btn-primary"  onclick="cargarTodosUsu();">
                             <i class="icon-eye-open icon-white"></i>
                                 Mostrar
                         </a>
-                        <a class="btn btn-danger" id="limpiar" onclick="limpiarFormUsu();">
+                        <a class="btn btn-primary" id="limpiar" onclick="limpiarFormUsu();">
                             <i class="icon-trash icon-white"></i>
                                 Limpiar
                         </a>
@@ -104,7 +104,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <a href="#" id="cerrar" class="btn btn-danger" data-dismiss="modal">Cerrar</a>
+                <a href="#" id="cerrar" class="btn btn-primary" data-dismiss="modal">Cerrar</a>
             </div>
             </div>
         <!--FIN MENSAJE MODAL-->

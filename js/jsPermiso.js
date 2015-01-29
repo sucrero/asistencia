@@ -4,35 +4,43 @@ function guardarPerm(tipo){
     var desde = document.getElementById('fecharg1');
     var hasta = document.getElementById('fecharg2');
     var des = document.getElementById('itxtdescrip');
+    var permi = document.getElementById('ilstpermiso');
+    
     if(per.value != -1){
-        if(compararFechas2(desde.value,hasta.value)){
-            if(des.value != ''){
-                AjaxRequest.post(
-                    {
-                        'parameters':{'opcion':'guardarPerm','persona':per.value,'desde':desde.value,'hasta':hasta.value,'des':des.value},
-                        'url':'../Operaciones.php',
-                        'onSuccess':function(req){
-                            var resp = eval("(" + req.responseText + ")");
-                            if(resp == 1){
-                                limpiarFormPerm();
-                                clase = "exito";
-                                cad[0] = "Registro guardado exisotamente";
-                            }else{
-                                clase = "error";
-                                cad[0] = "No se pudo guarda el registro";
+        if(permi.value != -1){
+            if(compararFechas2(desde.value,hasta.value)){
+                if(des.value != ''){
+                    AjaxRequest.post(
+                        {
+                            'parameters':{'opcion':'guardarPerm','persona':per.value,'desde':desde.value,'hasta':hasta.value,'des':des.value,'permi':permi.value},
+                            'url':'../Operaciones.php',
+                            'onSuccess':function(req){
+                                var resp = eval("(" + req.responseText + ")");
+                                if(resp == 1){
+                                    limpiarFormPerm();
+                                    clase = "exito";
+                                    cad[0] = "Registro guardado exisotamente";
+                                }else{
+                                    clase = "error";
+                                    cad[0] = "No se pudo guarda el registro";
+                                }
+                                claseError('#contmsj2',cad,clase);
                             }
-                            claseError('#contmsj',cad,clase);
                         }
-                    }
-                )
+                    )
+                }else{
+                    cad[0] = "Debe ingresar una descripcion para el permiso";
+                    claseError('#contmsj2',cad,'error');
+                }
             }else{
-                cad[0] = "Debe ingresar una descripcion para el permiso";
+                cad[0] = "Error en fechas. La fecha inicial debe ser mayor o igual a la final, verifique";
                 claseError('#contmsj2',cad,'error');
             }
         }else{
-            cad[0] = "Error en fechas. La fecha inicial debe ser mayor o igual a la final, verifique";
+            cad[0] = "Debe seleccionar un tipo de permiso, verifique";
             claseError('#contmsj2',cad,'error');
         }
+        
     }else{
         cad[0] = "Debe seleccionar una persona para asignar el permiso";
         claseError('#contmsj2',cad,'error');
@@ -174,11 +182,7 @@ function crearTablaPerm(req,tipo,param){
     $(capa).empty();
     if(resp != 0){
         for(var i = 0;i < resp.length; i++){
-//            if(ids == ''){
-//                ids = resp[i]['idnotificacion'];
-//            }else{
-//                ids = ids+','+resp[i]['idnotificacion'];
-//            }
+
             if(i % 2 == 0){
                 clase = "info";
             }else{
@@ -195,27 +199,30 @@ function crearTablaPerm(req,tipo,param){
                      )
                      .append($("<td>")
                          .attr("valign", "middle")
-                         .text(capitalizar(resp[i]['descripcionnoti']))
+                         .text(resp[i]['p']['cedper'])
                          .attr("style", "vertical-align: middle;")
                      )
                      .append($("<td>")
-                         .text(resp[i]['fechanoti'].substr(8, 2)+'/'+resp[i]['fechanoti'].substr(5, 2)+'/'+resp[i]['fechanoti'].substr(0, 4))
+                         .text(capitalizar(resp[i]['p']['nomper']+' '+resp[i]['p']['apeper']))
+                         .attr("style", "vertical-align: middle;")
+                     )
+                     .append($("<td>")
+                         .attr("valign", "middle")
+                         .text(capitalizar(resp[i]['descripcionper']))
+                         .attr("style", "vertical-align: middle;")
+                     )
+                     .append($("<td>")
+                         .text(resp[i]['desde'].substr(8, 2)+'/'+resp[i]['desde'].substr(5, 2)+'/'+resp[i]['desde'].substr(0, 4))
                          .attr("style", "text-align: center; vertical-align: middle;")
                     )
                      .append($("<td>")
-                         .text(resp[i]['f']['nombreper']+' '+resp[i]['f']['apellidoper'])
-                         .attr("style", "vertical-align: middle;")
-                     )
-                     
-                    .append($("<td>")
-                     .text(est)
-                     .attr("style", "text-align: center; font-weight: bold; vertical-align: middle;")
-                     .attr("title",fon)
-                    )               
+                         .text(resp[i]['hasta'].substr(8, 2)+'/'+resp[i]['hasta'].substr(5, 2)+'/'+resp[i]['hasta'].substr(0, 4))
+                         .attr("style", "text-align: center; vertical-align: middle;")
+                    )       
                     .append($("<td>")
                         .attr("style", "text-align: center;")
                         .append($(document.createElement('i')).attr({
-                            onclick: 'cargarNot("'+resp[i]['idnotificacion']+'");',
+                            onclick: 'cargarPer("'+resp[i]['idperper']+'");',
                             class: 'icon-edit'
                         })
                         .attr("data-dismiss","modal")
@@ -225,7 +232,7 @@ function crearTablaPerm(req,tipo,param){
                         .attr("style", "text-align: center;")
                         .append($(document.createElement('input')).attr({
                             name: 'eli_ch[]',
-                            value: resp[i]['idnotificacion'],
+                            value: resp[i]['idperper'],
                             type: 'checkbox'
                         })
 
@@ -233,36 +240,36 @@ function crearTablaPerm(req,tipo,param){
                      )
 //                     .attr("onclick","cargarUsu("+JSON.stringify(resp[i])+")")
 //                     .attr("data-dismiss", "modal")
-                     .attr("title","Notificaciones")
-                     .attr("id","notificacion")
+                     .attr("title","Permisos")
+                     .attr("id","permiso")
                  );
         }
-            $("a#imprimirNot").attr("onclick","window.open('reporte_not.php?tipo="+tipo+"&parametro="+param+"','reportenotifi','_blank');")
+            $("a#imprimirPerm").attr("onclick","window.open('reporte_not.php?tipo="+tipo+"&parametro="+param+"','reportenotifi','_blank');")
                     .removeClass("disabled");
-            $("a#cambiarEst").attr("onclick","cargar_form(\'cambio_estado\',\'contenedor\')")
-                    .attr("data-dismiss","modal")
-                    .removeClass("disabled");
-            $("a#eliminarNot").removeClass("disabled");
+//            $("a#cambiarEst").attr("onclick","cargar_form(\'cambio_estado\',\'contenedor\')")
+//                    .attr("data-dismiss","modal")
+//                    .removeClass("disabled");
+            $("a#eliminarPerm").removeClass("disabled");
     }else{
 
-            $("a#imprimirNot").addClass("disabled")
+            $("a#imprimirPerm").addClass("disabled")
                 .attr("onclick","");
-            $("a#imprimirNot").addClass("disabled")
+            $("a#imprimirPerm").addClass("disabled")
                 .removeAttr("onclick")
-            $("a#cambiarEst").addClass("disabled")
-                    .removeAttr("onclick")
-                    .removeAttr("href")
-                    .removeAttr("data-dismiss")
+//            $("a#cambiarEst").addClass("disabled")
+//                    .removeAttr("onclick")
+//                    .removeAttr("href")
+//                    .removeAttr("data-dismiss")
             $(capa).append($("<tr>")
                           .addClass("error alert-error")
                           .append($("<td>")
-                             .attr("colspan","7")
+                             .attr("colspan","8")
                              .append($("<h5>")
                                  .text("No existen registros para mostrar")
                              )
                           )
                           .attr("title","No existen registros para mostrar")
-                          .attr("id","notificacion")
+                          .attr("id","permiso")
              );
 //        }
     }

@@ -1,0 +1,24 @@
+.perror{
+    font-size: small;
+}
+
+/*.area {
+    border: solid #AAAAAA 2px;
+    padding: 0px;
+    background-color: #F9F9F9;
+    width: 700px;
+    height: 200px;
+    margin: 8px auto 10px auto;
+}*/
+
+.ejemplo{
+    font-size: 9px;
+    font-weight: bold;
+}
+.color1{
+    background: #FF9900;
+}
+
+.color2{
+    background: #d14;
+}

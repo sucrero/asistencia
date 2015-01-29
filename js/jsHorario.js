@@ -5,14 +5,14 @@ function guardarH(tipo){
     if(des.value != ''){
         var desdeM = document.getElementById('time1').value;
         var hastaM = document.getElementById('time2').value;
-        var desdeT = document.getElementById('time3').value;
-        var hastaT = document.getElementById('time4').value;
-        if((desdeM < hastaM) && (desdeM < desdeT) && (desdeM < hastaT)){
-            if((hastaM < desdeT) && (hastaM < hastaT)){
-                if(desdeT < hastaT){
+//        var desdeT = document.getElementById('time3').value;
+//        var hastaT = document.getElementById('time4').value;
+        if((desdeM < hastaM)){
+//            if((hastaM < desdeT) && (hastaM < hastaT)){
+//                if(desdeT < hastaT){
                     AjaxRequest.post(
                         {
-                            'parameters':{'opcion':'guardarH','des':des.value,'desdeM':desdeM,'hastaM':hastaM,'desdeT':desdeT,'hastaT':hastaT},
+                            'parameters':{'opcion':'guardarH','des':des.value,'desdeM':desdeM,'hastaM':hastaM},
                             'url':'../Operaciones.php',
                             'onSuccess':function(req){
                                 resp = eval("(" + req.responseText + ")");
@@ -27,12 +27,12 @@ function guardarH(tipo){
                             }
                         }
                     )
-                }else{
-                    cad[0] = "Error en las horas, verifique";
-                }
-            }else{
-                cad[0] = "Error en las horas, verifique";
-            }
+//                }else{
+//                    cad[0] = "Error en las horas, verifique";
+//                }
+//            }else{
+//                cad[0] = "Error en las horas, verifique";
+//            }
         }else{
             cad[0] = "Error en las horas, verifique";
         }
@@ -46,13 +46,13 @@ function limpiarFormHor(){
     var des = document.getElementById('itxtdescrip');
     var desdeM = document.getElementById('time1');
     var hastaM = document.getElementById('time2');
-    var desdeT = document.getElementById('time3');
-    var hastaT = document.getElementById('time4');
+//    var desdeT = document.getElementById('time3');
+//    var hastaT = document.getElementById('time4');
     des.value = '';
     desdeM.value = '07:00:00';
     hastaM.value = '12:00:00';
-    desdeT.value = '13:00:00';
-    hastaT.value = '17:00:00';
+//    desdeT.value = '13:00:00';
+//    hastaT.value = '17:00:00';
     des.focus();
 }
 
@@ -236,17 +236,17 @@ function crearTablaHor(req,tipo,param){
                          .text(capitalizar(resp[i]['descripcionhor']))
                      )
                      .append($("<td>")
-                         .text(resp[i]['horainiman'])
+                         .text(resp[i]['horentrada'])
                      )
                      .append($("<td>")
-                         .text(resp[i]['horafinmanana'])
+                         .text(resp[i]['horasalida'])
                      )
-                     .append($("<td>")
-                         .text(resp[i]['horainitar'])
-                     )
-                     .append($("<td>")
-                         .text(resp[i]['horafintar'])
-                     )
+//                     .append($("<td>")
+//                         .text(resp[i]['horainitar'])
+//                     )
+//                     .append($("<td>")
+//                         .text(resp[i]['horafintar'])
+//                     )
                      .append($("<td>")
                         .attr("style", "text-align: center;")
                         .append($(document.createElement('i')).attr({
@@ -366,13 +366,13 @@ function cargarHor(datos){
      var des = document.getElementById('itxtdescrip');
     var desdeM = document.getElementById('time1');
     var hastaM = document.getElementById('time2');
-    var desdeT = document.getElementById('time3');
-    var hastaT = document.getElementById('time4');
+//    var desdeT = document.getElementById('time3');
+//    var hastaT = document.getElementById('time4');
     des.value = datos['descripcionhor'];
-    desdeM.value = datos['horainiman'];
-    hastaM.value = datos['horafinmanana'];
-    desdeT.value = datos['horainitar'];
-    hastaT.value = datos['horafintar'];
+    desdeM.value = datos['horentrada'];
+    hastaM.value = datos['horasalida'];
+//    desdeT.value = datos['horainitar'];
+//    hastaT.value = datos['horafintar'];
     des.focus();
 
     $("a#guardar").attr("onclick","valForm('formHorario','guardarHor(\\'f\\')');");

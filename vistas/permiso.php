@@ -2,7 +2,7 @@
                 <fieldset>
                   <legend>Registro de Permiso
                   <div class="pull-right">
-                    <a class="btn btn-danger" href="index.php">
+                    <a class="btn btn-primary" href="index.php">
                         <i class="icon-home icon-white"></i>
                             Inicio
                     </a>
@@ -26,7 +26,7 @@
                                                   $i = 0;
                                                   do{
                                                      $fila = $conexion->devolver_recordset();
-                                                     echo '<option value="'.$fila['idper'].'">'.htmlentities(strtoupper($fila['nomper'].' '.$fila['apeper']),ENT_QUOTES,'UTF-8').'</option>';
+                                                     echo '<option value="'.$fila['idper'].'">'.htmlentities(ucwords(strtolower($fila['nomper'].' '.$fila['apeper'])),ENT_QUOTES,'UTF-8').'</option>';
                                                      $i++;
                                                   }while(($conexion->siguiente())&&($i!=$conexion->registros));
 
@@ -45,7 +45,43 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <div class="control-group">
+                        <div class="row">
+                            <div class="span8 offset2">
+                                <label for="ilstpersonal">Tipo de Permiso:</label>
+                                <div class="input-append controls">
+                                    <?php
+                                        include_once '../conexion/conexion.php';
+                                        include_once '../clases/Permiso.php';
+                                        $objPerm = new Permiso();
+                                        $consulta =  $objPerm->buscar("SELECT * FROM permiso", $conexion);
+                                        if($conexion){
+                                            if($consulta){
+                                               if($conexion->registros > 0){
+                                                  echo'<select id="ilstpermiso" name="Permiso">';
+                                                  echo '<option value="-1">Seleccione...</option>';
+                                                  $i = 0;
+                                                  do{
+                                                     $fila = $conexion->devolver_recordset();
+                                                     echo '<option value="'.$fila['idper'].'">'.htmlentities(ucwords(strtolower($fila['descper'])),ENT_QUOTES,'UTF-8').'</option>';
+                                                     $i++;
+                                                  }while(($conexion->siguiente())&&($i!=$conexion->registros));
+
+                                               }else{
+                                                   echo'<select id="ilstpermiso" disabled class="span8">';
+                                                   echo '<option value="-1">No se encontraron registros...</option>';
+                                               }
+                                            }else{
+                                                echo'<select id="ilstpermiso" disabled class="span8">';
+                                                echo '<option value="-1">No se encontraron registros...</option>';
+                                            }
+                                            echo'</select>';
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="control-group">
                         <div class="row">
                             <div class="span11 offset2">
@@ -74,15 +110,15 @@
                     <div id="contmsj2"></div>
             
                     <div class="form-actions">
-                        <a class="btn btn-danger" id="guardar" onclick="valForm('formPermiso','guardarPerm(\'g\')');">
+                        <a class="btn btn-primary" id="guardar" onclick="valForm('formPermiso','guardarPerm(\'g\')');">
                             <i class="icon-ok-sign icon-white"></i>
                                 Guardar
                         </a>
-                        <a id="openBtn" class="btn btn-danger"  onclick="cargarTodosPerm();">
+                        <a id="openBtn" class="btn btn-primary"  onclick="cargarTodosPerm();">
                             <i class="icon-eye-open icon-white"></i>
                                 Mostrar
                         </a>
-                        <a class="btn btn-danger" id="limpiar" onclick="limpiarFormPerm();">
+                        <a class="btn btn-primary" id="limpiar" onclick="limpiarFormPerm();">
                             <i class="icon-trash icon-white"></i>
                                 Limpiar
                         </a>
@@ -100,12 +136,12 @@
                 <table class="table table-hover table-bordered">
                     <thead style="text-align: center;">
                         <tr>
-                            <th>Item</th>
-                            <th>C&eacute;dula</th>
-                            <th>Persona</th>
-                            <th>Descripci&oacute;n</th>
-                            <th>Desde</th>
-                            <th>Hasta</th>
+                            <th style="text-align: center">Item</th>
+                            <th style="text-align: center">C&eacute;dula</th>
+                            <th style="text-align: center">Persona</th>
+                            <th style="text-align: center">Descripci&oacute;n</th>
+                            <th style="text-align: center">Desde</th>
+                            <th style="text-align: center">Hasta</th>
                             <th style="text-align: center">Editar</th>
                             <th style="text-align: center;">Eliminar <input type="checkbox" id="elico" title="Seleccionar todos" onclick="verSel('all');"></th>
                             
@@ -115,7 +151,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-danger" id="eliminarCor" data-toggle="confirmation" data-title="Seguro desea eliminar los registros seleccionados?">
+                <a class="btn btn-primary" id="eliminarCor" data-toggle="confirmation" data-title="Seguro desea eliminar los registros seleccionados?">
                     <i class="icon-remove icon-white"></i>
                         Eliminar
                 </a>
@@ -152,7 +188,7 @@
                     
                     "placement" : "top",
                     "btnOkLabel" : '<i class="icon-ok-sign icon-white"></i> Si',
-                    "btnOkClass" : "btn-danger",
+                    "btnOkClass" : "btn-primary",
                     "onConfirm" : function(){eliminarHor();}
                     
                 }

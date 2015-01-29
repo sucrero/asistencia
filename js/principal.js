@@ -23,13 +23,13 @@ function Revisa(conjunto, cadena){
 //    } 
 //}
 /** * Funcion para validar una hora en formato: * hh:mm:ss * Devuelve true|false */ 
-function valHora(hora){
-    var patron=/^(0[1-9]|1\d|2[0-3]):([0-5]\d)(:([0-5]\d))?$/;
-  if (patron.test(hora))
-    return TRUE;
-  else
-    return FALSE;
-}
+//function valHora(hora){
+//    var patron=/^(0[1-9]|1\d|2[0-3]):([0-5]\d)(:([0-5]\d))?$/;
+//  if (patron.test(hora))
+//    return TRUE;
+//  else
+//    return FALSE;
+//}
 function verSel(dato){
     var chk = xGetElementById('elico');
     var aux = Array();
@@ -44,13 +44,13 @@ function verSel(dato){
         }
     }
 }
-function validarNumero(valor) {       
-    var ok = true;
-    if  (!Revisa(number,valor.value)) {
-        ok =  false;
-    }
-    return ok;
-}
+//function validarNumero(valor) {       
+//    var ok = true;
+//    if  (!Revisa(number,valor.value)) {
+//        ok =  false;
+//    }
+//    return ok;
+//}
 function capitalizar(valor){
 	var trozos = valor.split(' ');
 	if(trozos.length > 1){
@@ -64,15 +64,15 @@ function capitalizar(valor){
 	}
         return r;
 }
-function validaNumRif(obj){
-    var resp = true;
-    if(!Revisa(number, obj.value)){
-        if(!Revisa(rif, obj.value)){
-            resp = false;
-        }
-    }
-    return resp;
-}
+//function validaNumRif(obj){
+//    var resp = true;
+//    if(!Revisa(number, obj.value)){
+//        if(!Revisa(rif, obj.value)){
+//            resp = false;
+//        }
+//    }
+//    return resp;
+//}
 
 /*************** nuevas ***********************/
 function cargar_form(formulario,capa){
@@ -420,7 +420,7 @@ function compararFechas2(f1,f2)
 }
 
 function val_Email(obj){
-    var valor=document.getElementById(obj).value;
+    var valor = document.getElementById(obj).value;
     var reMail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return reMail.test(valor);
 //    if (valor) {

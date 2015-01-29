@@ -8,6 +8,7 @@
     include_once 'clases/Horario.php';
     include_once 'clases/PermisoPer.php';
     include_once 'clases/Horper.php';
+    include_once 'clases/Asistencia.php';
 //    include_once 'clases/Correspondencia.php';
 //    include_once 'clases/Persona.php';
 //    include_once 'clases/Municipio.php';
@@ -22,6 +23,7 @@
     $objHor = new Horario();
     $objPerPer = new PermisoPer();
     $objHorPer = new Horper();
+    $objAsi = new Asistencia();
 //    $objCor = new Correspondencia();
 //    $objPer = new Persona();
 //    $objViv = new Vivienda();
@@ -223,7 +225,7 @@
                 if($_REQUEST['idPer'] != ''){//MODIFICAR
                     
                 }else{//GUARDAR
-                    $objPer->setPropiedades($_REQUEST['doc'], $_REQUEST['nom'], $_REQUEST['ape'], $_REQUEST['cor'], $_REQUEST['tip'], $_REQUEST['tel']);
+                    $objPer->setPropiedades($_REQUEST['doc'], $_REQUEST['nom'], $_REQUEST['ape'], $_REQUEST['cor'], $_REQUEST['dep'], $_REQUEST['tel'], $_REQUEST['car'], $_REQUEST['con']);
                     if($objPer->ingresar($conexion)){
                         $sql = "SELECT * FROM personal WHERE cedper = '".$_REQUEST['doc']."'";
 //                        print_r($sql);                        die();
@@ -374,7 +376,7 @@
                 }
                 break;
             case 'guardarH'://fina
-                $objHor->setPropiedades($_REQUEST['desdeM'], $_REQUEST['hastaM'], $_REQUEST['desdeT'], $_REQUEST['hastaT'], $_REQUEST['des'], 0);
+                $objHor->setPropiedades($_REQUEST['desdeM'], $_REQUEST['hastaM'], $_REQUEST['des']);
                 if($objHor->ingresar($conexion)){
                     $res = 1;
                 }else{
@@ -431,7 +433,7 @@
                 } 
                 break;
             case 'guardarPerm':
-                $objPerPer->setPropiedades($_REQUEST['persona'], $_REQUEST['des'], cambiarFormatoFecha($_REQUEST['desde'],'bdd'), cambiarFormatoFecha($_REQUEST['hasta'],'bdd'));
+                $objPerPer->setPropiedades($_REQUEST['persona'], $_REQUEST['des'], cambiarFormatoFecha($_REQUEST['desde'],'bdd'), cambiarFormatoFecha($_REQUEST['hasta'],'bdd'),$_REQUEST['permi']);
                 if($objPerPer->ingresar($conexion)){
                     $res = 1;
                 }else{
@@ -451,7 +453,9 @@
                             $i++;
                         }while(($conexion->siguiente()) && ($i != $conexion->registros));
                         for ($i = 0; $i < count($res);$i++){
-                            $objPer->buscar("SELECT * FROM personal WHERE idper='".$res[$i]['idper']."'", $conexion);
+                            $sql = "SELECT * FROM personal WHERE idper='".$res[$i]['idpersona']."'";
+//                            print_r($sql);                            exit();
+                            $objPer->buscar($sql, $conexion);
                             $res[$i]['p'] = $conexion->devolver_recordset();
                         }
                     }else{
@@ -460,6 +464,34 @@
                 }else{
                     $res = 0;
                 }        
+                break;
+            case 'registrarAsis':
+                $sql = "SELECT * FROM personal WHERE cedper = '".$_REQUEST['ced']."'";
+                if($objAsi->buscar($sql, $conexion)){
+                    if($conexion->registros > 0){
+                        $res = $conexion->devolver_recordset();
+                        $objAsi->setPropiedades($res['idper']);
+                        if($objAsi->ingresar($conexion)){
+                            $res = 1;
+                        }else{
+                            $res = 2;
+                        }
+                    }else{
+                        $res = 0;//no existe persona con esa cedula
+                    }
+                }else{
+                    $res = 0;//no existe persona con esa cedula
+                }
+//                if($objAsi->buscar($sql, $conexion)){
+//                    if($conexion->registros > 0){
+//                        $res = $conexion->devolver_recordset();
+//                        $objAsi->setPropiedades($res['cedper'], $entradaM, $salidaM, $entradaT, $salidaT);
+//                    }else{
+//                        $res = 0;//no existe persona con esa cedula
+//                    }
+//                }else{
+//                    $res = 0;//no existe persona con esa cedula
+//                }
                 break;
 //            case 'buscarxCont':
 //                if(ctype_alpha($_REQUEST['doc'][0])){

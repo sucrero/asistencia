@@ -6,8 +6,10 @@
         private $_nombre;
         private $_apellido;
         private $_correo;
-        private $_tipo; //nacional o estadal
+        private $_dependencia; //nacional o estadal
         private $_telefono;
+        private $_cargo;
+        private $_condicion;
 
 
         public function __construct(){
@@ -16,23 +18,26 @@
             $this->_nombre = "";
             $this->_apellido = "";
             $this->_correo = "";
-            $this->_tipo = ""; //nacional o estadal
+            $this->_dependencia = ""; //nacional o estadal
             $this->_telefono = "";
-            
+            $this->_cargo = "";
+            $this->_condicion = "";
         }
 
-        public function setPropiedades($cedula,$nombre,$apellido,$correo,$tipo,$telefono){
+        public function setPropiedades($cedula,$nombre,$apellido,$correo,$dependencia,$telefono,$cargo,$condicion){
             $this->_cedula = $cedula;
             $this->_nombre = strtoupper($nombre);
             $this->_apellido = strtoupper($apellido);
             $this->_correo = $correo;
-            $this->_tipo = $tipo; //nacional o estadal
+            $this->_dependencia = $dependencia; //nacional o estadal
             $this->_telefono = $telefono;
+            $this->_cargo = $cargo;
+            $this->_condicion = $condicion;
         }
         
         public function ingresar($conexion){
-            $sql = "INSERT INTO personal (cedper,nomper,apeper,emailper,tipoper,telfper) VALUES 
-                ('$this->_cedula','$this->_nombre','$this->_apellido','$this->_correo','$this->_tipo','$this->_telefono')";
+            $sql = "INSERT INTO personal (cedper,nomper,apeper,emailper,dependencia,telfper,cargo,condicion) VALUES 
+                ('$this->_cedula','$this->_nombre','$this->_apellido','$this->_correo','$this->_dependencia','$this->_telefono','$this->_cargo','$this->_condicion')";
 //            print_r($sql);            exit();
             if($consulta = $conexion->ejecutarSql($sql)){
                 return $consulta;
@@ -45,7 +50,7 @@
                 if($conexion->registros > 0){
                     $consulta = $conexion->devolver_recordset();
                     $this->setPropiedades($consulta['idper'], $consulta['cedper'], strtoupper($consulta['nomper']), strtoupper($consulta['apeper']),
-                    $consulta['emailper'],$consulta['tipoper'], $consulta['telfper']);
+                    $consulta['emailper'],$consulta['dependencia'], $consulta['telfper'],$consulta['cargo'], $consulta['condicion']);
                     return TRUE;
                 }else{
                     return FALSE;
