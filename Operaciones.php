@@ -9,14 +9,6 @@
     include_once 'clases/PermisoPer.php';
     include_once 'clases/Horper.php';
     include_once 'clases/Asistencia.php';
-//    include_once 'clases/Correspondencia.php';
-//    include_once 'clases/Persona.php';
-//    include_once 'clases/Municipio.php';
-//    include_once 'clases/Parroquia.php';
-//    include_once 'clases/Vivienda.php';
-//    include_once 'clases/Tierra.php';
-//    include_once 'clases/Consulta.php';
-//    include_once 'clases/Notificacion.php';
     $objUsu = new Usuario();
     $objPer = new Personal();
     $objFes = new Festivo();
@@ -24,13 +16,6 @@
     $objPerPer = new PermisoPer();
     $objHorPer = new Horper();
     $objAsi = new Asistencia();
-//    $objCor = new Correspondencia();
-//    $objPer = new Persona();
-//    $objViv = new Vivienda();
-//    $objPar = new Parroquia();
-//    $objTie = new Tierra();
-//    $objCon = new Consulta();
-//    $objNot = new Notificacion();
     function cambiarFormatoFecha($f,$op)
     {
         $fecha='';
@@ -482,16 +467,57 @@
                 }else{
                     $res = 0;//no existe persona con esa cedula
                 }
-//                if($objAsi->buscar($sql, $conexion)){
-//                    if($conexion->registros > 0){
-//                        $res = $conexion->devolver_recordset();
-//                        $objAsi->setPropiedades($res['cedper'], $entradaM, $salidaM, $entradaT, $salidaT);
-//                    }else{
-//                        $res = 0;//no existe persona con esa cedula
-//                    }
-//                }else{
-//                    $res = 0;//no existe persona con esa cedula
-//                }
+                break;
+            case 'buscarrepPer':
+                $tipo = $_REQUEST['tip'];
+                $desde = $_REQUEST['des'];
+                $hasta = $_REQUEST['has'];
+                if($tipo == -2 && $desde == '' && $hasta == ''){
+                    $sql = "SELECT * FROM permiso_persona";
+                }else if ($tipo != -2  && $desde == '' && $hasta == ''){
+                    $sql = "SELECT * FROM permiso_persona WHERE idpermiso='".$tipo."'";
+                }else if ($tipo != -2 && $desde != '' && $hasta != ''){
+                    $sql = "SELECT * FROM permiso_persona WHERE idpermiso='".$tipo."' AND desde >='".cambiarFormatoFecha($desde, 'bdd')."' AND hasta <='".cambiarFormatoFecha($hasta, 'bdd')."'";
+                }else{
+                    $sql = "SELECT * FROM permiso_persona WHERE desde >='".cambiarFormatoFecha($desde, 'bdd')."' AND hasta <='".cambiarFormatoFecha($hasta, 'bdd')."'";
+                }
+
+                if($objPerPer->buscar($sql, $conexion)){
+                    if($conexion->registros > 0){
+                        $i = 0;
+                        do{
+                            $res[$i] = $conexion->devolver_recordset();
+                            $i++;
+                        }while(($conexion->siguiente()) && ($i != $conexion->registros));
+                        for ($i = 0; $i < count($res);$i++){
+                            $sql = "SELECT * FROM personal WHERE idper='".$res[$i]['idpersona']."'";
+                            $objPer->buscar($sql, $conexion);
+                            $res[$i]['p'] = $conexion->devolver_recordset();
+                        }
+                    }else{
+                        $res = 0;
+                    }
+                }else{
+                    
+                    $res = 0;
+                }                
+                break;
+            case 'eliminarPerm':
+                if($_REQUEST['param'] != ''){
+                    $ids = explode(',', $_REQUEST['param']);
+                    for($i = 0;$i < count($ids); $i++){
+                        $sql = "DELETE FROM permiso_persona WHERE idperper='".$ids[$i]."'";
+                        $objPerPer->modificar($sql, $conexion);
+                    }
+                    $res = 1;
+                }else{
+                    $res = 0;
+                }     
+                break;
+            case 'modificarPerm':
+                $sql = "UPDATE permiso_persona SET idpersona='".$_REQUEST['per']."', desde='".$_REQUEST['desde']."', hasta='".$_REQUEST['hasta']."',descripcionper='".$_REQUEST['des']."',idpermiso='".$_REQUEST['permi']."' WHERE idperper='".$_REQUEST['cod']."'";
+                $objPerPer->modificar($sql, $conexion);
+                $res = 1;
                 break;
 //            case 'buscarxCont':
 //                if(ctype_alpha($_REQUEST['doc'][0])){
