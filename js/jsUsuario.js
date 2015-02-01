@@ -1,6 +1,63 @@
 var codusu = '';
 var cad = new Array();
 //var usuario = new Array();
+function guardarUsuPv(){
+    var ced = xGetElementById('itxtcedula');
+    var nom = xGetElementById('itxtnombre');
+    var ape = xGetElementById('itxtapellido');
+    var cor = xGetElementById('txtemail');
+    var tel = xGetElementById('txttelefono');
+    var car = xGetElementById('ilstcargo');
+    var dep = xGetElementById('ilstdependencia');
+    var con = xGetElementById('ilstcondicion');
+    var usu = xGetElementById('itxtlogin');
+    var cla = xGetElementById('itxtclave');
+    var rec = xGetElementById('itxtreclave');
+    var tip = xGetElementById('ilsttipo');
+    if(val_Email('txtemail')){
+        if(valTelf('txttelefono')){
+            if(cla.value == rec.value){
+                AjaxRequest.post(
+                    {
+                        'parameters':{'opcion':'guardarUsuPv','ced':ced.value,'nom':nom.value,'ape':ape.value,'cor':cor.value,'tel':tel.value,'car':car.value,'dep':dep.value,'con':con.value,'usu':usu.value,'cla':cla.value,'rec':rec.value,'tip':tip.value},
+                        'url':'../Operaciones.php',
+                        'onSuccess':function(req){
+                            var resp = eval("(" + req.responseText + ")");
+                            if(resp == 1){
+                                $("#myModal").modal({                           
+                                    "backdrop" : "static",
+                                    "keyboard" : true,
+                                    "show" : true // this parameter ensures the modal is shown immediately
+                                })
+                                 .on('hidden', function(){
+                                        ir('vistas/index.php');
+                                });
+                            }else{
+                                clase = "error";
+                                cad[0] = "No se pudo guarda el registro";
+                                claseError('#contmsj',cad,clase);
+                            }
+
+                        }
+                    }
+                )
+            }else{
+                clase = "error";
+                cad[0] = "Las claves no coinciden, verifique";
+                claseError('#contmsj',cad,clase);
+            }
+        }else{
+            clase = "error";
+            cad[0] = "Formato de telefono invalido. Debe contener 11 digitos numericos, verifique";
+            claseError('#contmsj',cad,clase);
+        }
+    }else{
+        clase = "error";
+        cad[0] = "Formato de correo invalido, verifique";
+        claseError('#contmsj',cad,clase);
+    }
+}
+
 function validarSesion(){
     var usu = xGetElementById('itxtloginu');
     var cla = xGetElementById('itxtclaveu');
