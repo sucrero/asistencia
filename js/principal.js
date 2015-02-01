@@ -267,6 +267,7 @@ function valForm(formulario,funcion){
                 }
             }
     }
+//    alert(funcion);
     if(nameError.length > 0){
         claseError('#contmsj',nameError,'error');
     }else{
