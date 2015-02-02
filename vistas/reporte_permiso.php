@@ -14,7 +14,7 @@
         list($tipPer,$desde,$hasta) = explode(' ', $datos);
         if($tipPer == -2 && $desde == '' && $hasta == ''){
             $sql = "SELECT * FROM permiso_persona";
-            $titulo = 'PERMISOS REGISTRADOS 111111111111111';
+            $titulo = 'PERMISOS REGISTRADOS';
         }else if ($tipPer != -2  && $desde == '' && $hasta == ''){
             
             $sql = "SELECT * FROM permiso WHERE idper='".$tipPer."'";
@@ -42,7 +42,7 @@
         }
     }else{ //TODOS
          $sql = "SELECT * FROM permiso_persona";
-        $titulo = "PERMISOS REGISTRADOS 2222222222222222";
+        $titulo = "PERMISOS REGISTRADOS";
     }
     
     if($objPerPer->buscar($sql, $conexion)){
