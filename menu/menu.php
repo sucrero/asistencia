@@ -115,42 +115,16 @@ colorz: white;
         echo '
         <div class="titlemenu">MEN&Uacute;</div>
         <div class="glossymenu">';
-//        if($_SESSION['nivel'] == 'ADMINISTRADOR'){
-            echo '<a class="menuitem" onclick="cargar_form(\'usuario\',\'contenedor\')">Usuario</a>';
-//        }
-        echo '
-            <a class="menuitem" onclick="cargar_form(\'cambioclave\',\'contenedor\')">Cambio de Contrase&ntilde;a</a>
+        if($_SESSION['nivel'] == 'ADMINISTRADOR'){
+            echo '<a class="menuitem" onclick="cargar_form(\'usuario\',\'contenedor\')">Usuario</a>
             <a class="menuitem" onclick="cargar_form(\'permiso\',\'contenedor\')">Permisos</a>
             <a class="menuitem" onclick="cargar_form(\'festivo\',\'contenedor\')">D&iacute;as Festivos</a>
             <a class="menuitem" onclick="cargar_form(\'horario\',\'contenedor\')">Horario</a>
-            <a class="menuitem" onclick="cargar_form(\'personal\',\'contenedor\')">Personal</a>
+            <a class="menuitem" onclick="cargar_form(\'personal\',\'contenedor\')">Personal</a>';
+        }
+        echo '
+            <a class="menuitem" onclick="cargar_form(\'cambioclave\',\'contenedor\')">Cambio de Contrase&ntilde;a</a>
             <a class="menuitem" onclick="cargar_form(\'repgeneral\',\'contenedor\')">Reporte General</a>
             <a class="menuitem" onclick="ir(\'vistas/logout.php\')" style="border-bottom-width: 0">Cerrar Sesi&oacute;n</a>		
             </div>';
  ?>
-
-<!--<a class="menuitem submenuheader" href="http://www.dynamicdrive.com/style/" >CSS Examples</a>
-<div class="submenu">
-	<ul>
-	<li><a href="http://www.dynamicdrive.com/style/csslibrary/category/C1/">Horizontal CSS Menus</a></li>
-	<li><a href="http://www.dynamicdrive.com/style/csslibrary/category/C2/">Vertical CSS Menus</a></li>
-	<li><a href="http://www.dynamicdrive.com/style/csslibrary/category/C4/">Image CSS</a></li>
-	<li><a href="http://www.dynamicdrive.com/style/csslibrary/category/C6/">Form CSS</a></li>
-	<li><a href="http://www.dynamicdrive.com/style/csslibrary/category/C5/">DIVs and containers</a></li>
-	<li><a href="http://www.dynamicdrive.com/style/csslibrary/category/C7/">Links & Buttons</a></li>
-	<li><a href="http://www.dynamicdrive.com/style/csslibrary/category/C8/">Other</a></li>
-	<li><a href="http://www.dynamicdrive.com/style/csslibrary/all/">Browse All</a></li>
-	</ul>
-</div>
-<a class="menuitem" href="http://www.javascriptkit.com/jsref/">JavaScript Reference</a>
-<a class="menuitem" href="http://www.javascriptkit.com/domref/">DOM Reference</a>
-<a class="menuitem submenuheader" href="http://www.cssdrive.com">CSS Drive</a>
-<div class="submenu">
-	<ul>
-	<li><a href="http://www.cssdrive.com">CSS Gallery</a></li>
-	<li><a href="http://www.cssdrive.com/index.php/menudesigns/">Menu Gallery</a></li>
-	<li><a href="http://www.cssdrive.com/index.php/news/">Web Design News</a></li>
-	<li><a href="http://www.cssdrive.com/index.php/examples/">CSS Examples</a></li>
-	<li><a href="http://www.cssdrive.com/index.php/main/csscompressor/">CSS Compressor</a></li>
-	</ul>
-</div>-->
