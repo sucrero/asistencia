@@ -17,7 +17,7 @@
                                     <i class="icon-search icon-white"></i>
                                 </a>
                             </div>
-                            <p class="help-block ejemplo">Ejem.: 12345678</p>
+                            <p class="help-block">Ejem.: 12345678</p>
                         </div>
                     </div>
                     <div class="control-group">
@@ -33,6 +33,43 @@
                         </div>
                     </div>
                     
+                    <div class="control-group">
+                      <label class="control-label" for="ilstcargo">Cargo</label>
+                      <div class="controls">
+                          <select id="ilstcargo" disabled="" class="span7" name="Tipo de Personal"> 
+                              <option value="-1" selected="">Seleccione...</option>
+                              <option value="ADMINISTRATIVO">Administrativo</option>
+                              <option value="DOCENTE">Docente</option>
+                              <option value="OBRERO">Obrero</option>
+                              <option value="MADRE PROCESADORA">Madre Procesadora</option>
+                              <option value="VIGILANTE">Vigilante</option>
+                          </select>
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <label class="control-label" for="ilstdependencia">Dependencia</label>
+                      <div class="controls">
+                          <select id="ilstdependencia" disabled="" class="span7" name="Dependencia"> 
+                              <option value="-1" selected="">Seleccione...</option>
+                              <option value="ALCALDIA">Alcaldia</option>
+                              <option value="ESTADAL">Estadal</option>
+                              <option value="NACIONAL">Nacional</option>
+                              <option value="OTRO">Otro</option>
+                          </select>
+                      </div>
+                    </div>
+                    <div class="control-group">
+                       <label class="control-label" for="ilstcondicion">Condici&oacute;n</label>
+                      <div class="controls">
+                          <select id="ilstcondicion" disabled="" class="span7" name="Condicion"> 
+                              <option value="-1" selected="">Seleccione...</option>
+                              <option value="COLABORADOR">Colaborador</option>
+                              <option value="INTERINO">Interino</option>
+                              <option value="SUPLENTE">Suplente</option>
+                              <option value="TITULAR">Titular</option>
+                          </select>
+                      </div>
+                    </div>
                     <hr class="btn-primary">
                     <div class="control-group">
                         <label class="control-label" for="itxtlogin">Nombre de Usuario</label>
@@ -94,21 +131,41 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Item</th>
-                            <th>Usuario</th>
-                            <th>C&eacute;dula</th>
-                            <th>Nombre Completo</th>
+                            <th style="text-align: center">Item</th>
+                            <th style="text-align: center">Usuario</th>
+                            <th style="text-align: center">C&eacute;dula</th>
+                            <th style="text-align: center">Nombre Completo</th>
+                            <th style="text-align: center">Editar</th>
+                            <th style="text-align: center;">Eliminar <input type="checkbox" id="elico" title="Seleccionar todos" onclick="verSel('all');"></th>
                         </tr>
                     </thead>
                     <tbody id="contUsu"></tbody>
                 </table>
             </div>
             <div class="modal-footer">
-                <a href="#" id="cerrar" class="btn btn-primary" data-dismiss="modal">Cerrar</a>
+                <a class="btn btn-primary" id="eliminarUsu" data-toggle="confirmation" data-title="Seguro desea eliminar los registros seleccionados?">
+                    <i class="icon-remove icon-white"></i>
+                        Eliminar
+                </a>
+                <a class="btn btn-primary" id="imprimirUsu">
+                    <i class="icon-print icon-white"></i>
+                        Imprimir
+                </a>
+                <a href="#" id="cerrar" class="btn" data-dismiss="modal">Cerrar</a>
             </div>
             </div>
         <!--FIN MENSAJE MODAL-->
         <script>
             document.getElementById('itxtcedula').focus();
-    </script>
+            $('[data-toggle="confirmation"]').confirmation(
+                {
+                    
+                    "placement" : "top",
+                    "btnOkLabel" : '<i class="icon-ok-sign icon-white"></i> Si',
+                    "btnOkClass" : "btn-primary",
+                    "onConfirm" : function(){eliminarUsu();}
+                    
+                }
+            );
+        </script>
           
