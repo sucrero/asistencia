@@ -106,14 +106,11 @@ colorz: white;
 
 </style>
 <?php
-setlocale(LC_TIME, "es_ES");
-echo "<b>Cuman&aacute;&sbquo; ".strftime("%d de %B de %Y")."</b>";
-echo '<br>';
-echo '<br><b>Bienvenido:</b> '.$_SESSION['cuenta'];
-echo '<br><br>';
-
-    
- 
+    setlocale(LC_TIME, "es_VE.utf8");
+    echo "<b>Cuman&aacute;&sbquo; ".strftime("%d")." de ".ucwords(strftime("%B"))." de ".strftime("%Y")."</b>";
+    echo '<br>';
+    echo '<br><b>Bienvenido:</b> '.$_SESSION['cuenta'];
+    echo '<br><br>';
 
         echo '
         <div class="titlemenu">MEN&Uacute;</div>
