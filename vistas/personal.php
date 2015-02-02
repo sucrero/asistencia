@@ -60,6 +60,7 @@
                 <select id="ilstcargo" disabled="" class="span7" name="Tipo de Personal"> 
                     <option value="-1" selected="">Seleccione...</option>
                     <option value="ADMINISTRATIVO">Administrativo</option>
+                    <option value="DOCENTE">Docente</option>
                     <option value="OBRERO">Obrero</option>
                     <option value="MADRE PROCESADORA">Madre Procesadora</option>
                     <option value="VIGILANTE">Vigilante</option>
