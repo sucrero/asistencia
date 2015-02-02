@@ -231,6 +231,7 @@ function buscarRepPer(){
  }
 
 function cargarPerm(resp){
+//    alert(resp);
     var per = document.getElementById('ilstpersonal');
     var desde = document.getElementById('fecharg1');
     var hasta = document.getElementById('fecharg2');
