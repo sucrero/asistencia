@@ -36,7 +36,7 @@
     <![endif]-->
     </head>
 
-    <body onLoad="show_clock();">
+    <body onLoad="">
     <div class="row-fluid navbar" style="background: #ffffff">
         <div class="span9" align="left">
             <img src="../img/cintillo_nacional.jpg" alt="cintilloizq">
@@ -48,22 +48,31 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="container-fluid" id="contenedor">
-                    <div class="span4 offset4">
-                        <form id="asistencia" class="well">
-                            <fieldset>
-                                <div id="contmsj4"></div>
-                                <div id="LiveClockIE" style="text-align: center;"></div>
-                                <legend style="text-align: center;">Registre su N&uacute;mero de C&eacute;dula</legend>
-                                <input type="text" name="Cedula" maxlength="8" onkeyup="accionAsisReg(event)" class="input-xlarge offset2" style="text-align: center;" id="itxtcedreg" placeholder="Ingrese su n&uacute;mero de c&eacute;dula" autofocus autocomplete="off">
-                            </fieldset>
-                            <div class="form-actions" style="text-align: center;">
-                                <a class="btn btn-primary btn-large" id="guardar" onclick="registrar();">
-                                        Registrar
-                                </a>
-                            </div>
-                            <br><a onclick="login();">Login</a>
-                        </form>
-                    </div>
+             <?php 
+                include_once '../conexion/conexion.php';
+                include_once '../clases/Personal.php';
+                $objPer = new Personal();
+                $sql = "SELECT * FROM personal";
+                $consulta =  $objPer->buscar($sql, $conexion);
+                if($conexion){
+                    if($consulta){
+                       if($conexion->registros > 0){
+                           include 'asistencia.php';
+                       }else{
+                           echo 'no hay mayores que cero';
+                       }
+                    }else{
+                        echo '<div class="offset3 span6">';
+                            include 'usuariopv.php';
+                        echo '</div>';
+                        
+                    }
+                }else{
+                    echo 'no paso conexion';
+                }
+            ?>
+            
+                    
             </div><!--/span-->
         </div><!--/row-->
         <!--COMIENZO MENSAJE MODAL-->
@@ -79,6 +88,7 @@
                         <label>Contrase&ntilde;a</label>
                         <input type="password" name="Contrase&ntilde;a" class="input-large" id="itxtclaveu" placeholder="Ingrese su Contrase&ntilde;a" autocomplete="off" value="">
                     </fieldset>
+                    <a onclick="">Olvide mi contrase&ntilde;a</a>
                     <div class="form-actions" style="text-align: center;">
                         <a class="btn btn-primary" id="guardar" onclick="valForm('iniciosesion','validarSesion()');">
                                 Aceptar
