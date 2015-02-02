@@ -35,7 +35,7 @@
         <div id="contmsj"></div>
 
             <div class="form-actions">
-                <a class="btn btn-primary" id="guardar" onclick="valForm('formFestivo','guardarFes(\'g\')');">
+                <a class="btn btn-primary" id="guardar" onclick="valForm('formFestivo','guardarFes()');">
                     <i class="icon-ok-sign icon-white"></i>
                         Guardar
                 </a>
@@ -75,16 +75,16 @@
                         <form class="form-horizontal" id="buscarxPalFes">
                             <fieldset>
                                 <div class="offset4 span4">
-                                    <input type="text" name="Nombre festivo" id="itxtdesc" class="span10 search-query" placeholder="Ingrese una letra">
+                                    <input type="text" name="Nombre festivo" id="itxtdesc" onkeyup="buscarxPalFes()" class="span10 search-query" placeholder="Ingrese una letra">
                                 </div>
                             </fieldset>
                         </form>
                         <div class="form-actions">
-                            <div id="contmsjmodal1"></div>
+<!--                            <div id="contmsjmodal1"></div>
                             <a class="btn btn-primary" id="guardar" onclick="buscarxPalFes();">
                                 <i class="icon-search icon-white"></i>
                                     Buscar
-                            </a>
+                            </a>-->
                             <a class="btn btn-primary" id="limpiar" onclick="limpiarTabFes(1);">
                                 <i class="icon-trash icon-white"></i>
                                     Limpiar
@@ -121,22 +121,22 @@
                 <table class="table table-hover table-bordered">
                     <thead style="text-align: center;">
                         <tr>
-                            <th>Item</th>
-                            <th>Descripci&oacute;n</th>
-                            <th>Fecha</th>
+                            <th style="text-align: center">Item</th>
+                            <th style="text-align: center">Descripci&oacute;n</th>
+                            <th style="text-align: center">Fecha</th>
                             <th style="text-align: center">Editar</th>
                             <th style="text-align: center;">Eliminar <input type="checkbox" id="elico" title="Seleccionar todos" onclick="verSel('all');"></th>
                         </tr>
                     </thead>
-                    <tbody id="contTie"></tbody>
+                    <tbody id="contFes"></tbody>
                 </table>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-primary" id="eliminarTie" data-toggle="confirmation" data-title="Seguro desea eliminar los registros seleccionados?">
+                <a class="btn btn-primary" id="eliminarFes" data-toggle="confirmation" data-title="Seguro desea eliminar los registros seleccionados?">
                     <i class="icon-remove icon-white"></i>
                         Eliminar
                 </a>
-                <a class="btn btn-primary" id="imprimirTie">
+                <a class="btn btn-primary" id="imprimirFes">
                     <i class="icon-print icon-white"></i>
                         Imprimir
                 </a>
@@ -162,7 +162,6 @@
             })
             $('[data-toggle="confirmation"]').confirmation(
                 {
-                    
                     "placement" : "top",
                     "btnOkLabel" : '<i class="icon-ok-sign icon-white"></i> Si',
                     "btnOkClass" : "btn-primary",
