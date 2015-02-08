@@ -528,9 +528,6 @@
                     $res = -1;
                 }
                 
-                
-                
-                
                 break;
             case 'buscarTodosHor'://fina
                 if($objHor->buscar("SELECT * FROM horario ORDER BY descripcionhor DESC", $conexion)){
@@ -591,10 +588,6 @@
                     $res = 2;
                 }
                 break;
-//            case 'maxRegCor':
-//                $res = $objUsu->maxId("correspondencia","idcorrespondencia",$conexion);
-//                break;
-//            
             case 'buscarTodosPerm':
                 if($objPerPer->buscar("SELECT * FROM permiso_persona ORDER BY desde DESC", $conexion)){
                     if($conexion->registros > 0){
@@ -685,8 +678,29 @@
                 $objPerPer->modificar($sql, $conexion);
                 $res = 1;
                 break;
+            case 'buscarRepUsu';
+                $sql = "SELECT * FROM personal as a INNER JOIN usuario as b ON(a.idper = b.idper) WHERE a.cedper = '".$_REQUEST['ced']."' ORDER BY b.nombreusu ASC";
+                if($objUsu->buscar($sql, $conexion)){
+                    if($conexion->registros > 0){
+                        $i = 0;
+                        do{
+                            $res[$i]['p'] = $res[$i] = $conexion->devolver_recordset();
+                            $i++;
+                        }while(($conexion->siguiente()) && ($i != $conexion->registros));
+//                        for($i = 0;$i < count($res); $i++){
+//                            $sql = "SELECT * FROM personal WHERE idper='".$res[$i]['idper']."'";
+//                            $objPer->buscar($sql, $conexion);
+//                            $res[$i]['p'] = $conexion->devolver_recordset();
+//                        }
+//                        print_r($res); exit();
+                    }else{
+                        $res = 0;
+                    }
+                }else{
+                    $res = 0;
+                }     
+                break;
     }
     $json = new Services_JSON();
     $resp = $json->encode($res);
-    
     echo html_entity_decode($resp,ENT_QUOTES,'UTF-8');
