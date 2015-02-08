@@ -45,17 +45,11 @@ function login(){
 function reporteGenAsistencia(){
     var mes = xGetElementById('ilstmeses');
     var anio = xGetElementById('ilstanio');
-    var ced = xGetElementById('itxtcedrep');
     var car = xGetElementById('ilstcargo');
     var dep = xGetElementById('ilstdependencia');
     var con = xGetElementById('ilstcondicion');
     
-    if(ced.value == ''){
-        ced = -1;
-    }else{
-        ced = ced.value;
-    }
-    var param = car.value+' '+dep.value+' '+con.value+' '+mes.value+' '+ced+' '+anio.value;
+    var param = car.value+' '+dep.value+' '+con.value+' '+mes.value+' '+anio.value;
                 window.open('repgralasis.php?parametros='+param,'reportegen','_blank');
             
 }

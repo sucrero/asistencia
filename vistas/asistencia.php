@@ -11,7 +11,7 @@
                     Registrar
             </a>
         </div>
-        <br><a onclick="login();">Login</a>
+        <br><a onclick="login();" style="cursor: pointer;">Login</a>
     </form>
 </div>
 <script type="text/javascript">show_clock();</script>

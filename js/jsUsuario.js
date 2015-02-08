@@ -579,3 +579,7 @@ function buscarRepUsu(){
         ced.focus();
     }
 }
+
+function olvidar(){
+    alert('DEBES TENER CONEXION A INTERNET');
+}

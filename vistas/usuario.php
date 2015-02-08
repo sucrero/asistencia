@@ -118,17 +118,51 @@
                 </fieldset>
               </form>
                <!--COMIENZO MENSAJE MODAL-->
-       <div id="myModal" class="modal hide fade" style="display: none;">
+       <div id="myModal" class="modal hide fade" style="display: none; width: 70%; left: 40%">
             <div class="modal-header">
-            <a class="close" data-dismiss="modal">×</a>
-            <h3>Usuarios Registrados</h3>
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Usuarios Registrados</h3>
             </div>
             <div class="modal-body">
-                <form action="#" class="form-search">
-                   <label for="nombre">Buscar:</label>
-                   <input name="nombre" id="nombre" type="text" class="input-xlarge search-query" onkeyup="buscarUsuLe(this,event)">
-               </form>
-                <table class="table table-hover">
+                <ul id="tab" class="nav nav-tabs">
+                    <li class="">
+                        <a>B&uacute;squeda por: </a>
+                    </li>
+                    <li class="active">
+                        <a href="#cedula" data-toggle="tab">C&eacute;dula</a>
+                    </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="cedula">
+                        <form class="form-inline" id="formBusUsu">
+                            <fieldset>
+                                <div class="control-group">
+                                    <div class="row">
+                                        <div class="offset1 span7">
+                                            <label class="control-label" for="itxtcedbus">C&eacute;dula de Identidad:</label>
+                                            <!--<div class="controls">-->
+                                                <input id="itxtcedbus" name="C&eacute;dula a buscar" placeholder="Ingrese una c&eacute;dula"  size="50px" type="text" maxlength="8" autofocus>
+                                            <!--</div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <div id="contmsjmodal1"></div>
+                        <a class="btn btn-primary" id="buscarPer" onclick="buscarRepUsu();">
+                            <i class="icon-search icon-white"></i>
+                                Buscar
+                        </a>
+                        <a class="btn btn-primary" id="limpiar" onclick="limpiarRepUsu();">
+                            <i class="icon-trash icon-white"></i>
+                                Limpiar
+                        </a>
+                    </div>
+                </div>
+                <table class="table table-hover table-bordered">
                     <thead>
                         <tr>
                             <th style="text-align: center">Item</th>
@@ -159,12 +193,10 @@
             document.getElementById('itxtcedula').focus();
             $('[data-toggle="confirmation"]').confirmation(
                 {
-                    
                     "placement" : "top",
                     "btnOkLabel" : '<i class="icon-ok-sign icon-white"></i> Si',
                     "btnOkClass" : "btn-primary",
                     "onConfirm" : function(){eliminarUsu();}
-                    
                 }
             );
         </script>

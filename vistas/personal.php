@@ -149,8 +149,8 @@
                <!--COMIENZO MENSAJE MODAL-->
        <div id="myModal" class="modal hide fade" style="display: none; width: 70%; left: 40%">
             <div class="modal-header">
-            <a class="close" data-dismiss="modal">×</a>
-            <h3>Personal Registrado</h3>
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Personal Registrado</h3>
             </div>
             <div class="modal-body">
                 <ul id="tab" class="nav nav-tabs">
@@ -171,7 +171,6 @@
                     </li>
                 </ul>
                 <div id="myTabContent" class="tab-content">
-                    
                     <div class="tab-pane fade active in" id="cargo">
                         <form class="form-inline" id="formBusCarg">
                             <fieldset>

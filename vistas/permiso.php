@@ -10,9 +10,12 @@
                   </legend>
                     <div class="control-group">
                         <div class="row">
-                            <div class="span8 offset2">
-                                <label for="ilstpersonal">Persona:</label>
-                                <div class="input-append controls">
+                            <div class="span10 offset2">
+                                <div class="span3">
+                                    <label for="ilstpersonal">Persona:</label>
+                                </div>
+                                
+                                <div class="input-append controls span9">
                                     <?php
                                         include_once '../conexion/conexion.php';
                                         include_once '../clases/Personal.php';
@@ -21,7 +24,7 @@
                                         if($conexion){
                                             if($consulta){
                                                if($conexion->registros > 0){
-                                                  echo'<select id="ilstpersonal" name="Fiscal">';
+                                                  echo'<select id="ilstpersonal" name="Fiscal"  class="span7">';
                                                   echo '<option value="-1">Seleccione...</option>';
                                                   $i = 0;
                                                   do{
@@ -47,9 +50,11 @@
                     </div>
                     <div class="control-group">
                         <div class="row">
-                            <div class="span8 offset2">
-                                <label for="ilstpersonal">Tipo de Permiso:</label>
-                                <div class="input-append controls">
+                            <div class="span10 offset2">
+                                <div class="span3">
+                                    <label for="ilstpersonal">Tipo de Permiso:</label>
+                                </div>
+                                <div class="input-append controls span9">
                                     <?php
                                         include_once '../conexion/conexion.php';
                                         include_once '../clases/Permiso.php';
@@ -58,7 +63,7 @@
                                         if($conexion){
                                             if($consulta){
                                                if($conexion->registros > 0){
-                                                  echo'<select id="ilstpermiso" name="Permiso">';
+                                                  echo'<select id="ilstpermiso" name="Permiso"  class="span7">';
                                                   echo '<option value="-1">Seleccione...</option>';
                                                   $i = 0;
                                                   do{
@@ -84,13 +89,17 @@
                     </div>
                     <div class="control-group">
                         <div class="row">
-                            <div class="span11 offset2">
-                                <div class="span3">
+                            <div class="span10 offset2">
+                                <div class="span1">
                                     <label class="control-label" for="dp1">Desde:</label>
+                                </div>
+                                <div class="span3"> 
                                     <input type="text" class="span8" value="<?php echo date('d/m/Y'); ?>" data-date-format="dd/mm/yyyy" id="fecharg1"/>
                                 </div>
-                                <div class="offset1 span3">
+                                <div class="span1">
                                     <label class="control-label" for="dp2">Hasta:</label>
+                                </div>
+                                <div class="span3">
                                     <input type="text" class="span8" value="<?php echo date('d/m/Y'); ?>" data-date-format="dd/mm/yyyy" id="fecharg2"/>
                                 </div>
                             </div>
@@ -98,10 +107,12 @@
                     </div>
                     <div class="control-group">
                         <div class="row">
-                            <div class="span8 offset2">
-                                <label for="itxtdescrip">Descripci&oacute;n del permiso:</label>
-                                <div class="input-append controls">
-                                    <textarea class="input-xlarge" rows="2" id="itxtdescrip" placeholder="Ingrese la descripci&oacute;n del permiso" name="Descripci&oacute;n"></textarea>
+                            <div class="span10 offset2">
+                                <div class="span3">
+                                    <label for="itxtdescrip">Descripci&oacute;n del permiso:</label>
+                                </div>
+                                <div class="span6">
+                                    <textarea class="span10" rows="2" id="itxtdescrip" placeholder="Ingrese la descripci&oacute;n del permiso" name="Descripci&oacute;n"></textarea>
                                 </div>
                             </div>
                         </div>

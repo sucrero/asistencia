@@ -88,7 +88,7 @@
                         <label>Contrase&ntilde;a</label>
                         <input type="password" name="Contrase&ntilde;a" class="input-large" id="itxtclaveu" placeholder="Ingrese su Contrase&ntilde;a" autocomplete="off" value="">
                     </fieldset>
-                    <a onclick="">Olvide mi contrase&ntilde;a</a>
+                    <a onclick="olvidar()" style="cursor: pointer;">Olvide mi contrase&ntilde;a</a>
                     <div class="form-actions" style="text-align: center;">
                         <a class="btn btn-primary" id="guardar" onclick="valForm('iniciosesion','validarSesion()');">
                                 Aceptar
