@@ -80,26 +80,39 @@
             global $titulo;            
             $size = 15;
 //            $absx = (210 - $size) / 2;
-            $this->SetFont('Arial','', 7);
-            $this->Image('../img/logo_escuela.jpg', $absx, 5, $size);
-            $this->Cell(190, 3, "REPUBLICA BOLIVARIANA DE VENEZUELA", 0,1,C);
-            $this->Cell(190, 3, "MINISTERIO DEL PODER POPULAR PARA LA EDUCACION", 0,1,C);
-            $this->Cell(190, 3, "GOBERNACION DEL ESTADO SUCRE", 0,1,C);
-            $this->Cell(190, 3, "DIRECCION DE EDUCACION", 0,1,C);
+            $this->SetFont('Arial','', 8);
+            $this->Image('../img/logo_nacional.jpg', $absx, 5, 20);
+            $this->Cell(190, 3, html_entity_decode("REP&Uacute;BLICA BOLIVARIANA DE VENEZUELA",ENT_QUOTES,"ISO-8859-1"), 0,1,C);
+            $this->Cell(190, 3, html_entity_decode("MINISTERIO DEL PODER POPULAR PARA LA EDUCACI&Oacute;N",ENT_QUOTES,"ISO-8859-1"), 0,1,C);
+            $this->Cell(190, 3, html_entity_decode("GOBERNACI&Oacute;N DEL ESTADO SUCRE",ENT_QUOTES,"ISO-8859-1"), 0,1,C);
+            $this->Cell(190, 3, html_entity_decode("DIRECCI&Oacute;N DE EDUCACI&Oacute;N",ENT_QUOTES,"ISO-8859-1"), 0,1,C);
             $this->Cell(190, 3, "E.B. FRANCISCO DE MIRANDA", 0,1,C);
-            $this->Ln(10);
-            $this->SetFont('Arial', 'B', 12);
+            $this->Image('../img/logo_estadal.jpg', 180, 10, 20);
+            $this->Ln(5);
+            $this->SetFont('Arial','', 10);
             $this->Cell(190, 8, $titulo,0, 0, 'C');
             $this->Ln(15);
         }
         
         function Footer() {
+            $this->SetY(-50);
+            $this->SetFont('Arial', '', 8);
+            $this->Cell(190, 5, html_entity_decode('Fecha de Env&iacute;o: __________',ENT_QUOTES,"ISO-8859-1"),0, 1, 'L');
+            $this->Cell(190, 5, html_entity_decode('Fecha de Recepci&oacute;n: __________',ENT_QUOTES,"ISO-8859-1"),0, 1, 'L');
+            $this->Ln(5);
+            $this->Cell(60, 2,'',0, 0, 'C');
+            $this->Cell(60, 2, '________________________________',0, 0, 'C');
+            $this->Cell(50, 2, '_____________________',0, 1, 'C');
+            $this->Cell(60, 2,'',0, 0, 'C');
+            $this->Cell(60, 5, 'Apellidos y Nombres del Director',0, 0, 'C');
+            $this->Cell(50, 5, 'Firma',0, 1, 'C');
+            $this->Cell(190, 10, html_entity_decode('Debe enviarse en los primeros 10 d&iacute;as de cada mes',ENT_QUOTES,"ISO-8859-1"),0, 1, 'L');
             $dias = array("Domingo","Lunes","Martes","Mi&eacute;rcoles","Jueves","Viernes","S&aacute;bado");
             $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
             $this->SetY(-15);
             $this->SetFont('Arial', 'I', 7);
             $this->SetTextColor(128);
-            $this->Cell(60,4,  html_entity_decode($dias[date('w')]).' '.date('j').' de '.$meses[date('n')-1].' de '.date('Y').' - '.date("H:i:s"),0,0,'L');
+            $this->Cell(60,4,  html_entity_decode($dias[date('w')],ENT_QUOTES,"ISO-8859-1").' '.date('j').' de '.$meses[date('n')-1].' de '.date('Y').' - '.date("H:i:s"),0,0,'L');
             $this->Cell(60,4, 'Impreso por: '.$_SESSION['cuenta'], 0, 0, 'C');
             $this->Cell(0, 4, 'Pagina '.$this->PageNo().'/{nb}', 0, 1, 'R');
         }
@@ -113,13 +126,13 @@
                 $this->SetFont('Arial','B',7);
                 $this->SetFillColor(173,216,230);
                 $this->Cell(7, 5,'Nro.',1, 0, 'C',true);
-                $this->Cell(15, 5,'Cedula',1, 0, 'C',true);
+                $this->Cell(15, 5,html_entity_decode('C&eacute;dula',ENT_QUOTES,"ISO-8859-1"),1, 0, 'C',true);
                 $this->Cell(42, 5,'Nombre',1, 0, 'C',true);
 //                $this->Cell(20, 5,'Correo',1, 0, 'C',true);
-                $this->Cell(19, 5,'Telefono',1, 0, 'C',true);
+                $this->Cell(19, 5,html_entity_decode('Tel&eacute;fono',ENT_QUOTES,"ISO-8859-1"),1, 0, 'C',true);
                 $this->Cell(25, 5,'Dependencia',1, 0, 'C',true);
                 $this->Cell(32, 5,'Cargo',1, 0, 'C',true);
-                $this->Cell(27, 5,'Condicion',1, 0, 'C',true);
+                $this->Cell(27, 5,html_entity_decode('Condici&oacute;n',ENT_QUOTES,"ISO-8859-1"),1, 0, 'C',true);
                 $this->Cell(23, 5,'Horario',1, 1, 'C',true);
                 $this->SetFont('Arial','',7);
 //                $a = $e = $ne =0;
