@@ -68,7 +68,7 @@
             global $titulo;            
             $size = 15;
 //            $absx = (210 - $size) / 2;
-             $this->SetFont('Arial','', 8);
+            $this->SetFont('Arial','', 8);
             $this->Image('../img/logo_nacional.jpg', $absx, 5, 20);
             $this->Cell(190, 3, html_entity_decode("REP&Uacute;BLICA BOLIVARIANA DE VENEZUELA",ENT_QUOTES,"ISO-8859-1"), 0,1,C);
             $this->Cell(190, 3, html_entity_decode("MINISTERIO DEL PODER POPULAR PARA LA EDUCACI&Oacute;N",ENT_QUOTES,"ISO-8859-1"), 0,1,C);
@@ -100,7 +100,7 @@
             $this->SetY(-15);
             $this->SetFont('Arial', 'I', 7);
             $this->SetTextColor(128);
-            $this->Cell(60,4,  html_entity_decode($dias[date('w')]).' '.date('j').' de '.$meses[date('n')-1].' de '.date('Y').' - '.date("H:i:s"),0,0,'L');
+            $this->Cell(60,4,  html_entity_decode($dias[date('w')],ENT_QUOTES,"ISO-8859-1").' '.date('j').' de '.$meses[date('n')-1].' de '.date('Y').' - '.date("H:i:s"),0,0,'L');
             $this->Cell(60,4, 'Impreso por: '.$_SESSION['cuenta'], 0, 0, 'C');
             $this->Cell(0, 4, 'Pagina '.$this->PageNo().'/{nb}', 0, 1, 'R');
         }
