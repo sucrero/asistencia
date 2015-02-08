@@ -428,13 +428,13 @@ function crearTablaUsu(req,tipo,param){//fina
         $("a#eliminarUsu").removeClass("disabled");
     }else{
         $("a#imprimirUsu").addClass("disabled")
-                .attr("onclick","");
-        $("a#imprimirUsu").addClass("disabled")
                 .removeAttr("onclick");
+        $("a#eliminarUsu").addClass("disabled");
         $("#contUsu").append($("<tr>")
-                      .addClass("error alert-error")
+                    .addClass("error alert-error")
                       .append($("<td>")
-                         .attr("colspan","4")
+                        .attr("style", "text-align: center;")
+                         .attr("colspan","6")
                          .append($("<h5>")
                              .text("No existen registros para mostrar")
                          )
@@ -549,4 +549,33 @@ function eliminarUsu(){
         claseError('#contmsj',cad,clase);  
     }
     limpiarFormUsu();
+}
+
+function limpiarRepUsu(){
+    var ced = xGetElementById('itxtcedbus');
+    ced.value = '';
+    ced.focus();
+//    $("a#imprimirUsu").attr("onclick","window.open('reporte_usuario.php?tipo="+tipo+"&parametro="+param+"','reportepermiso','_blank');")
+//        .removeClass("disabled");
+//    $("a#eliminarUsu").removeClass("disabled");
+    cargarTodosUsu();
+}
+
+function buscarRepUsu(){
+    var ced = xGetElementById('itxtcedbus');
+    if(ced.value != ''){
+        AjaxRequest.post(
+        {
+            'parameters':{'opcion':'buscarRepUsu','ced':ced.value},
+            'url':'../Operaciones.php',
+            'onSuccess':function(req){
+                crearTablaUsu(req.responseText,-1,-1);
+            }
+        })
+    }else{
+        clase = "error";
+        cad[0] = "Debe ingresar un numero de cedula para buscar, verifique";
+        claseError('#contmsjmodal1',cad,clase); 
+        ced.focus();
+    }
 }
