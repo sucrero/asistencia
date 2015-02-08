@@ -75,20 +75,33 @@
             global $titulo;            
             $size = 15;
 //            $absx = (210 - $size) / 2;
-            $this->SetFont('Arial','', 7);
-            $this->Image('../img/logo_escuela.jpg', $absx, 5, $size);
-            $this->Cell(190, 3, "REPUBLICA BOLIVARIANA DE VENEZUELA", 0,1,C);
-            $this->Cell(190, 3, "MINISTERIO DEL PODER POPULAR PARA LA EDUCACION", 0,1,C);
-            $this->Cell(190, 3, "GOBERNACION DEL ESTADO SUCRE", 0,1,C);
-            $this->Cell(190, 3, "DIRECCION DE EDUCACION", 0,1,C);
+            $this->SetFont('Arial','', 8);
+            $this->Image('../img/logo_nacional.jpg', $absx, 5, 20);
+            $this->Cell(190, 3, html_entity_decode("REP&Uacute;BLICA BOLIVARIANA DE VENEZUELA",ENT_QUOTES,"ISO-8859-1"), 0,1,C);
+            $this->Cell(190, 3, html_entity_decode("MINISTERIO DEL PODER POPULAR PARA LA EDUCACI&Oacute;N",ENT_QUOTES,"ISO-8859-1"), 0,1,C);
+            $this->Cell(190, 3, html_entity_decode("GOBERNACI&Oacute;N DEL ESTADO SUCRE",ENT_QUOTES,"ISO-8859-1"), 0,1,C);
+            $this->Cell(190, 3, html_entity_decode("DIRECCI&Oacute;N DE EDUCACI&Oacute;N",ENT_QUOTES,"ISO-8859-1"), 0,1,C);
             $this->Cell(190, 3, "E.B. FRANCISCO DE MIRANDA", 0,1,C);
-            $this->Ln(10);
-            $this->SetFont('Arial', 'B', 12);
+            $this->Image('../img/logo_estadal.jpg', 180, 10, 20);
+            $this->Ln(5);
+            $this->SetFont('Arial','', 10);
             $this->Cell(190, 8, $titulo,0, 0, 'C');
             $this->Ln(15);
         }
         
         function Footer() {
+            $this->SetY(-50);
+            $this->SetFont('Arial', '', 8);
+            $this->Cell(190, 5, html_entity_decode('Fecha de Env&iacute;o: __________',ENT_QUOTES,"ISO-8859-1"),0, 1, 'L');
+            $this->Cell(190, 5, html_entity_decode('Fecha de Recepci&oacute;n: __________',ENT_QUOTES,"ISO-8859-1"),0, 1, 'L');
+            $this->Ln(5);
+            $this->Cell(60, 2,'',0, 0, 'C');
+            $this->Cell(60, 2, '________________________________',0, 0, 'C');
+            $this->Cell(50, 2, '_____________________',0, 1, 'C');
+            $this->Cell(60, 2,'',0, 0, 'C');
+            $this->Cell(60, 5, 'Apellidos y Nombres del Director',0, 0, 'C');
+            $this->Cell(50, 5, 'Firma',0, 1, 'C');
+            $this->Cell(190, 10, html_entity_decode('Debe enviarse en los primeros 10 d&iacute;as de cada mes',ENT_QUOTES,"ISO-8859-1"),0, 1, 'L');
             $dias = array("Domingo","Lunes","Martes","Mi&eacute;rcoles","Jueves","Viernes","S&aacute;bado");
             $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
             $this->SetY(-15);
