@@ -7,9 +7,7 @@
         private $_tipo;
         private $_fecha;
         private $_status;
-        private $_cedula;
-        private $_nombre;
-        private $_apellido;
+        private $_persona;
 
 
         public function __construct(){
@@ -18,24 +16,20 @@
             $this->_clave = "";
             $this->_tipo = "";
             $this->_fecha = "";
-            $this->_status = "ACTIVO";
-            $this->_cedula = "";
-            $this->_nombre = "";
-            $this->_apellido = "";
+            $this->_status = "";
+            $this->_persona = "";
         }
 
-        public function setPropiedades($login,$clave,$tipo,$cedula,$nombre,$apellido){
+        public function setPropiedades($login,$clave,$tipo,$persona){
             $this->_login = strtoupper($login);
             $this->_clave = $clave;
             $this->_tipo = strtoupper($tipo);
             $this->_fecha = date('Y-m-d H:m:s');
-            $this->_cedula = $cedula;
-            $this->_nombre = strtoupper($nombre);
-            $this->_apellido = strtoupper($apellido);
+            $this->_persona = $persona;
         }
         public function ingresar($conexion){
-            $sql = "INSERT INTO usuario (nombreusu,claveusu,tipousu,fechausu,statususu,cedulausu,nombusu,apeusu) VALUES 
-                ('$this->_login','$this->_clave','$this->_tipo','$this->_fecha','ACTIVO','$this->_cedula','$this->_nombre','$this->_apellido')";
+            $sql = "INSERT INTO usuario (nombreusu,claveusu,tipousu,fechausu,statususu,idper) VALUES 
+                ('$this->_login','$this->_clave','$this->_tipo','$this->_fecha','ACTIVO','$this->_persona')";
 //            print_r($sql);
             if($consulta = $conexion->ejecutarSql($sql)){
                 return $consulta;
@@ -48,7 +42,7 @@
                     $consulta = $conexion->devolver_recordset();
                     $f = $consulta['fechausu'];
                     $this->setPropiedades($consulta['idusuario'], strtoupper($consulta['nombreusu']), $consulta['claveusu'], $consulta['tipousu'], substr($f,8,2)."/".substr($f,5,2)."/".substr($f,0,4),
-                    $consulta['statususu'],$consulta['cedulausu'], strtoupper($consulta['nombusu']), strtoupper($consulta['apeusu']));
+                    $consulta['statususu'],$consulta['idper']);
                     return TRUE;
                 }else{
                     return FALSE;

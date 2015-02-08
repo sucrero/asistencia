@@ -1,5 +1,6 @@
 var id = '';
-
+//var clase = '';
+//var cad = new Array();
 function guardarFes(){
     var des = xGetElementById('itxtdescrip');
     var fec = xGetElementById('fecharg1');
@@ -15,23 +16,29 @@ function guardarFes(){
                             limpiarFormFes('formFestivo');
                             clase = "exito";
                             cad[0] = "Registro guardado exisotamente";
-                        }else{
+                            claseError('#contmsjFes',cad,clase);
+                        }else if(resp == 0){
                             clase = "error";
                             cad[0] = "No se pudo guarda el registro";
+                            claseError('#contmsjFes',cad,clase);
+                        }else{
+                            clase = "error";
+                            cad[0] = "Existe otro Dia Festivo con la misma fecha, verifique";
+                            claseError('#contmsjFes',cad,clase);
                         }
-                        claseError('#contmsj',cad,clase);
+                        
                     }
                 }
             ) 
         }else{
             clase = "error";
             cad[0] = "De ingresar una fecha, verifique";
-            claseError('#contmsj',cad,clase);
+            claseError('#contmsjFes',cad,clase);
         }
     }else{
         clase = "error";
         cad[0] = "Debe ingresar una descripcion, verifique";
-        claseError('#contmsj',cad,clase);
+        claseError('#contmsjFes',cad,clase);
     }
 }
 function limpiarFormFes(){
@@ -162,29 +169,31 @@ function modificarFes(){
                             clase = "error";
                             cad[0] = "No se pudo modificar el registro";
                         }
-                        claseError('#contmsj',cad,clase);
+                        claseError('#contmsjFes',cad,clase);
                     }
                 }
             ) 
         }else{
             clase = "error";
             cad[0] = "De ingresar una fecha, verifique";
-            claseError('#contmsj',cad,clase);
+            claseError('#contmsjFes',cad,clase);
         }
     }else{
         clase = "error";
         cad[0] = "Debe ingresar una descripcion, verifique";
-        claseError('#contmsj',cad,clase);
+        claseError('#contmsjFes',cad,clase);
     }
 }
 
 function eliminarFes(){
+    $("#contmsjFes").empty("");
     $("a#eliminarFes").confirmation('hide');
     $("#myModal").modal('hide');
     var checkboxValues = "";
     $('input[name="eli_ch[]"]:checked').each(function() {
             checkboxValues += $(this).val() + ",";
     });
+    
     checkboxValues = checkboxValues.substring(0, checkboxValues.length-1);
     if(checkboxValues != ''){
         AjaxRequest.post(
@@ -195,17 +204,19 @@ function eliminarFes(){
                  if(req.responseText == 1){
                     clase = "exito";
                     cad[0] = "Registro(s) eliminado(s) exisotamente";
+                    claseError('#contmsjFes',cad,clase);  
                  }else{
                     clase = "error";
                     cad[0] = "No se pudo eliminar el registro";
+                    claseError('#contmsjFes',cad,clase);  
                  }
             }
         })
     }else{
         clase = "error";
         cad[0] = "No se ha seleccionado ningun registro para eliminar";
+        claseError('#contmsjFes',cad,clase); 
     }
-    claseError('#contmsj',cad,clase);  
  }
 
 function buscarxFechFes(){
@@ -264,57 +275,4 @@ function limpiarTabFes(op){
         fe1.value = fe2.value = fechaActual();
     }
     cargarTodosFes();
-}
-
-//function imprimirRepGen(){
-//    var f1 = xGetElementById('fecharg1');
-//    var f2 = xGetElementById('fecharg2');
-//    if(f1.value != ''){
-//        if(f2.value != ''){
-//            if(compararFechas2(f1.value,f2.value)){
-//                window.open('reporte_general.php?f1="'+f1.value+'"&f2="'+f2.value+'"','reportegen','_blank');
-//            }else{
-//                cad[0] = "La fecha de inicio debe ser mayor a la final";
-//                claseError('#contmsj',cad,'error');
-//            }
-//        }else{
-//            cad[0] = "Debe ingresar una fecha hasta";
-//            claseError('#contmsj',cad,'error');
-//        }
-//    }else{
-//        cad[0] = "Debe ingresar una fecha desde";
-//        claseError('#contmsj',cad,'error');
-//    }
-//    
-//}
-
-function eliminarFes(){//fina
-    
-    $("a#eliminarFes").confirmation('hide');
-    $("#myModal").modal('hide');
-    var checkboxValues = "";
-    $('input[name="eli_ch[]"]:checked').each(function() {
-            checkboxValues += $(this).val() + ",";
-    });
-    checkboxValues = checkboxValues.substring(0, checkboxValues.length-1);
-    if(checkboxValues != ''){
-        AjaxRequest.post(
-        {
-            'parameters':{'opcion':'eliminarFes','param':checkboxValues},
-            'url':'../Operaciones.php',
-            'onSuccess':function(req){
-                 if(req.responseText == 1){
-                    clase = "exito";
-                    cad[0] = "Registro(s) eliminado(s) exisotamente";
-                 }else{
-                    clase = "error";
-                    cad[0] = "No se pudo eliminar el registro";
-                 }
-            }
-        })
-    }else{
-        clase = "error";
-        cad[0] = "No se ha seleccionado ningun registro para eliminar";
-    }
-    claseError('#contmsj',cad,clase);    
 }

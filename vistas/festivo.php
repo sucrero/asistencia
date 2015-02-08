@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div id="contmsj"></div>
+        <div id="contmsjFes"></div>
 
             <div class="form-actions">
                 <a class="btn btn-primary" id="guardar" onclick="valForm('formFestivo','guardarFes()');">

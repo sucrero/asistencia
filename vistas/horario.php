@@ -19,7 +19,7 @@
                     <div class="control-group">
                         <div class="row">
                             <div class="span8 offset2">
-                                <div class="span3">
+                                <div class="span4">
                                     <label class="control-label" for="dp1">Entrada:</label>
                                     <div id="datetimepicker1" class="input-append">
                                         <input data-format="hh:mm:ss" id="time1" type="text" class="span8" value="07:00:00" readonly=""></input>
@@ -29,7 +29,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="span3">
+                                <div class="span4">
                                     <label class="control-label" for="dp2">Salida:</label>
                                     <div id="datetimepicker2" class="input-append">
                                         <input data-format="hh:mm:ss"  id="time2" type="text" class="span8" value="12:00:00" readonly=""></input>
@@ -47,7 +47,7 @@
                     <div id="contmsj"></div>
             
                     <div class="form-actions">
-                        <a class="btn btn-primary" id="guardar" onclick="valForm('formHorario','guardarH(\'g\')');">
+                        <a class="btn btn-primary" id="guardar" onclick="valForm('formHorario','guardarH()');">
                             <i class="icon-ok-sign icon-white"></i>
                                 Guardar
                         </a>
@@ -73,10 +73,10 @@
                 <table class="table table-hover table-bordered">
                     <thead style="text-align: center;">
                         <tr>
-                            <th>Item</th>
-                            <th>Descripci&oacute;n</th>
-                            <th>Hora Entrada</th>
-                            <th>Hora Salida</th>
+                            <th style="text-align: center">Item</th>
+                            <th style="text-align: center">Descripci&oacute;n</th>
+                            <th style="text-align: center">Hora Entrada</th>
+                            <th style="text-align: center">Hora Salida</th>
                             <th style="text-align: center">Editar</th>
                             <th style="text-align: center;">Eliminar <input type="checkbox" id="elico" title="Seleccionar todos" onclick="verSel('all');"></th>
                             
@@ -86,11 +86,11 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-primary" id="eliminarCor" data-toggle="confirmation" data-title="Seguro desea eliminar los registros seleccionados?">
+                <a class="btn btn-primary" id="eliminarHor" data-toggle="confirmation" data-title="Seguro desea eliminar los registros seleccionados?">
                     <i class="icon-remove icon-white"></i>
                         Eliminar
                 </a>
-                <a class="btn btn-primary" id="imprimirCor">
+                <a class="btn btn-primary" id="imprimirHor">
                     <i class="icon-print icon-white"></i>
                         Imprimir
                 </a>
@@ -122,12 +122,10 @@
 //            $('#eliminarCor').confirmation('show');
             $('[data-toggle="confirmation"]').confirmation(
                 {
-                    
                     "placement" : "top",
                     "btnOkLabel" : '<i class="icon-ok-sign icon-white"></i> Si',
                     "btnOkClass" : "btn-primary",
                     "onConfirm" : function(){eliminarHor();}
-                    
                 }
             );
 //            $('#eliminarCor').confirmation('onComplete',function(){

@@ -38,6 +38,15 @@ class Horario
              }
         }
     }
+    public function modificar($sql,$conexion){
+            if($conexion->ejecutarSql($sql)){
+                if($conexion->registros > 0){
+                    return TRUE;
+                }else{
+                    return FALSE;
+                }
+            }
+        } 
     public function mostrar($sql,$conexion)
     {
         if(($consulta=$conexion->ejecutarSql($sql)))

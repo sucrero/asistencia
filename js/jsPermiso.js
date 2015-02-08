@@ -217,17 +217,20 @@ function buscarRepPer(){
                  if(req.responseText == 1){
                     clase = "exito";
                     cad[0] = "Registro(s) eliminado(s) exisotamente";
+                    claseError('#contmsj2',cad,clase);  
                  }else{
                     clase = "error";
                     cad[0] = "No se pudo eliminar el registro";
+                    claseError('#contmsj2',cad,clase);  
                  }
             }
         })
     }else{
         clase = "error";
         cad[0] = "No se ha seleccionado ningun registro para eliminar";
+        claseError('#contmsj2',cad,clase);  
     }
-    claseError('#contmsj2',cad,clase);  
+    
  }
 
 function cargarPerm(resp){

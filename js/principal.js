@@ -9,6 +9,8 @@ var decimal = /^[1-9]+[0-9]{1,}\.+[0-9]{2}$/
 var rif = /^[jJ|vV|gG|eE|pP]{1}[0-9]{9}$/
 //var letrasval = /^[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789]{1,}$/ 
 var alfanumerico = /^[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789|-]{1,}$/
+var clases = '';
+var textH = '';
 //----------------------------------------------------------------------------------------------
 function Revisa(conjunto, cadena){
     return conjunto.test(cadena)
@@ -95,6 +97,8 @@ function cargar_form(formulario,capa){
 )
 }
 function claseError(contenedor,nameError,tipo){
+//    alert('contene: '+contenedor+' nameError: '+nameError+' tipo: '+tipo);
+   
     if(tipo == 'error'){
         clases = "alert alert-error alert-block fade in ";
         textH = "¡ATENCIÓN! Debe atender los siguientes errores:";
@@ -118,7 +122,6 @@ function claseError(contenedor,nameError,tipo){
                     .append($("<h5>").text(textH))
                 );
     if(tipo == 'error'){
-        
         for(i = 0;i < nameError.length; i++){
             if(typeof nameError[i] != 'undefined')
                 $("#msj").append($("<p>").text("- "+nameError[i]).addClass("perror"));

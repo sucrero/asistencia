@@ -18,7 +18,7 @@
                     <i class="icon-search icon-white"></i>
                 </a>
             </div>
-            <p class="help-block ejemplo">Indique el Número de CI o RIF, sin guiones, ni puntos. En caso de RIF debe completar un máximo de 10 caracteres. Ejemplo de la Cédula: 12345678, Ejemplo del RIF: V123456789.</p>
+            <p class="help-block ejemplo">Indique el N&uacute;mero de C.I. sin puntos. Ejemplo de la C&eacute;dula: 12345678</p>
         </div>
                     
         <div class="span12 control-group">
@@ -60,6 +60,7 @@
                 <select id="ilstcargo" disabled="" class="span7" name="Tipo de Personal"> 
                     <option value="-1" selected="">Seleccione...</option>
                     <option value="ADMINISTRATIVO">Administrativo</option>
+                    <option value="DIRECTIVO">Directivo</option>
                     <option value="DOCENTE">Docente</option>
                     <option value="OBRERO">Obrero</option>
                     <option value="MADRE PROCESADORA">Madre Procesadora</option>
@@ -73,6 +74,7 @@
                 <select id="ilstdependencia" disabled="" class="span7" name="Tipo de Personal"> 
                     <option value="-1" selected="">Seleccione...</option>
                     <option value="ALCALDIA">Alcaldia</option>
+                    <option value="ENCARGADO">Encargado(a)</option>
                     <option value="ESTADAL">Estadal</option>
                     <option value="NACIONAL">Nacional</option>
                     <option value="OTRO">Otro</option>
@@ -107,7 +109,7 @@
                               $i = 0;
                               do{
                                  $fila = $conexion->devolver_recordset();
-                                 echo '<option value="'.$fila['idhor'].'">'.htmlentities(strtoupper($fila['descripcionhor']),ENT_QUOTES,'UTF-8').'</option>';
+                                 echo '<option value="'.$fila['idhor'].'">'.  ucwords(htmlentities(strtolower($fila['descripcionhor']),ENT_QUOTES,'UTF-8')).'</option>';
                                  $i++;
                               }while(($conexion->siguiente())&&($i!=$conexion->registros));
 
@@ -162,7 +164,10 @@
                         <a href="#dependencia" data-toggle="tab">Dependencia</a>
                     </li>
                     <li class="">
-                        <a href="#cargo" data-toggle="tab">Cargo</a>
+                        <a href="#condicion" data-toggle="tab">Condici&oacute;n</a>
+                    </li>
+                    <li class="">
+                        <a href="#cedula" data-toggle="tab">c&eacute;dula</a>
                     </li>
                 </ul>
                 <div id="myTabContent" class="tab-content">
@@ -174,11 +179,13 @@
                                     <label class="control-label" for="ilsttipobus">Cargo</label>
                                     <div class="controls">
                                         <select id="ilstcargobus" class="span7" name="Tipo de Personal"> 
-                                            <option value="-1" selected="">Seleccione...</option>
-                                            <option value="ADMINISTRATIVO">Administrativo</option>
-                                            <option value="OBRERO">Obrero</option>
-                                            <option value="MADRE PROCESADORA">Madre Procesadora</option>
-                                            <option value="VIGILANTE">Vigilante</option>
+                                            <option value="-1" selected="">Todos</option>
+                                                <option value="ADMINISTRATIVO">Administrativo</option>
+                                                <option value="DIRECTIVO">Directivo</option>
+                                                <option value="DOCENTE">Docente</option>
+                                                <option value="OBRERO">Obrero</option>
+                                                <option value="MADRE PROCESADORA">Madre Procesadora</option>
+                                                <option value="VIGILANTE">Vigilante</option>
                                         </select>
                                     </div>
                                 </div>
@@ -186,7 +193,7 @@
                         </form>
                         <div class="form-actions">
                             <div id="contmsjmodal1"></div>
-                            <a class="btn btn-primary" id="guardar" onclick="buscarxTipo();">
+                            <a class="btn btn-primary" id="guardar" onclick="buscarPerxCargo();">
                                 <i class="icon-search icon-white"></i>
                                     Buscar
                             </a>
@@ -203,8 +210,9 @@
                                     <label class="control-label" for="ilstdependenciabus">Dependencia</label>
                                     <div class="controls">
                                         <select id="ilstdependenciabus" class="span7" name="Dependencia de Personal"> 
-                                            <option value="-1" selected="">Seleccione...</option>
+                                            <option value="-1" selected="">Todos</option>
                                             <option value="ALCALDIA">Alcaldia</option>
+                                            <option value="ENCARGADO">Encargado(a)</option>
                                             <option value="ESTADAL">Estadal</option>
                                             <option value="NACIONAL">Nacional</option>
                                             <option value="OTRO">Otro</option>
@@ -215,11 +223,11 @@
                         </form>
                         <div class="form-actions">
                             <div id="contmsjmodal2"></div>
-                            <a class="btn btn-primary" id="guardar" onclick="buscarxTipo();">
+                            <a class="btn btn-primary" id="guardar" onclick="buscarPerxDep();">
                                 <i class="icon-search icon-white"></i>
                                     Buscar
                             </a>
-                            <a class="btn btn-primary" id="limpiar" onclick="limpiarTabPer(1);">
+                            <a class="btn btn-primary" id="limpiar" onclick="limpiarTabPer(2);">
                                 <i class="icon-trash icon-white"></i>
                                     Limpiar
                             </a>
@@ -232,7 +240,7 @@
                                     <label class="control-label" for="ilstcondicionbus">Condici&oacute;n</label>
                                     <div class="controls">
                                         <select id="ilstcondicionbus" class="span7" name="Condicion de Personal"> 
-                                            <option value="-1" selected="">Seleccione...</option>
+                                            <option value="-1" selected="">Todos</option>
                                             <option value="COLABORADOR">Colaborador</option>
                                             <option value="INTERINO">Interino</option>
                                             <option value="SUPLENTE">Suplente</option>
@@ -244,11 +252,34 @@
                         </form>
                         <div class="form-actions">
                             <div id="contmsjmodal3"></div>
-                            <a class="btn btn-primary" id="guardar" onclick="buscarxTipo();">
+                            <a class="btn btn-primary" id="guardar" onclick="buscarPerxCond();">
                                 <i class="icon-search icon-white"></i>
                                     Buscar
                             </a>
-                            <a class="btn btn-primary" id="limpiar" onclick="limpiarTabPer(1);">
+                            <a class="btn btn-primary" id="limpiar" onclick="limpiarTabPer(3);">
+                                <i class="icon-trash icon-white"></i>
+                                    Limpiar
+                            </a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade in" id="cedula">
+                        <form class="form-inline" id="formBusCedu">
+                            <fieldset>
+                                <div class="control-group">
+                                    <label class="control-label" for="itxtcedbus">C&eacute;dula:</label>
+                                    <div class="controls">
+                                        <input id="itxtcedbus" name="C&eacute;dula a buscar" placeholder="Ingrese una c&eacute;dula"  size="50px" type="text" maxlength="8" autofocus>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                        <div class="form-actions">
+                            <div id="contmsjmodal3"></div>
+                            <a class="btn btn-primary" id="guardar" onclick="buscarPerxCed();">
+                                <i class="icon-search icon-white"></i>
+                                    Buscar
+                            </a>
+                            <a class="btn btn-primary" id="limpiar" onclick="limpiarTabPer(4);">
                                 <i class="icon-trash icon-white"></i>
                                     Limpiar
                             </a>
@@ -273,11 +304,11 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-primary" id="eliminarCon" data-toggle="confirmation" data-title="Seguro desea eliminar los registros seleccionados?">
+                <a class="btn btn-primary" id="eliminarPers" data-toggle="confirmation" data-title="Seguro desea eliminar los registros seleccionados?">
                     <i class="icon-remove icon-white"></i>
                         Eliminar
                 </a>
-                <a class="btn btn-primary" id="imprimirCon">
+                <a class="btn btn-primary" id="imprimirPers">
                     <i class="icon-print icon-white"></i>
                         Imprimir
                 </a>
@@ -287,19 +318,17 @@
         <!--FIN MENSAJE MODAL-->
         <script>
             document.getElementById('itxtnrodocumento').focus();
-//            $(function(){
-//                        $('#dp1').datepicker();
-//                        $('#dp2').datepicker();
-//            });
                       
             $('a[data-toggle="tab"]').on('shown', function (e) {
                 $("#contmsjmodal1").empty();
                 $("#contmsjmodal2").empty();
                 $("#contmsjmodal3").empty();
+                $("#contmsjmodal4").empty();
 //                $("#contmsjmodal4").empty();
                 xGetElementById('ilstcargobus').value = -1;
                 xGetElementById('ilstdependenciabus').value = -1;
                 xGetElementById('ilstcondicionbus').value = -1;
+                xGetElementById('itxtcedbus').value = '';
                 cargarTodosPer();
             })
             $('[data-toggle="confirmation"]').confirmation(

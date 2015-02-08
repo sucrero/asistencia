@@ -15,21 +15,96 @@
         <div class="control-group">
             <div class="row">
                 <div class="span11 offset1">
-                    <div class="offset2 span3">
-                        <label class="control-label" for="dp1">Desde:</label>
-                        <input type="text" class="span8" value="<?php echo date('d/m/Y'); ?>" data-date-format="dd/mm/yyyy" id="fecharg1"/>
+                    <label for="itxtcedrep">N&uacute;mero de C&eacute;dula:</label>
+                    <div class="input-append controls">
+                        <input id="itxtcedrep" name="N&uacute;mero de C&eacute;dula" onKeyPress="return numeros(event);" placeholder="Ingrese la c&eacute;dula"  size="75px" type="text" maxlength="8" autofocus>
                     </div>
-                    <div class="offset2 span3">
-                        <label class="control-label" for="dp2">Hasta:</label>
-                        <input type="text" class="span8" value="<?php echo date('d/m/Y'); ?>" data-date-format="dd/mm/yyyy" id="fecharg2"/>
+                </div>
+            </div>
+            
+        </div>
+         <div class="control-group">
+            <div class="row">
+                <div class="span11 offset1">
+                    <label class="control-label span2" for="ilstmeses">Mes:</label>
+                    <div class="controls">
+                        <select id="ilstmeses" class="span2" name="Meses"> 
+                            <option value="-1">Seleccione...</option>
+                            <option value="1">Enero</option>
+                            <option value="2" selected="">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                        <label for="ilstanio">A&ntilde;o:</label>
+                        <select id="ilstanio" class="span2" name="Meses"> 
+                            <option value="2015" selected="">2015</option>
+                        </select>
                     </div>
                 </div>
             </div>
         </div>
-
+        <div class="control-group">
+            <div class="row">
+                <div class="span11 offset1">
+                    <label class="control-label span2" for="ilstcargo">Cargo:</label>
+                    <div class="controls">
+                        <select id="ilstcargo" class="span5" name="Tipo de Personal"> 
+                            <option value="TODOS" selected="">Todos</option>
+                            <option value="ADMINISTRATIVO">Administrativo</option>
+                            <option value="DIRECTIVO">Directivo</option>
+                            <option value="DOCENTE">Docente</option>
+                            <option value="OBRERO">Obrero</option>
+                            <option value="MADRE PROCESADORA">Madre Procesadora</option>
+                            <option value="VIGILANTE">Vigilante</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="row">
+                <div class="span11 offset1">
+                    <label class="control-label span2" for="ilstdependencia">Dependencia:</label>
+                    <div class="controls">
+                        <select id="ilstdependencia" class="span5" name="Tipo de Personal"> 
+                            <option value="TODOS" selected="">Todos</option>
+                            <option value="ALCALDIA">Alcald&iacute;a</option>
+                            <option value="ENCARGADO">Encargado(a)</option>
+                            <option value="ESTADAL">Estadal</option>
+                            <option value="NACIONAL">Nacional</option>
+                            <option value="OTRO">Otro</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="control-group">
+            <div class="row">
+                <div class="span11 offset1">
+                    <label class="control-label span2" for="ilstcondicion">Condici&oacute;n:</label>
+                    <div class="controls">
+                        <select id="ilstcondicion" class="span5" name="Tipo de Personal"> 
+                            <option value="TODOS" selected="">Todos</option>
+                            <option value="COLABORADOR">Colaborador</option>
+                            <option value="INTERINO">Interino</option>
+                            <option value="SUPLENTE">Suplente</option>
+                            <option value="TITULAR">Titular</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div id="contmsj"></div>
             <div class="form-actions span12">
-                <a class="btn btn-primary offset3" id="imprimirTie" onclick="imprimirRepGen();">
+                <a class="btn btn-primary offset3" id="imprimirTie" onclick="reporteGenAsistencia();">
                     <i class="icon-print icon-white"></i>
                         Imprimir
                 </a>

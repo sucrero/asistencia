@@ -1,155 +1,54 @@
-
-
-function guardarH(tipo){
+var id = '';
+var desc = '';
+function guardarH(){//fina
     var des = document.getElementById('itxtdescrip');
     if(des.value != ''){
         var desdeM = document.getElementById('time1').value;
         var hastaM = document.getElementById('time2').value;
-//        var desdeT = document.getElementById('time3').value;
-//        var hastaT = document.getElementById('time4').value;
         if((desdeM < hastaM)){
-//            if((hastaM < desdeT) && (hastaM < hastaT)){
-//                if(desdeT < hastaT){
-                    AjaxRequest.post(
-                        {
-                            'parameters':{'opcion':'guardarH','des':des.value,'desdeM':desdeM,'hastaM':hastaM},
-                            'url':'../Operaciones.php',
-                            'onSuccess':function(req){
-                                resp = eval("(" + req.responseText + ")");
-                                if(resp == 1){
-                                    cad[0] = "Registro guardado exitosamente";
-                                    claseError('#contmsj',cad,'exito');
-                                    limpiarFormHor();
-                                }else{
-                                    cad[0] = "Error al guardar el registro";
-                                    claseError('#contmsj',cad,'error');
-                                }
-                            }
+            AjaxRequest.post(
+                {
+                    'parameters':{'opcion':'guardarH','des':des.value,'desdeM':desdeM,'hastaM':hastaM},
+                    'url':'../Operaciones.php',
+                    'onSuccess':function(req){
+                        resp = eval("(" + req.responseText + ")");
+                        if(resp == 1){
+                            cad[0] = "Registro guardado exitosamente";
+                            claseError('#contmsj',cad,'exito');
+                            limpiarFormHor();
+                        }else if(resp ==0){
+                            cad[0] = "Error al guardar el registro";
+                            claseError('#contmsj',cad,'error');
+                        }else{
+                            cad[0] = "Ya existe un registro con el mismo nombre, verifique";
+                            claseError('#contmsj',cad,'error');
                         }
-                    )
-//                }else{
-//                    cad[0] = "Error en las horas, verifique";
-//                }
-//            }else{
-//                cad[0] = "Error en las horas, verifique";
-//            }
+                    }
+                }
+            )
         }else{
             cad[0] = "Error en las horas, verifique";
+            claseError('#contmsj',cad,'error');
         }
     }else{
         cad[0] = "Debe ingresar una descripcion, verifique";
+        claseError('#contmsj',cad,'error');
     }
-    claseError('#contmsj',cad,'error');
 }
 
-function limpiarFormHor(){
+function limpiarFormHor(){//fina
     var des = document.getElementById('itxtdescrip');
     var desdeM = document.getElementById('time1');
     var hastaM = document.getElementById('time2');
-//    var desdeT = document.getElementById('time3');
-//    var hastaT = document.getElementById('time4');
     des.value = '';
     desdeM.value = '07:00:00';
     hastaM.value = '12:00:00';
-//    desdeT.value = '13:00:00';
-//    hastaT.value = '17:00:00';
     des.focus();
+    id = '';
+    desc = '';
 }
 
-//
-////
-//function buscarFis(){
-//    var ced = xGetElementById('itxtcedula');
-//    if(ced.value != ''){
-//        AjaxRequest.post(
-//            {
-//                'parameters':{'opcion':'buscarFis','ced':ced.value},
-//                'url':'../Operaciones.php',
-//                'onSuccess':function(req){
-//                    resp = eval("(" + req.responseText + ")");
-//                    if(resp == 0){
-//                        $("a#guardar").attr("onclick","valForm('formFiscal','guardarFis(\\'g\\')');");
-//                        desbloquearFis();
-//                    }else{
-//                        cad[0] = "Cédula registrada, verifique";
-//                        claseError('#contmsj',cad,'error');
-//                    }
-//                }
-//            }
-//        )
-//    }else{
-//        cad[0] = "Debe ingresar una Cédula para buscar";
-//        claseError('#contmsj',cad,'error');
-//    }
-//}
-//function desbloquearFis(){
-//    var nom = xGetElementById('itxtnombre');
-//    var ape = xGetElementById('itxtapellido');
-//    nom.value = '';
-//    ape.value = '';
-//    nom.disabled = false;
-//    ape.disabled = false;
-//    nom.focus();
-//}
-//
-//function guardarFis(op){
-////    op ==> g = guardar ::: m = modificar
-//    
-//    var ced = xGetElementById('itxtcedula');
-//    var nom = xGetElementById('itxtnombre');
-//    var ape = xGetElementById('itxtapellido');
-//    
-//    
-//    var w = true;
-//    if(op == 'g'){
-//        var opcion = 'guardarFis';
-//    }else{
-////        if(confirm("Seguro desea modificar este registro?")){
-////            w = true;
-////        }else{
-////            w= false;
-////        }
-//        var opcion = 'modificarFis';
-//    }
-//    if(w){
-//        AjaxRequest.post(
-//            {
-//                'parameters':{'opcion':opcion,'ced':ced.value,'nom':nom.value,'ape':ape.value,'idfis':codfis},
-//                'url':'../Operaciones.php',
-//                'onSuccess':function(req){
-//                    var resp = eval("(" + req.responseText + ")");
-//                    var clase = "error";
-//                    if(resp == 1){
-//                        clase = "exito";
-//                        cad[0] = "Registro guardado exitosamente";
-//                        limpiarForm('formFiscal','itxtcedula');
-//                    }else if(resp == 2){
-//                        cad[0] = "Ocurrió un error al guardar el registro";
-//                    }else if(resp == 3){
-//                        cad[0] = "Cedula registrada, verifique";
-//                    }else if(resp == 4){
-//                        clase = "exito";
-//                        cad[0] = "Registro modificado exisotamente";
-//                        limpiarForm('formFiscal','itxtcedula');
-//                    }else if(resp == 5){
-//                        cad[0] = "Ha ocurrido un error, informe al administrador";
-//                    }else{
-//                        cad[0] = "No se pudo conseguir al usuario";
-//                    }
-//                    claseError('#contmsj',cad,clase);
-//                }
-//            }
-//        )
-//    }
-//}
-//
-//function limpiarFormUsu(){
-//    codfis = '';
-//    $("a#guardar").attr("onclick","valForm('formFiscal','guardarFis(\\'g\\')');");
-//    limpiarForm('formFiscal','itxtcedula');
-//}
-//
-function cargarTodosHor(){
+function cargarTodosHor(){//fina
     AjaxRequest.post(
         {
             'parameters':{'opcion':'buscarTodosHor'},
@@ -272,7 +171,7 @@ function crearTablaHor(req,tipo,param){
                      .attr("id","fiscal")
                  );
         }
-        $("a#imprimirHor").attr("onclick","window.open('reporte_fiscal.php?parametro="+param+"&tipo="+tipo+"','reportehorario','_blank');")
+        $("a#imprimirHor").attr("onclick","window.open('reporte_horario.php?parametro="+param+"&tipo="+tipo+"','reportehorario','_blank');")
                 .removeClass("disabled");
         $("a#eliminarHor").removeClass("disabled");
     }else{
@@ -316,6 +215,7 @@ function eliminarHor(){
             checkboxValues += $(this).val() + ",";
     });
     checkboxValues = checkboxValues.substring(0, checkboxValues.length-1);
+//    alert(checkboxValues);
     if(checkboxValues != ''){
         AjaxRequest.post(
         {
@@ -325,23 +225,27 @@ function eliminarHor(){
                  if(req.responseText == 1){
                     clase = "exito";
                     cad[0] = "Registro(s) eliminado(s) exisotamente";
+                    claseError('#contmsj',cad,clase); 
+                 }else if(req.responseText == 2){
+                    clase = "exito";
+                    cad[0] = "No se eliminaron todos los registros, algunos poseen registros asociados";
+                    claseError('#contmsj',cad,clase); 
                  }else if(req.responseText == 0){
                     clase = "error";
-                    cad[0] = "No se eliminaron los registros, poseen registros asociados";
-                 }else if(req.responseText == 2){
-                    clase = "error";
-                    cad[0] = "No se eliminaron todos registros, algunos poseen registros asociados";
+                    cad[0] = "No se elimino ningun registro, poseen registros asociados";
+                    claseError('#contmsj',cad,clase); 
                  }else{
                     clase = "error";
                     cad[0] = "No se ha seleccionado ningun registro para eliminar";
+                    claseError('#contmsj',cad,clase); 
                  }
             }
         })
     }else{
         clase = "error";
         cad[0] = "No se ha seleccionado ningun registro para eliminar";
+        claseError('#contmsj',cad,clase); 
     }
-    claseError('#contmsj',cad,clase); 
 }
 //
 //function limpiarFormFis(){
@@ -363,17 +267,47 @@ function eliminarHor(){
 //}
 //
 function cargarHor(datos){
-     var des = document.getElementById('itxtdescrip');
+    var des = document.getElementById('itxtdescrip');
     var desdeM = document.getElementById('time1');
     var hastaM = document.getElementById('time2');
-//    var desdeT = document.getElementById('time3');
-//    var hastaT = document.getElementById('time4');
     des.value = datos['descripcionhor'];
     desdeM.value = datos['horentrada'];
     hastaM.value = datos['horasalida'];
-//    desdeT.value = datos['horainitar'];
-//    hastaT.value = datos['horafintar'];
     des.focus();
+    id = datos['idhor'];
+    desc = datos['descripcionhor'];
+    $("a#guardar").attr("onclick","valForm('formHorario','modificarH()');");
+}
 
-    $("a#guardar").attr("onclick","valForm('formHorario','guardarHor(\\'f\\')');");
+function modificarH(){
+    var des = document.getElementById('itxtdescrip');
+    if(des.value != ''){
+        var desdeM = document.getElementById('time1').value;
+        var hastaM = document.getElementById('time2').value;
+        if((desdeM < hastaM)){
+            AjaxRequest.post(
+                {
+                    'parameters':{'opcion':'modificarH','des':des.value,'desdeM':desdeM,'hastaM':hastaM,'id':id,'desc':desc},
+                    'url':'../Operaciones.php',
+                    'onSuccess':function(req){
+                        resp = eval("(" + req.responseText + ")");
+                        if(resp == 1){
+                            cad[0] = "Registro modificado exitosamente";
+                            claseError('#contmsj',cad,'exito');
+                            limpiarFormHor();
+                        }else{
+                            cad[0] = "Ya existe un registro con el mismo nombre, verifique";
+                            claseError('#contmsj',cad,'error');
+                        }
+                    }
+                }
+            )
+        }else{
+            cad[0] = "Error en las horas, verifique";
+            claseError('#contmsj',cad,'error');
+        }
+    }else{
+        cad[0] = "Debe ingresar una descripcion, verifique";
+        claseError('#contmsj',cad,'error');
+    }
 }

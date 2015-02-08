@@ -27,6 +27,7 @@
     <script async src="../js/jsFestivo.js"></script>
     <script async src="../js/jsHorario.js"></script>
     <script async src="../js/jsPermiso.js"></script>
+    <script async src="../js/jsAsistencia.js"></script>
     <script async src="../js/AjaxRequest.js"></script>
     <script async src="../js/ajax.js"></script>
     <script async src="../js/ajax-dynamic-content.js"></script>
