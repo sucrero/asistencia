@@ -19,12 +19,10 @@
     $objAsis = new Asistencia();
     $objFest = new Festivo();
     
-    
-    
-    
     $datos = $_REQUEST['parametros'];
     
-    list($cargo,$dependencia,$condicion,$mes,$cedula,$anio) = explode(' ', $datos);
+    list($cargo,$dependencia,$condicion,$mes,$anio) = explode(' ', $datos);
+    
     $mesT = $mes;
     $dias = cal_days_in_month(CAL_GREGORIAN, $mes, $anio);
     $desde = $anio.'-'.$mes.'-01';
@@ -57,6 +55,8 @@
         
     }
     $numHabiles = count($habiles);
+    
+//    print_r($numHabiles);exit();
     
     if($cargo != 'TODOS' && $dependencia == 'TODOS' && $condicion == 'TODOS'){
         $where = " WHERE a.cargo = '".$cargo."'";
@@ -126,8 +126,8 @@
         $pm = 0;
         $pi = 0;
         $pmt = 0;
-        for($k = 0;$k < count($habiles);$k++){
-            if(isset($habiles[$k])){
+        for($k = 0;$k < $numHabiles;$k++){
+//            if(isset($habiles[$k])){
                 $sql = "SELECT * FROM asistencia WHERE idper = '".$personas[$j]['idper']."' AND fecha = '".$habiles[$k]."'";
 //                print_r($habiles[$k].'<br>');
                 if($objAsis->buscar($sql, $conexion)){
@@ -135,7 +135,7 @@
                 }else{
                     $inasis++;
                 }
-                $sql = "SELECT * FROM permiso_persona as a INNER JOIN permiso as b ON (a.idpermiso = b.idper) WHERE a.idpersona = '".$personas[$j]['idper']."' AND '".$habiles[$k]."' BETWEEN a.desde AND a.hasta";
+                $sql = "SELECT * FROM p$jermiso_persona as a INNER JOIN permiso as b ON (a.idpermiso = b.idper) WHERE a.idpersona = '".$personas[$j]['idper']."' AND '".$habiles[$k]."' BETWEEN a.desde AND a.hasta";
                 if($objPermi->buscar($sql, $conexion)){
                     if($conexion->registros > 0){
                         $permiso = $conexion->devolver_recordset();
@@ -148,7 +148,7 @@
                         }
                     }
                 }
-            }//fin iset
+//            }//fin iset
             
            
         }//fin dias habiles
@@ -213,6 +213,7 @@
         }
         
         function Footer() {
+            $this->SetY(-50);
             $this->SetFont('Arial', '', 8);
             $this->Cell(190, 5, html_entity_decode('Fecha de Env&iacute;o: __________',ENT_QUOTES,"ISO-8859-1"),0, 1, 'L');
             $this->Cell(190, 5, html_entity_decode('Fecha de Recepci&oacute;n: __________',ENT_QUOTES,"ISO-8859-1"),0, 1, 'L');
