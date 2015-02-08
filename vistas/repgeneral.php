@@ -10,25 +10,14 @@
         </legend>
         <div id="contmsj2"></div>         
                     
-        <legend><h1><small><b>Seleccione las fechas para generar el reporte</b></small></h1></legend>
+        <!--<legend><h1><small><b>Seleccione las fechas para generar el reporte</b></small></h1></legend>-->
 
-        <div class="control-group">
-            <div class="row">
-                <div class="span11 offset1">
-                    <label for="itxtcedrep">N&uacute;mero de C&eacute;dula:</label>
-                    <div class="input-append controls">
-                        <input id="itxtcedrep" name="N&uacute;mero de C&eacute;dula" onKeyPress="return numeros(event);" placeholder="Ingrese la c&eacute;dula"  size="75px" type="text" maxlength="8" autofocus>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
          <div class="control-group">
             <div class="row">
                 <div class="span11 offset1">
                     <label class="control-label span2" for="ilstmeses">Mes:</label>
                     <div class="controls">
-                        <select id="ilstmeses" class="span2" name="Meses"> 
+                        <select id="ilstmeses" class="span3" name="Meses"> 
                             <option value="-1">Seleccione...</option>
                             <option value="1">Enero</option>
                             <option value="2" selected="">Febrero</option>
