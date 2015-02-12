@@ -14,7 +14,7 @@ function registrar(){
                 'onSuccess':function(req){
                     var resp = eval("(" + req.responseText + ")");
                     if(resp == 1){
-                        cad[0] = "Cedula "+ced.value+" registrada exitosamente";
+                        cad[0] = "Asistencia "+ced.value+" registrada exitosamente";
                         claseError('#contmsj4',cad,'exito');
                         ced.value = "";
                         ced.focus();
