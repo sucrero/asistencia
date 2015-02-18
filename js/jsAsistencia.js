@@ -21,6 +21,9 @@ function registrar(){
                     }else if(resp == 2){
                         cad[0] = "Error al registrar";
                         claseError('#contmsj4',cad,'error');
+                    }else if(resp == 3){
+                        cad[0] = "Ya su asistencia fue registrada el dia de hoy, debe esperar el proximo dia";
+                        claseError('#contmsj4',cad,'error');
                     }else{
                         cad[0] = "La cedula ingresada no existe";
                         claseError('#contmsj4',cad,'error');

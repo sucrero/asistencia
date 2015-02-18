@@ -610,16 +610,39 @@
                 }        
                 break;
             case 'registrarAsis':
+                
+                
                 $sql = "SELECT * FROM personal WHERE cedper = '".$_REQUEST['ced']."'";
                 if($objAsi->buscar($sql, $conexion)){
                     if($conexion->registros > 0){
                         $res = $conexion->devolver_recordset();
-                        $objAsi->setPropiedades($res['idper']);
-                        if($objAsi->ingresar($conexion)){
-                            $res = 1;
+                        
+                        $sql = "SELECT count(*) as total FROM asistencia WHERE idper ='".$res['idper']."' AND fecha='".date('Y-m-d')."'";
+                        if ($objAsi->buscar($sql, $conexion)){
+                            if($conexion->registros > 0){
+                                $res2 = $conexion->devolver_recordset();
+                                if($res2['total'] > 1){
+                                    $w = 0;
+                                }else{
+                                    $w = 1;
+                                }
+                            }else{
+                                $w = 1;
+                            }
                         }else{
-                            $res = 2;
+                            $w = 1;
                         }
+                        if($w == 1){
+                            $objAsi->setPropiedades($res['idper']);
+                            if($objAsi->ingresar($conexion)){
+                                $res = 1;
+                            }else{
+                                $res = 2;
+                            }
+                        }else{
+                            $res = 3;//YA MARCO 2 VECES EN EL DIA
+                        }
+                        
                     }else{
                         $res = 0;//no existe persona con esa cedula
                     }

@@ -1,6 +1,6 @@
 <form class="well form-inline" id="formFestivo" role="form">
     <fieldset>
-        <legend>Registro de D&iacute;s Festivos
+        <legend>Registro de D&iacute;as No Laborables
             <div class="pull-right">
                 <a class="btn btn-primary" href="index.php">
                     <i class="icon-home icon-white"></i>

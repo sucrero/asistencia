@@ -74,12 +74,13 @@
             $this->Cell(190, 3, html_entity_decode("MINISTERIO DEL PODER POPULAR PARA LA EDUCACI&Oacute;N",ENT_QUOTES,"ISO-8859-1"), 0,1,C);
             $this->Cell(190, 3, html_entity_decode("GOBERNACI&Oacute;N DEL ESTADO SUCRE",ENT_QUOTES,"ISO-8859-1"), 0,1,C);
             $this->Cell(190, 3, html_entity_decode("DIRECCI&Oacute;N DE EDUCACI&Oacute;N",ENT_QUOTES,"ISO-8859-1"), 0,1,C);
-            $this->Cell(190, 3, "E.B. FRANCISCO DE MIRANDA", 0,1,C);
-            $this->Image('../img/logo_estadal.jpg', 180, 10, 20);
-            $this->Ln(5);
+            $this->Cell(190, 3, 'E.B. "FRANCISCO DE MIRANDA"', 0,1,C);
+            $this->Image('../img/logo_escuela.jpg', 100, 27, 12);
+            $this->Image('../img/logo_direccion.jpg', 180, 8, 20);
+            $this->Ln(18);
             $this->SetFont('Arial','', 10);
             $this->Cell(190, 8, $titulo,0, 0, 'C');
-            $this->Ln(15);
+            $this->Ln(10);
         }
         
         function Footer() {
