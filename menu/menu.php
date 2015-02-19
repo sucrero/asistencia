@@ -118,7 +118,7 @@ colorz: white;
         if($_SESSION['nivel'] == 'ADMINISTRADOR'){
             echo '<a class="menuitem" onclick="cargar_form(\'usuario\',\'contenedor\')">Usuario</a>
             <a class="menuitem" onclick="cargar_form(\'permiso\',\'contenedor\')">Permisos</a>
-            <a class="menuitem" onclick="cargar_form(\'festivo\',\'contenedor\')">D&iacute;as Festivos</a>
+            <a class="menuitem" onclick="cargar_form(\'festivo\',\'contenedor\')">D&iacute;as no Laborables</a>
             <a class="menuitem" onclick="cargar_form(\'horario\',\'contenedor\')">Horario</a>
             <a class="menuitem" onclick="cargar_form(\'personal\',\'contenedor\')">Personal</a>';
         }
