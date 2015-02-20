@@ -4,35 +4,44 @@ var id = '';
 function guardarFes(){
     var des = xGetElementById('itxtdescrip');
     var fec = xGetElementById('fecharg1');
+    var fec2 = xGetElementById('fecharg2');
     if(des.value != ''){
-        if(fec.value != ''){
-            AjaxRequest.post(
-                {
-                    'parameters':{'opcion':'guardarFes','des':des.value,'fec':fec.value},
-                    'url':'../Operaciones.php',
-                    'onSuccess':function(req){
-                        var resp = eval("(" + req.responseText + ")");
-                        if(resp == 1){
-                            limpiarFormFes('formFestivo');
-                            clase = "exito";
-                            cad[0] = "Registro guardado exisotamente";
-                            claseError('#contmsjFes',cad,clase);
-                        }else if(resp == 0){
-                            clase = "error";
-                            cad[0] = "No se pudo guarda el registro";
-                            claseError('#contmsjFes',cad,clase);
-                        }else{
-                            clase = "error";
-                            cad[0] = "Existe otro Dia Festivo con la misma fecha, verifique";
-                            claseError('#contmsjFes',cad,clase);
+        if(fec.value != '' || fec2.value != ''){
+            if (compararFechas2(fec.value,fec2.value)){
+                
+            
+                AjaxRequest.post(
+                    {
+                        'parameters':{'opcion':'guardarFes','des':des.value,'fec':fec.value,'fec2':fec2.value},
+                        'url':'../Operaciones.php',
+                        'onSuccess':function(req){
+                            var resp = eval("(" + req.responseText + ")");
+                            if(resp == 1){
+                                limpiarFormFes('formFestivo');
+                                clase = "exito";
+                                cad[0] = "Registro guardado exisotamente";
+                                claseError('#contmsjFes',cad,clase);
+                            }else if(resp == 0){
+                                clase = "error";
+                                cad[0] = "No se pudo guarda el registro";
+                                claseError('#contmsjFes',cad,clase);
+                            }else{
+                                clase = "error";
+                                cad[0] = "Existe otro Dia Festivo con la misma fecha, verifique";
+                                claseError('#contmsjFes',cad,clase);
+                            }
+
                         }
-                        
                     }
-                }
-            ) 
+                ) 
+            }else{
+                clase = "error";
+                cad[0] = "Verifique el periodo de fechas";
+                claseError('#contmsjFes',cad,clase);
+            }
         }else{
             clase = "error";
-            cad[0] = "De ingresar una fecha, verifique";
+            cad[0] = "De ingresar un periodo de fechas, verifique";
             claseError('#contmsjFes',cad,clase);
         }
     }else{
@@ -44,17 +53,18 @@ function guardarFes(){
 function limpiarFormFes(){
     var des = xGetElementById('itxtdescrip');
     var fec = xGetElementById('fecharg1');
+    var fec2 = xGetElementById('fecharg2');
     des.value = '';
-    fec.value = fechaActual();
+    fec2.value = fec.value = fechaActual();
     id = '';
     $("a#guardar").attr("onclick","valForm('formFestivo','guardarFes()');");
     des.focus();
 }
 
 function cargarTodosFes(){
-    var des = xGetElementById('itxtdesc');
-    des.value = '';
-    des.focus();
+//    var des = xGetElementById('itxtdesc');
+//    des.value = '';
+//    des.focus();
     AjaxRequest.post(
         {
             'parameters':{'opcion':'buscarTodosFes'},
@@ -94,7 +104,12 @@ function crearTablaFes(req,tipo,param){
                         .text(capitalizar(resp[i]['descfest']))
                     )
                     .append($("<td>")
+                        .attr("style", "text-align: center")
                         .text(resp[i]['fecha'].substr(8, 2)+'/'+resp[i]['fecha'].substr(5, 2)+'/'+resp[i]['fecha'].substr(0, 4))
+                    )
+                    .append($("<td>")
+                        .attr("style", "text-align: center")
+                        .text(resp[i]['fecha2'].substr(8, 2)+'/'+resp[i]['fecha2'].substr(5, 2)+'/'+resp[i]['fecha2'].substr(0, 4))
                     )
                     .append($("<td>")
                        .attr("style", "text-align: center;")
@@ -144,8 +159,10 @@ function crearTablaFes(req,tipo,param){
 function cargarFes(resp){
     var des = xGetElementById('itxtdescrip');
     var fec = xGetElementById('fecharg1');
+    var fec2 = xGetElementById('fecharg2');
     des.value = resp['descfest'];
     fec.value = resp['fecha'].substr(8, 2)+'/'+resp['fecha'].substr(5, 2)+'/'+resp['fecha'].substr(0, 4);
+    fec2.value = resp['fecha2'].substr(8, 2)+'/'+resp['fecha2'].substr(5, 2)+'/'+resp['fecha2'].substr(0, 4);
     id = resp['idfestivo'];
     $("a#guardar").attr("onclick","valForm('formFestivo','modificarFes()');");
 }
@@ -153,26 +170,33 @@ function cargarFes(resp){
 function modificarFes(){
     var des = xGetElementById('itxtdescrip');
     var fec = xGetElementById('fecharg1');
+    var fec2 = xGetElementById('fecharg2');
     if(des.value != ''){
-        if(fec.value != ''){
-            AjaxRequest.post(
-                {
-                    'parameters':{'opcion':'modificarFes','des':des.value,'fec':fec.value,'id':id},
-                    'url':'../Operaciones.php',
-                    'onSuccess':function(req){
-                        var resp = eval("(" + req.responseText + ")");
-                        if(resp == 1){
-                            limpiarFormFes('formFestivo');
-                            clase = "exito";
-                            cad[0] = "Registro modificado exisotamente";
-                        }else{
-                            clase = "error";
-                            cad[0] = "No se pudo modificar el registro";
+        if(fec.value != '' || fec2.value != ''){
+            if(compararFechas2(fec.value,fec2.value)){
+                AjaxRequest.post(
+                    {
+                        'parameters':{'opcion':'modificarFes','des':des.value,'fec':fec.value,'id':id,'fec2':fec2.value},
+                        'url':'../Operaciones.php',
+                        'onSuccess':function(req){
+                            var resp = eval("(" + req.responseText + ")");
+                            if(resp == 1){
+                                limpiarFormFes('formFestivo');
+                                clase = "exito";
+                                cad[0] = "Registro modificado exisotamente";
+                            }else{
+                                clase = "error";
+                                cad[0] = "No se pudo modificar el registro";
+                            }
+                            claseError('#contmsjFes',cad,clase);
                         }
-                        claseError('#contmsjFes',cad,clase);
                     }
-                }
-            ) 
+                ) 
+            }else{
+                clase = "error";
+                cad[0] = "Verifique el periodo de fechas";
+                claseError('#contmsjFes',cad,clase);
+            }
         }else{
             clase = "error";
             cad[0] = "De ingresar una fecha, verifique";

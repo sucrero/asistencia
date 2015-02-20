@@ -24,9 +24,14 @@
         <div class="control-group">
             <div class="row">
                 <div class="offset1 span12">
-                    <label class="control-label" for="dp1">Fecha:</label>
+                    <label class="control-label" for="dp1">Desde:</label>
                     <div class="input-append controls">
                         <input type="text" class="span8" value="<?php echo date('d/m/Y'); ?>" data-date-format="dd/mm/yyyy" id="fecharg1"/>
+                    </div>
+                
+                    <label class="control-label" for="dp2">Hasta:</label>
+                    <div class="input-append controls">
+                        <input type="text" class="span8" value="<?php echo date('d/m/Y'); ?>" data-date-format="dd/mm/yyyy" id="fecharg2"/>
                     </div>
                 </div>
             </div>
@@ -123,7 +128,8 @@
                         <tr>
                             <th style="text-align: center">Item</th>
                             <th style="text-align: center">Descripci&oacute;n</th>
-                            <th style="text-align: center">Fecha</th>
+                            <th style="text-align: center">Desde</th>
+                            <th style="text-align: center">Hasta</th>
                             <th style="text-align: center">Editar</th>
                             <th style="text-align: center;">Eliminar <input type="checkbox" id="elico" title="Seleccionar todos" onclick="verSel('all');"></th>
                         </tr>
@@ -148,6 +154,7 @@
             document.getElementById('itxtdescrip').focus();
             $(function(){
                 $('#fecharg1').datepicker();
+                $('#fecharg2').datepicker();
                 $('#dp1').datepicker();
                 $('#dp2').datepicker();
             });

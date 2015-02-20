@@ -1,6 +1,6 @@
 <?php
     session_start();
-    header("Content-type: application/pdf; charset=utf-8");
+//    header("Content-type: application/pdf; charset=utf-8");
     require '../clases/PDF_MC_Table.php';
     require_once '../clases/Personal.php';
     require_once '../clases/Horario.php';
@@ -27,15 +27,32 @@
     $dias = cal_days_in_month(CAL_GREGORIAN, $mes, $anio);
     $desde = $anio.'-'.$mes.'-01';
     $hasta =  $anio.'-'.$mes.'-'.$dias;
-    $habiles = '';
+    $habiles2 = '';
     $numHabiles = 0;
     for($i=1;$i <= $dias;$i++){
         $dia = date("N", strtotime($anio.'-'.$mes.'-'.$i));
         if($dia != 6 && $dia != 7){
-            $habiles[$numHabiles] = $anio.'-'.$mes.'-'.$i;
+            $habiles2[$numHabiles] = date('Y-m-d',strtotime($anio.'-'.$mes.'-'.$i));
             $numHabiles++;
         }
     }
+    
+    ////////// NUEVO /////
+//    print_r($habiles);
+//    print_r('<br><br><br>');
+    $j = 0;
+    for($i=0;$i < count($habiles2);$i++){
+        $sql = "SELECT * FROM diasfestivo WHERE fecha <= '".$habiles2[$i]."' AND fecha2 >= '".$habiles2[$i]."'";
+        if($objHora->buscar($sql, $conexion)){
+        }else{
+            $habiles[$j++] = $habiles2[$i];
+        }
+    }
+ 
+    /////////FIN NUEVO //////
+    
+    
+    
     
     $sql = "SELECT * FROM diasfestivo WHERE fecha >= '".$desde."' AND fecha <= '".$hasta."'";
     if($objFest->buscar($sql, $conexion)){
@@ -45,6 +62,7 @@
             $i++;
         }while(($conexion->siguiente()) && ($i != $conexion->registros));
     }
+    
     for($i = 0;$i < count($festivos);$i++){
         $w = 0;
         for($j = 0;$j < count($habiles);$j++){

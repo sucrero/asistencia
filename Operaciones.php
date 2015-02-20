@@ -402,12 +402,12 @@
                 }
                 break;
             case 'guardarFes':
-                $sql = "SELECT * FROM diasfestivo WHERE fecha = '".cambiarFormatoFecha($_REQUEST['fec'],'bdd')."'";
+                $sql = "SELECT * FROM diasfestivo WHERE fecha = '".cambiarFormatoFecha($_REQUEST['fec'],'bdd')."' AND fecha2 = '".cambiarFormatoFecha($_REQUEST['fec2'],'bdd')."'";
 //                print_r($sql);
                 if ($objFes->buscar($sql, $conexion)){
                     $res = 2;
                 }else{
-                    $objFes->setPropiedades($_REQUEST['des'], $_REQUEST['fec']);    
+                    $objFes->setPropiedades($_REQUEST['des'], $_REQUEST['fec'], $_REQUEST['fec2']);    
                     if($objFes->ingresar($conexion)){
                         $res = 1;
                     }else{
@@ -444,7 +444,8 @@
                 } 
                 break;
             case 'modificarFes':
-                $sql = "UPDATE diasfestivo SET descfest='".$_REQUEST['des']."', fecha='".$_REQUEST['fec']."' WHERE idfestivo='".$_REQUEST['id']."'";
+                $sql = "UPDATE diasfestivo SET descfest='".$_REQUEST['des']."', fecha='".$_REQUEST['fec']."', fecha2='".$_REQUEST['fec2']."' WHERE idfestivo='".$_REQUEST['id']."'";
+//                print_r($sql);exit();
                 $objFes->modificar($sql, $conexion);
                 $res = 1;
                 break;

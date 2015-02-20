@@ -33,8 +33,19 @@
                             <option value="12">Diciembre</option>
                         </select>
                         <label for="ilstanio">A&ntilde;o:</label>
-                        <select id="ilstanio" class="span2" name="Meses"> 
-                            <option value="2015" selected="">2015</option>
+                        <select id="ilstanio" class="span2" name="anio"> 
+                            <?php
+                                $base = 2015;
+                                $anio = date("Y");
+                                for($i = 0;$i <= ($anio - $base); $i++){
+                                    if($anio == date("Y"))
+                                        echo '<option value="'.$anio.'" selected="">'.$anio.'</option>';
+                                    else
+                                        echo '<option value="'.$anio.'">'.$anio.'</option>';
+                                    $anio = $anio - 1;
+                                }
+                            ?>
+                            
                         </select>
                     </div>
                 </div>
