@@ -106,8 +106,8 @@ colorz: white;
 
 </style>
 <?php
-    setlocale(LC_TIME, "es_VE.utf8");
-    echo "<b>Cuman&aacute;&sbquo; ".strftime("%d")." de ".ucwords(strftime("%B"))." de ".strftime("%Y")."</b>";
+    $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+    echo "<b>Cuman&aacute;&sbquo; ".strftime("%d")." de ".$meses[date('n')-1]." de ".strftime("%Y")."</b>";
     echo '<br>';
     echo '<br><b>Bienvenido:</b> '.$_SESSION['cuenta'];
     echo '<br><br>';
