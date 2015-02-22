@@ -77,35 +77,35 @@
 //    print_r($numHabiles);exit();
     
     if($cargo != 'TODOS' && $dependencia == 'TODOS' && $condicion == 'TODOS'){
-        $where = " WHERE a.cargo = '".$cargo."'";
+        $where = " WHERE a.status = 'ACTIVO' AND a.cargo = '".$cargo."'";
         $subtitulo = html_entity_decode("Cargo: ".$cargo.'  Dependencia: TODOS  Condici&oacute;n: TODOS',ENT_QUOTES,"ISO-8859-1");
     }
     else if($cargo == 'TODOS' && $dependencia != 'TODOS' && $condicion == 'TODOS'){
-        $where = " WHERE a.dependencia = '".$dependencia."'";
+        $where = " WHERE a.status = 'ACTIVO' AND a.dependencia = '".$dependencia."'";
         $subtitulo = html_entity_decode("Cargo: TODOS  Dependencia: ".$dependencia."  Condici&oacute;n: TODOS",ENT_QUOTES,"ISO-8859-1");
     }
     else if($cargo == 'TODOS' && $dependencia == 'TODOS' && $condicion != 'TODOS'){
-        $where = " WHERE a.condicion = '".$condicion."'";
+        $where = " WHERE a.status = 'ACTIVO' AND a.condicion = '".$condicion."'";
         $subtitulo = html_entity_decode("Cargo: TODOS  Dependencia: TODOS  Condici&oacute;n: ".$condicion,ENT_QUOTES,"ISO-8859-1");
     }
     else if($cargo != 'TODOS' && $dependencia != 'TODOS' && $condicion == 'TODOS'){
-        $where = " WHERE a.cargo = '".$cargo."' AND a.dependencia = '".$dependencia."'";
+        $where = " WHERE a.status = 'ACTIVO' AND a.cargo = '".$cargo."' AND a.dependencia = '".$dependencia."'";
         $subtitulo = html_entity_decode("Cargo: ".$cargo."  Dependencia: ".$dependencia."  Condici&oacute;n: TODOS",ENT_QUOTES,"ISO-8859-1");
     }
     else if($cargo == 'TODOS' && $dependencia != 'TODOS' && $condicion != 'TODOS'){
-        $where = " WHERE a.dependencia = '".$dependencia."' AND a.condicion = '".$condicion."'";
+        $where = " WHERE a.status = 'ACTIVO' AND a.dependencia = '".$dependencia."' AND a.condicion = '".$condicion."'";
         $subtitulo = html_entity_decode("Cargo: TODOS  Dependencia: ".$dependencia."  Condici&oacute;n: ".$condicion,ENT_QUOTES,"ISO-8859-1");
     }
     else if($cargo != 'TODOS' && $dependencia == 'TODOS' && $condicion != 'TODOS'){
-        $where = " WHERE a.condicion = '".$condicion."' AND a.cargo = '".$cargo."'";
+        $where = " WHERE a.status = 'ACTIVO' AND a.condicion = '".$condicion."' AND a.cargo = '".$cargo."'";
         $subtitulo = html_entity_decode("Cargo: ".$cargo."  Dependencia: TODOS  Condici&oacute;n: ".$condicion,ENT_QUOTES,"ISO-8859-1");
     }
     else if($cargo != 'TODOS' && $dependencia != 'TODOS' && $condicion != 'TODOS'){
-        $where = " WHERE a.condicion = '".$condicion."' AND a.cargo = '".$cargo."' AND a.dependencia = '".$dependencia."'";
+        $where = " WHERE a.status = 'ACTIVO' AND a.condicion = '".$condicion."' AND a.cargo = '".$cargo."' AND a.dependencia = '".$dependencia."'";
         $subtitulo = html_entity_decode("Cargo: ".$cargo."  Dependencia: ".$dependencia."  Condici&oacute;n: ".$condicion,ENT_QUOTES,"ISO-8859-1");
     }
     else if($cargo == 'TODOS' && $dependencia == 'TODOS' && $condicion == 'TODOS'){
-        $where = "";
+        $where = " WHERE a.status = 'ACTIVO'";
         $subtitulo = html_entity_decode("Cargo: TODOS  Dependencia: TODOS  Condici&oacute;n: TODOS",ENT_QUOTES,"ISO-8859-1");
     }
     

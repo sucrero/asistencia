@@ -126,6 +126,16 @@
                 ?>
             </div>
         </div>
+         <div class="control-group">
+             <label class="control-label" for="ilststatus">Estatus:</label>
+            <div class="controls">
+                <select id="ilststatus" disabled="" class="span7" name="Status personal"> 
+                    <option value="-1" selected="">Seleccione...</option>
+                    <option value="ACTIVO">Activo</option>
+                    <option value="INACTIVO">Inactivo</option>
+                </select>
+            </div>
+        </div>
         <div id="contmsj"></div>
 
             <div class="form-actions">

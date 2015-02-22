@@ -220,7 +220,7 @@
                 if($_REQUEST['idPer'] != ''){//MODIFICAR
                     
                 }else{//GUARDAR
-                    $objPer->setPropiedades($_REQUEST['doc'], $_REQUEST['nom'], $_REQUEST['ape'], $_REQUEST['cor'], $_REQUEST['dep'], $_REQUEST['tel'], $_REQUEST['car'], $_REQUEST['con']);
+                    $objPer->setPropiedades($_REQUEST['doc'], $_REQUEST['nom'], $_REQUEST['ape'], $_REQUEST['cor'], $_REQUEST['dep'], $_REQUEST['tel'], $_REQUEST['car'], $_REQUEST['con'], $_REQUEST['sta']);
                     if($objPer->ingresar($conexion)){
                         $sql = "SELECT * FROM personal WHERE cedper = '".$_REQUEST['doc']."'";
 //                        print_r($sql);                        die();
@@ -247,7 +247,7 @@
                     }
                 }
                 if($w == 1){
-                    $sql = "UPDATE personal SET cedper='".$_REQUEST['ced']."', nomper='".$_REQUEST['nom']."', apeper='".$_REQUEST['ape']."', emailper='".$_REQUEST['cor']."', dependencia='".$_REQUEST['dep']."', telfper='".$_REQUEST['tel']."', cargo='".$_REQUEST['car']."', condicion='".$_REQUEST['con']."' WHERE idper='".$_REQUEST['idPer']."'";
+                    $sql = "UPDATE personal SET cedper='".$_REQUEST['ced']."', nomper='".$_REQUEST['nom']."', apeper='".$_REQUEST['ape']."', emailper='".$_REQUEST['cor']."', dependencia='".$_REQUEST['dep']."', telfper='".$_REQUEST['tel']."', cargo='".$_REQUEST['car']."', condicion='".$_REQUEST['con']."', status='".$_REQUEST['sta']."' WHERE idper='".$_REQUEST['idPer']."'";
 //                    print_r($sql); exit();
                     $objPer->modificar($sql, $conexion);
                     

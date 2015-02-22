@@ -18,6 +18,7 @@ function buscarPer(){ //fina
     var hor = xGetElementById('ilsthorario');
     var dep = xGetElementById('ilstdependencia');
     var con = xGetElementById('ilstcondicion');
+    var sta = xGetElementById('ilststatus');
     $("#contmsj2").empty("");
     nom.value = "";
     ape.value = "";
@@ -45,6 +46,7 @@ function buscarPer(){ //fina
                             hor.disabled = false;
                             dep.disabled = false;
                             con.disabled = false;
+                            sta.disabled = false;
                             nom.focus();
                         }
                     }
@@ -67,11 +69,12 @@ function guardarPer(){//fina
     var hor = xGetElementById('ilsthorario');
     var dep = xGetElementById('ilstdependencia');
     var con = xGetElementById('ilstcondicion');
+    var sta = xGetElementById('ilststatus');
     if(val_Email('txtemail')){
         if(valTelf('txttelefono')){
             AjaxRequest.post(
                 {
-                    'parameters':{'opcion':'guardarPer','doc':doc.value,'nom':nom.value,'ape':ape.value,'cor':cor.value,'tel':tel.value,'car':car.value,'idPer':idPer,'hor':hor.value,'dep':dep.value,'con':con.value},
+                    'parameters':{'opcion':'guardarPer','doc':doc.value,'nom':nom.value,'ape':ape.value,'cor':cor.value,'tel':tel.value,'car':car.value,'idPer':idPer,'hor':hor.value,'dep':dep.value,'con':con.value,'sta':sta.value},
                     'url':'../Operaciones.php',
                     'onSuccess':function(req){
                         var resp = eval("(" + req.responseText + ")");
@@ -111,6 +114,7 @@ function limpiarFormPer(){//fina
     var hor = xGetElementById('ilsthorario');
     var dep = xGetElementById('ilstdependencia');
     var con = xGetElementById('ilstcondicion');
+    var sta = xGetElementById('ilststatus');
     var nroElement = objForm.length;
     for(i=0;i<nroElement;i++){
         if(objForm.elements[i].type == 'text' || objForm.elements[i].type == 'textarea' || objForm.elements[i].type == 'password'){
@@ -121,6 +125,7 @@ function limpiarFormPer(){//fina
     dep.value = -1;
     hor.value = -1;
     con.value = -1;
+    sta.value = -1;
 //    $("a#guardar").attr("onclick","valForm('formConsulta','guardarPer(\'g\')');");
     $("a#guardar").attr("onclick","valForm('formPersonal','guardarPer()');");
     $("a#btnbuscarper").attr("onclick","buscarPer();")
@@ -134,6 +139,7 @@ function limpiarFormPer(){//fina
     hor.disabled = true;
     dep.disabled = true;
     con.disabled = true;
+    sta.disabled = true;
     objFoco.disabled = false;
     objFoco.focus();
 }
@@ -381,7 +387,7 @@ function cargarPer(datos){//fina
     var hor = xGetElementById('ilsthorario');
     var dep = xGetElementById('ilstdependencia');
     var con = xGetElementById('ilstcondicion');
-    
+    var sta = xGetElementById('ilststatus');
     if(datos != ''){
         idPer = datos['idper'];
         ced.value = cedPer = datos['cedper'];
@@ -393,6 +399,7 @@ function cargarPer(datos){//fina
         hor.value = datos['h']['idhor'];
         dep.value = datos['dependencia'];
         con.value = datos['condicion'];
+        sta.value = datos['status'];
         nom.disabled = false;
         ape.disabled = false;
         cor.disabled = false;
@@ -401,6 +408,7 @@ function cargarPer(datos){//fina
         hor.disabled = false;
         dep.disabled = false;
         con.disabled = false;
+        sta.disabled = false;
         ced.focus();
         $("a#guardar").attr("onclick","valForm('formPersonal','modificarPer()');");
         $("a#btnbuscarper").addClass("disabled")
@@ -422,11 +430,12 @@ function modificarPer(){//fina
     var hor = xGetElementById('ilsthorario');
     var dep = xGetElementById('ilstdependencia');
     var con = xGetElementById('ilstcondicion');
+    var sta = xGetElementById('ilststatus');
     if(val_Email('txtemail')){
         if(valTelf('txttelefono')){
            AjaxRequest.post(
                 {
-                    'parameters':{'opcion':'modificarPer','ced':ced.value,'nom':nom.value,'ape':ape.value,'cor':cor.value,'tel':tel.value,'car':car.value,'hor':hor.value,'dep':dep.value,'con':con.value,'idPer':idPer,'cedPer':cedPer},
+                    'parameters':{'opcion':'modificarPer','ced':ced.value,'nom':nom.value,'ape':ape.value,'cor':cor.value,'tel':tel.value,'car':car.value,'hor':hor.value,'dep':dep.value,'con':con.value,'idPer':idPer,'cedPer':cedPer,'sta':sta.value},
                     'url':'../Operaciones.php',
                     'onSuccess':function(req){
                         var resp = eval("(" + req.responseText + ")");

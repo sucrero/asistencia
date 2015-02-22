@@ -19,18 +19,16 @@
                     <div class="controls">
                         <select id="ilstmeses" class="span3" name="Meses"> 
                             <option value="-1">Seleccione...</option>
-                            <option value="1">Enero</option>
-                            <option value="2" selected="">Febrero</option>
-                            <option value="3">Marzo</option>
-                            <option value="4">Abril</option>
-                            <option value="5">Mayo</option>
-                            <option value="6">Junio</option>
-                            <option value="7">Julio</option>
-                            <option value="8">Agosto</option>
-                            <option value="9">Septiembre</option>
-                            <option value="10">Octubre</option>
-                            <option value="11">Noviembre</option>
-                            <option value="12">Diciembre</option>
+                            <?php 
+                                $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+                                for($i = 0;$i < count($meses);$i++){
+                                    if($i == (date('n')-1)){
+                                        echo '<option value="'.($i+1).'" selected="">'.$meses[$i].'</option>';
+                                    }else{
+                                        echo '<option value="'.($i+1).'">'.$meses[$i].'</option>';
+                                    }
+                                }
+                            ?>
                         </select>
                         <label for="ilstanio">A&ntilde;o:</label>
                         <select id="ilstanio" class="span2" name="anio"> 
