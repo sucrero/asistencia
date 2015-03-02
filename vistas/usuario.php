@@ -38,11 +38,12 @@
                       <div class="controls">
                           <select id="ilstcargo" disabled="" class="span7" name="Tipo de Personal"> 
                               <option value="-1" selected="">Seleccione...</option>
-                              <option value="ADMINISTRATIVO">Administrativo</option>
-                              <option value="DOCENTE">Docente</option>
-                              <option value="OBRERO">Obrero</option>
-                              <option value="MADRE PROCESADORA">Madre Procesadora</option>
-                              <option value="VIGILANTE">Vigilante</option>
+                                <option value="ADMINISTRATIVO">Administrativo</option>
+                                <option value="DIRECTIVO">Directivo</option>
+                                <option value="DOCENTE">Docente</option>
+                                <option value="OBRERO">Obrero</option>
+                                <option value="MADRE PROCESADORA">Madre Procesadora</option>
+                                <option value="VIGILANTE">Vigilante</option>
                           </select>
                       </div>
                     </div>
@@ -50,11 +51,12 @@
                       <label class="control-label" for="ilstdependencia">Dependencia</label>
                       <div class="controls">
                           <select id="ilstdependencia" disabled="" class="span7" name="Dependencia"> 
-                              <option value="-1" selected="">Seleccione...</option>
-                              <option value="ALCALDIA">Alcaldia</option>
-                              <option value="ESTADAL">Estadal</option>
-                              <option value="NACIONAL">Nacional</option>
-                              <option value="OTRO">Otro</option>
+                             <option value="-1" selected="">Seleccione...</option>
+                    <option value="ALCALDIA">Alcaldia</option>
+                    <option value="ENCARGADO">Encargado(a)</option>
+                    <option value="ESTADAL">Estadal</option>
+                    <option value="NACIONAL">Nacional</option>
+                    <option value="OTRO">Otro</option>
                           </select>
                       </div>
                     </div>
@@ -62,11 +64,11 @@
                        <label class="control-label" for="ilstcondicion">Condici&oacute;n</label>
                       <div class="controls">
                           <select id="ilstcondicion" disabled="" class="span7" name="Condicion"> 
-                              <option value="-1" selected="">Seleccione...</option>
-                              <option value="COLABORADOR">Colaborador</option>
-                              <option value="INTERINO">Interino</option>
-                              <option value="SUPLENTE">Suplente</option>
-                              <option value="TITULAR">Titular</option>
+                               <option value="-1" selected="">Seleccione...</option>
+                    <option value="COLABORADOR">Colaborador</option>
+                    <option value="INTERINO">Interino</option>
+                    <option value="SUPLENTE">Suplente</option>
+                    <option value="TITULAR">Titular</option>
                           </select>
                       </div>
                     </div>
