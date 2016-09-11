@@ -137,7 +137,6 @@
                 $this->Cell(23, 5,'Horario',1, 1, 'C',true);
                 $this->SetFont('Arial','',7);
 //                $a = $e = $ne =0;
-                $p = 0;
                 for($i = 0;$i < $num;$i++){
                     if($i % 2 == 0){
                         $this->SetFillColor(255,255,255);
@@ -159,7 +158,6 @@
                     $this->SetWidths(array(7,15,42,19,25,32,27,23));
                     $this->SetAligns(array('C','R','L','C','L','L','L','L'));
                     $this->Row(array($nume,$cedPersona,$nomPersona,$telf,$dependencia,$cargo,$condicion,$horario));
-                    
                 } 
                 $this->Ln(5);
 //                $total = $a+$e+$ne;
@@ -205,7 +203,7 @@
     $pdf = new PDF();
     $pdf->AliasNbPages();
     $pdf->SetAutoPageBreak(true, 25);
-    $pdf->AddPage("P");
+    $pdf->AddPage();
     $pdf->contenido($res);
     $nombre = "personal.pdf";
     $pdf->Output($nombre,"I");

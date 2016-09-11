@@ -1,6 +1,6 @@
 <?php
     session_start();
-//    header("Content-type: application/pdf; charset=utf-8");
+    //header("Content-type: application/pdf; charset=utf-8");
     require '../clases/PDF_MC_Table.php';
     require_once '../clases/Personal.php';
     require_once '../clases/Horario.php';
@@ -23,7 +23,8 @@
     
     list($cargo,$dependencia,$condicion,$mes,$anio) = explode(' ', $datos);
     
-    $mesT = $mes;
+    //$mes = '0'.$mes;
+   $mesT = $mes;
     $dias = cal_days_in_month(CAL_GREGORIAN, $mes, $anio);
     $desde = $anio.'-'.$mes.'-01';
     $hasta =  $anio.'-'.$mes.'-'.$dias;
@@ -37,7 +38,7 @@
         }
     }
     
-    ////////// NUEVO /////
+       ////////// NUEVO /////
 //    print_r($habiles);
 //    print_r('<br><br><br>');
     $j = 0;
@@ -55,6 +56,7 @@
     
     
     $sql = "SELECT * FROM diasfestivo WHERE fecha >= '".$desde."' AND fecha <= '".$hasta."'";
+    //print_r($sql); exit();
     if($objFest->buscar($sql, $conexion)){
         $i = 0;
         do{
@@ -62,7 +64,6 @@
             $i++;
         }while(($conexion->siguiente()) && ($i != $conexion->registros));
     }
-    
     for($i = 0;$i < count($festivos);$i++){
         $w = 0;
         for($j = 0;$j < count($habiles);$j++){
@@ -75,6 +76,7 @@
     $numHabiles = count($habiles);
     
 //    print_r($numHabiles);exit();
+    
     
     if($cargo != 'TODOS' && $dependencia == 'TODOS' && $condicion == 'TODOS'){
         $where = " WHERE a.status = 'ACTIVO' AND a.cargo = '".$cargo."'";
@@ -110,7 +112,6 @@
     }
     
     
-    
     $sql = "SELECT * FROM personal as a
                 JOIN horario_persona as b ON (a.idper = b.idper)
                 JOIN horario as c ON (b.idhor = c.idhor)".$where." ORDER BY nomper,apeper ASC";
@@ -127,6 +128,7 @@
     }
     
     $sql = "SELECT * FROM asistencia WHERE fecha >= '".$desde."' AND fecha <= '".$hasta."'";
+    //print_r($sql); exit();
     if($objAsis->buscar($sql, $conexion)){
         $i = 0;
         do{
@@ -146,14 +148,16 @@
         $pmt = 0;
         for($k = 0;$k < $numHabiles;$k++){
 //            if(isset($habiles[$k])){
+	
                 $sql = "SELECT * FROM asistencia WHERE idper = '".$personas[$j]['idper']."' AND fecha = '".$habiles[$k]."'";
+               // print_r($sql); exit();
 //                print_r($habiles[$k].'<br>');
                 if($objAsis->buscar($sql, $conexion)){
                     $asis++;
                 }else{
                     $inasis++;
                 }
-                $sql = "SELECT * FROM p$jermiso_persona as a INNER JOIN permiso as b ON (a.idpermiso = b.idper) WHERE a.idpersona = '".$personas[$j]['idper']."' AND '".$habiles[$k]."' BETWEEN a.desde AND a.hasta";
+                $sql = "SELECT * FROM permiso_persona as a INNER JOIN permiso as b ON (a.idpermiso = b.idper) WHERE a.idpersona = '".$personas[$j]['idper']."' AND '".$habiles[$k]."' BETWEEN a.desde AND a.hasta";
                 if($objPermi->buscar($sql, $conexion)){
                     if($conexion->registros > 0){
                         $permiso = $conexion->devolver_recordset();
@@ -179,7 +183,7 @@
     }
 
     class PDF extends PDF_MC_Table{
-        function Header() {$this->SetFont('Arial','', 10);
+         function Header() {$this->SetFont('Arial','', 10);
             $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 //            global $titulo; 
             global $subtitulo;
