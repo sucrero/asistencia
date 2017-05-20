@@ -30,7 +30,6 @@
         public function ingresar($conexion){
             $sql = "INSERT INTO usuario (nombreusu,claveusu,tipousu,fechausu,statususu,idper) VALUES 
                 ('$this->_login','$this->_clave','$this->_tipo','$this->_fecha','ACTIVO','$this->_persona')";
-//            print_r($sql);
             if($consulta = $conexion->ejecutarSql($sql)){
                 return $consulta;
             }

@@ -18,9 +18,7 @@
         }
         
         public function ingresar($conexion){
-            $sql = "INSERT INTO asistencia (idper,hora,fecha) VALUES 
-                ('$this->_idpersona','$this->_hora','$this->_fecha')";
-//            print_r($sql);            die();
+            $sql = "INSERT INTO asistencia (idper,hora,fecha) VALUES ('$this->_idpersona','$this->_hora','$this->_fecha')";
             if($consulta = $conexion->ejecutarSql($sql)){
                 return $consulta;
             }

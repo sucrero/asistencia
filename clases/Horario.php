@@ -16,7 +16,6 @@ class Horario
     public function ingresar($conexion){
             $sql = "INSERT INTO horario (horentrada,horasalida,descripcionhor) VALUES 
                 ('$this->_horaentrada','$this->_horasalida','$this->_descripcion')";
-//            print_r($sql);            exit();
             if($consulta = $conexion->ejecutarSql($sql)){
                 return $consulta;
             }

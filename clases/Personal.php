@@ -41,14 +41,12 @@
         public function ingresar($conexion){
             $sql = "INSERT INTO personal (cedper,nomper,apeper,emailper,dependencia,telfper,cargo,condicion,status) VALUES 
                 ('$this->_cedula','$this->_nombre','$this->_apellido','$this->_correo','$this->_dependencia','$this->_telefono','$this->_cargo','$this->_condicion','$this->_status')";
-//            print_r($sql);            exit();
             if($consulta = $conexion->ejecutarSql($sql)){
                 return $consulta;
             }
         }
         
         public function buscar($sql,$conexion){
-//    print_r($sql);
             if($conexion->ejecutarSql($sql)){
                 if($conexion->registros > 0){
                     $consulta = $conexion->devolver_recordset();

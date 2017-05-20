@@ -22,7 +22,6 @@
         }
         
         public function buscar($sql,$conexion){
-//    print_r($sql);
             if($conexion->ejecutarSql($sql)){
                 if($conexion->registros > 0){
                     $consulta = $conexion->devolver_recordset();

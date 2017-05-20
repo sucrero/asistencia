@@ -28,14 +28,12 @@
         public function ingresar($conexion){
             $sql = "INSERT INTO permiso_persona (idpersona,desde,hasta,descripcionper,idpermiso) VALUES 
                 ('$this->_idpersona','$this->_desde','$this->_hasta','$this->_descripcion','$this->_idpermiso')";
-//            print_r($sql);            exit();
             if($consulta = $conexion->ejecutarSql($sql)){
                 return $consulta;
             }
         }
         
         public function buscar($sql,$conexion){
-//    print_r($sql);
             if($conexion->ejecutarSql($sql)){
                 if($conexion->registros > 0){
                     $consulta = $conexion->devolver_recordset();
