@@ -426,6 +426,7 @@ function compararFechas2(f1,f2)
 function val_Email(obj){
     var valor = document.getElementById(obj).value;
     var reMail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    
     return reMail.test(valor);
 //    if (valor) {
 //        if ((/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(valor)) == false) {
