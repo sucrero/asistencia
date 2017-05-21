@@ -24,8 +24,6 @@ body {
 	margin-top: 0px;
 	margin-right: 0px;
 	margin-bottom: 0px;
-/*        padding-top: 260px;
-        padding-bottom: 40px;*/
 }
 
 textArea{resize: none;}
@@ -66,14 +64,6 @@ textArea{resize: none;}
 	color: #FF9900;
 	text-decoration: none;
 }
-
-/*.titulospequenosAzules {
-
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 10px;
-	color: #003366;
-	text-decoration: none;
-}*/
 .titulosmedianosAzules {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 14px;
@@ -116,12 +106,6 @@ label{
     color: #003366;
     text-decoration: none;
 }
-
-/*input{
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    width: 300px;
-}*/
-
 .oblig{
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 9px;
@@ -197,7 +181,6 @@ a{
 .colorCelda{
 left:auto;
 background:#C7E1F3 none repeat scroll 0 0;
-/*background:#F2F2F2 none repeat scroll 0 0;*/
 color:#333333;
 font-family:Arial,Helvetica,sans-serif;
 font-size:13px;
@@ -213,7 +196,6 @@ padding:4px 4px 4px 8px;
 .colorCelda2{
 left:auto;
 background: #dfb none repeat scroll 0 0;
-/*background:#F2F2F2 none repeat scroll 0 0;*/
 color: #FFFFAA;
 font-family:Arial,Helvetica,sans-serif;
 font-size:13px;
@@ -261,27 +243,3 @@ line-height:normal;
     text-align: left;
     
 }
-
-/* BORDE LUMINOSO AZUL
-input,select,textArea{
-    border:2px solid #dadada;
-    border-radius:7px;
-    font-size:11px;
-    padding:5px; 
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    width: 300px;
-}
-input[type="radio"],input[type="checkbox"] {
-    width: 15%;
-}
-
-input:focus,select:focus,textArea:focus { 
-    outline:none;
-    border-color:#9ecaed;
-    box-shadow:0 0 10px #9ecaed;
-}
-FIN BORDE LUMINO AZUL*/
-/*.inputsinfondo{
-    border: 0px;
-    background-color: transparent;
-}*/
