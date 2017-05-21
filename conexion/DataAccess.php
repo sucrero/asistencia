@@ -12,7 +12,6 @@
             require_once $this->motor.'.php';
             if (class_exists($this->motor)){ 
                 $this->objeto=new $this->motor();
-//                print_r($motor);
                 $this->objeto->conectar($host, $user, $password, $database);
                 if ($this->objeto->conectado) {
                     return true;

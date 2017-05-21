@@ -17,10 +17,7 @@
             }
         }		
         function conectar($host, $user, $password, $database){
-//              print_r('conexion: '.$host.' '.$user.' '.$password.' '.$database);
-            //$this->conexion = pg_connect("dbname=carrocar_sigespro host=127.0.0.1 user=carrocar_usersigespro password=Osfran..1705") or die("<br>ERROR AL ACCEDER A LA BDD</br>");
             $this->conexion=@pg_connect("dbname=$database host=$host user=$user password=$password");
-//                    print_r('conexion: '.$this->conexion.'   '.$host);
             if ($this->conexion){
                 $this->conectado=true;
                 return true;
@@ -45,13 +42,12 @@
         }
 
         function ejecutarSql($sql){
-//            print_r('hola: ');
             if ($this->conectado){
                 if ($this->resultado = pg_query($this->conexion, $sql)){
                     if(pg_affected_rows($this->resultado)>=0){
                         $this->rowset=pg_fetch_assoc($this->resultado);
                         $this->registros= pg_num_rows($this->resultado);
-                        return true; //pg_affected_rows($this->resultado);
+                        return true;
                     }
                 }
             }
