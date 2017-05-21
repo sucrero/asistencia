@@ -333,7 +333,6 @@
                 $("#contmsjmodal2").empty();
                 $("#contmsjmodal3").empty();
                 $("#contmsjmodal4").empty();
-//                $("#contmsjmodal4").empty();
                 xGetElementById('ilstcargobus').value = -1;
                 xGetElementById('ilstdependenciabus').value = -1;
                 xGetElementById('ilstcondicionbus').value = -1;

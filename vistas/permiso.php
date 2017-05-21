@@ -248,36 +248,20 @@
         </div>
         <!--FIN MENSAJE MODAL-->
         <script>
-//          document.getElementById('ilstpersonal').focus();
             $(function(){
                 $('#fecharg1').datepicker();
                 $('#fecharg2').datepicker();
                 $('#dp1').datepicker();
                 $('#dp2').datepicker();
             });
-//            tabe = document.getElementById('tab');
-                
             $('a[data-toggle="tab"]').on('shown', function (e) {
                 
                 $("#contmsjmodal1").empty();
                 xGetElementById('ilstpermisobus').value = -1;
                 xGetElementById('dp1').value = fechaActual();
                 xGetElementById('dp2').value = fechaActual();
-//                alert("hola = "+tabe.class);
                 cargarTodosPerm();
             })
-            
-            
-            
-//            $('a[href="permiso"]').click(function (e) {
-//                $("a#buscarPer").attr("onclick","qqqqqqqqqqqqqqqqqqqqqq");
-//            })
-//            
-//            $('a[href="fecha"]').click(function (e) {
-//                $("a#buscarPer").attr("onclick","fdfvfdvfd");
-//            })
-
-//            $('#eliminarCor').confirmation('show');
             $('[data-toggle="confirmation"]').confirmation(
                 {
                     

@@ -74,7 +74,6 @@
         function Header() {
             global $titulo;            
             $size = 15;
-//            $absx = (210 - $size) / 2;
             $this->SetFont('Arial','', 8);
             $this->Image('../img/logo_nacional.jpg', $absx, 5, 20);
             $this->Cell(190, 3, html_entity_decode("REP&Uacute;BLICA BOLIVARIANA DE VENEZUELA",ENT_QUOTES,"ISO-8859-1"), 0,1,C);
@@ -140,40 +139,6 @@
                                       
                 } 
                 $this->Ln(5);
-//                $total = $a+$e+$ne;
-//                
-//                $porcA = ($a*100)/$total;
-//                $porcE = ($e*100)/$total;
-//                $porcNE = ($ne*100)/$total;
-//                
-//              
-//                //GRAFICO
-//                include '../jpgraph/src/jpgraph.php';
-//                include '../jpgraph/src/jpgraph_pie.php';
-//                include '../jpgraph/src/jpgraph_pie3d.php';
-//                
-//                
-//                $data = array($porcA,$porcE,$porcNE);
-//                
-//                $grafico = new PieGraph(500, 300, "auto");
-//                $grafico->SetShadow();
-////                $grafico->title->Set("Notificaciones Registradas");
-//                $grafico->title->SetFont(FF_FONT1,FS_BOLD);
-//                
-//                $torta = new PiePlot3D($data);
-//                $torta->SetShadow();
-//                $torta->SetSize(0.3);
-//                $torta->SetCenter(0.5);
-//                $torta->SetLegends(array("Asignadas","Entregadas", "No Entregadas"));
-//                
-//                $grafico->Add($torta);
-//      
-//                $img = $grafico->Stroke( _IMG_HANDLER);
-//                $filename = "chart.png";
-//                $grafico->img->Stream($filename);
-//                $this->Image($filename);
-                //FIN GRAFICO
-                
             }else{
                 $this->SetFont('Arial','B',20);
                 $this->Cell(180, 5,'NO EXISTEN REGISTROS PARA MOSTRAR', 0, 1, 'C');
@@ -187,94 +152,3 @@
     $pdf->contenido($res);
     $nombre = "permisos";
     $pdf->Output($nombre,"I");
-    
-    
-//    Array ( 
-//    [0] => Array ( 
-//        [idper] => 29 
-//        [cedper] => 12345678 
-//        [nombreper] => JUAN PEREZ 
-//        [cargo] => ADMINISTRATIVO 
-//        [horaentrada] => 07:00:00 
-//        [horasalida] => 12:00:00 
-//        [descrihor] => ADMINISTRATIVOS 
-//        [condicion] => TITULAR 
-//        [dependencia] => ESTADAL 
-//        [fecha] => 2015-02-03 
-//        [entrada] => 08:40:59 
-//        [salida] => 11:41:32 
-//        [inas] => 4 ) 
-//    [1] => Array ( 
-//        [idper] => 30 
-//        [cedper] => 12345679 
-//        [nombreper] => CARMEN LARA 
-//        [cargo] => ADMINISTRATIVO 
-//        [horaentrada] => 07:00:00 
-//        [horasalida] => 12:30:00 
-//        [descrihor] => DOCENTE 
-//        [condicion] => TITULAR 
-//        [dependencia] => NACIONAL 
-//        [fecha] => 2015-02-03 
-//        [entrada] => 07:00:48 
-//        [salida] => 12:41:59 
-//        [inas] => 4 ) 
-//    [2] => Array ( 
-//        [idper] => 31 
-//        [cedper] => 12345666 
-//        [nombreper] => CARLOS LOPEZ 
-//        [cargo] => ADMINISTRATIVO 
-//        [horaentrada] => 07:00:00 
-//        [horasalida] => 12:00:00 
-//        [descrihor] => ADMINISTRATIVOS 
-//        [condicion] => INTERINO 
-//        [dependencia] => ALCALDIA 
-//        [fecha] => 2015-02-03 
-//        [entrada] => 06:41:27 
-//        [salida] => 12:00:36 
-//        [asis] => 4 ) 
-//    [3] => Array ( 
-//        [idper] => 29 
-//        [cedper] => 12345678 
-//        [nombreper] => JUAN PEREZ 
-//        [cargo] => ADMINISTRATIVO 
-//        [horaentrada] => 07:00:00 
-//        [horasalida] => 12:00:00 
-//        [descrihor] => ADMINISTRATIVOS 
-//        [condicion] => TITULAR 
-//        [dependencia] => ESTADAL 
-//        [fecha] => 2015-02-07 
-//        [entrada] => 08:40:59 
-//        [salida] => 11:41:32 
-//        [inas] => 2 ) 
-//    [4] => Array ( 
-//        [idper] => 31 
-//        [cedper] => 12345666 
-//        [nombreper] => CARLOS LOPEZ 
-//        [cargo] => ADMINISTRATIVO 
-//        [horaentrada] => 07:00:00 
-//        [horasalida] => 12:00:00 
-//        [descrihor] => ADMINISTRATIVOS 
-//        [condicion] => INTERINO 
-//        [dependencia] => ALCALDIA 
-//        [fecha] => 2015-02-07 
-//        [entrada] => 06:41:27 
-//        [salida] => 12:00:36 
-//        [asis] => 2 ) 
-//    [5] => Array ( 
-//        [idper] => 30 
-//        [cedper] => 12345679 
-//        [nombreper] => CARMEN LARA 
-//        [cargo] => ADMINISTRATIVO 
-//        [horaentrada] => 07:00:00 
-//        [horasalida] => 12:30:00 
-//        [descrihor] => DOCENTE 
-//        [condicion] => TITULAR 
-//        [dependencia] => NACIONAL 
-//        [fecha] => 2015-02-07 
-//        [entrada] => 07:00:48 
-//        [salida] => 12:41:59 
-//        [inas] => 2 ) ) 
-    
-    
-    
-?>

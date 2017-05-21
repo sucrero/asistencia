@@ -1,6 +1,5 @@
 <?php
     session_start();
-//    header("Content-type: application/pdf; charset=utf-8");
     require '../clases/PDF_MC_Table.php';
     require_once '../clases/Personal.php';
     require_once '../clases/Horario.php';
@@ -36,10 +35,6 @@
             $numHabiles++;
         }
     }
-    
-    ////////// NUEVO /////
-//    print_r($habiles);
-//    print_r('<br><br><br>');
     $j = 0;
     for($i=0;$i < count($habiles2);$i++){
         $sql = "SELECT * FROM diasfestivo WHERE fecha <= '".$habiles2[$i]."' AND fecha2 >= '".$habiles2[$i]."'";
@@ -48,12 +43,6 @@
             $habiles[$j++] = $habiles2[$i];
         }
     }
- 
-    /////////FIN NUEVO //////
-    
-    
-    
-    
     $sql = "SELECT * FROM diasfestivo WHERE fecha >= '".$desde."' AND fecha <= '".$hasta."'";
     if($objFest->buscar($sql, $conexion)){
         $i = 0;
@@ -73,8 +62,6 @@
         
     }
     $numHabiles = count($habiles);
-    
-//    print_r($numHabiles);exit();
     
     if($cargo != 'TODOS' && $dependencia == 'TODOS' && $condicion == 'TODOS'){
         $where = " WHERE a.status = 'ACTIVO' AND a.cargo = '".$cargo."'";
@@ -108,14 +95,11 @@
         $where = " WHERE a.status = 'ACTIVO'";
         $subtitulo = html_entity_decode("Cargo: TODOS  Dependencia: TODOS  Condici&oacute;n: TODOS",ENT_QUOTES,"ISO-8859-1");
     }
-    
-    
-    
+        
+   
     $sql = "SELECT * FROM personal as a
                 JOIN horario_persona as b ON (a.idper = b.idper)
                 JOIN horario as c ON (b.idhor = c.idhor)".$where." ORDER BY nomper,apeper ASC";
-
-//    print_r($sql); exit();
     if($objPers->buscar($sql, $conexion)){
         $i = 0;
         do{
@@ -137,7 +121,6 @@
         
     }
     
-//    print_r($habiles); exit();
     for($j = 0;$j < count($personas);$j++){
         $asis = 0;
         $inasis = 0;
@@ -145,9 +128,7 @@
         $pi = 0;
         $pmt = 0;
         for($k = 0;$k < $numHabiles;$k++){
-//            if(isset($habiles[$k])){
                 $sql = "SELECT * FROM asistencia WHERE idper = '".$personas[$j]['idper']."' AND fecha = '".$habiles[$k]."'";
-//                print_r($habiles[$k].'<br>');
                 if($objAsis->buscar($sql, $conexion)){
                     $asis++;
                 }else{
@@ -166,11 +147,8 @@
                         }
                     }
                 }
-//            }//fin iset
-            
-           
         }//fin dias habiles
-//        exit();
+
         $personas[$j]['asis'] = $asis;
         $personas[$j]['inasis'] = $inasis;
         $personas[$j]['pm'] = $pm;
@@ -181,12 +159,10 @@
     class PDF extends PDF_MC_Table{
         function Header() {$this->SetFont('Arial','', 10);
             $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-//            global $titulo; 
             global $subtitulo;
             global $numHabiles;
             global $mesT;
             $size = 25;
-//            $absx = (210 - $size) / 2;
             $this->SetFont('Arial','', 8);
             $this->Image('../img/logo_nacional.jpg', $absx, 5, 20);
             $this->Cell(190, 3, html_entity_decode("REP&Uacute;BLICA BOLIVARIANA DE VENEZUELA",ENT_QUOTES,"ISO-8859-1"), 0,1,C);
@@ -280,17 +256,8 @@
                 $this->Cell(16, 5,'Asis',1, 0, 'C');
                 $this->Cell(16, 5,'Inas y/o P.M',1, 1, 'C');
                 $this->SetFont('Arial','',7);
-//                $a = $e = $ne =0;
-//                $diaHabiles = 0;
-//                $diasNoHabiles = 0;
                 $num = count($res);
                 for($i = 0;$i < $num;$i++){
-                    
-//                    if($i % 2 == 0){
-//                        $this->SetFillColor(255,255,255);
-//                    }else{
-//                        $this->SetFillColor(0,191,255);
-//                    }
                     $nume = ($i+1);
                     $nombre = ucwords(strtolower(utf8_decode($res[$i]['apeper'].' '.$res[$i]['nomper'])));
                     $cedula = number_format($res[$i]['cedper'],'0','','.');
@@ -306,40 +273,6 @@
                                       
                 } 
                 $this->Ln(5);
-//                $total = $a+$e+$ne;
-//                
-//                $porcA = ($a*100)/$total;
-//                $porcE = ($e*100)/$total;
-//                $porcNE = ($ne*100)/$total;
-//                
-//              
-//                //GRAFICO
-//                include '../jpgraph/src/jpgraph.php';
-//                include '../jpgraph/src/jpgraph_pie.php';
-//                include '../jpgraph/src/jpgraph_pie3d.php';
-//                
-//                
-//                $data = array($porcA,$porcE,$porcNE);
-//                
-//                $grafico = new PieGraph(500, 300, "auto");
-//                $grafico->SetShadow();
-////                $grafico->title->Set("Notificaciones Registradas");
-//                $grafico->title->SetFont(FF_FONT1,FS_BOLD);
-//                
-//                $torta = new PiePlot3D($data);
-//                $torta->SetShadow();
-//                $torta->SetSize(0.3);
-//                $torta->SetCenter(0.5);
-//                $torta->SetLegends(array("Asignadas","Entregadas", "No Entregadas"));
-//                
-//                $grafico->Add($torta);
-//      
-//                $img = $grafico->Stroke( _IMG_HANDLER);
-//                $filename = "chart.png";
-//                $grafico->img->Stream($filename);
-//                $this->Image($filename);
-                //FIN GRAFICO
-                
             }else{
                 $this->SetFont('Arial','B',20);
                 $this->Cell(190, 5,'NO EXISTEN REGISTROS PARA MOSTRAR', 0, 1, 'C');

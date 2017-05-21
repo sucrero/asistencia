@@ -56,9 +56,7 @@
             <h5>Mensaje</h5>
             </div>
             <div class="modal-body alert-success">
-                <!--<div class="alert alert-success">-->
                 <h3>Contrase&ntilde;a modificada con &eacute;xito !!!!</h3>
-                <!--</div>-->
             </div>
             <div class="modal-footer">
                 <a href="#" id="cerrar" class="btn btn-primary" data-dismiss="modal">Cerrar</a>

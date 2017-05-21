@@ -85,11 +85,6 @@
                             </fieldset>
                         </form>
                         <div class="form-actions">
-<!--                            <div id="contmsjmodal1"></div>
-                            <a class="btn btn-primary" id="guardar" onclick="buscarxPalFes();">
-                                <i class="icon-search icon-white"></i>
-                                    Buscar
-                            </a>-->
                             <a class="btn btn-primary" id="limpiar" onclick="limpiarTabFes(1);">
                                 <i class="icon-trash icon-white"></i>
                                     Limpiar

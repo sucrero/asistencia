@@ -15,7 +15,6 @@
                             <input id="itxtdescrip" name="Descripci&oacu&oacute;n horario" placeholder="Ingrese una descripci&oacute;n" type="text" maxlength="99" autofocus>
                         </div>
                     </div>
-                    <!--<legend><h1><small><input type="checkbox" checked="" value="L" id="dia1" name="eli_dia[]"/> Lunes</small></h1></legend>-->
                     <div class="control-group">
                         <div class="row">
                             <div class="span8 offset2">
@@ -99,27 +98,10 @@
         </div>
         <!--FIN MENSAJE MODAL-->
         <script>
-//            document.getElementById('itxtnrodocumento').focus();
             $(function(){
                 $('#datetimepicker1').datetimepicker({pickDate: false});
-                $('#datetimepicker2').datetimepicker({pickDate: false});
-//                $('#datetimepicker3').datetimepicker({pickDate: false});
-//                $('#datetimepicker4').datetimepicker({pickDate: false});	
+                $('#datetimepicker2').datetimepicker({pickDate: false});	
             });
-
-                
-//            $('a[data-toggle="tab"]').on('shown', function (e) {
-//                $("#contmsjmodal1").empty();
-//                $("#contmsjmodal2").empty();
-//                $("#contmsjmodal3").empty();
-//                xGetElementById('itxtdoccont').value = "";
-//                xGetElementById('itxtcedope').value = "";
-//                xGetElementById('dp1').value = fechaActual();
-//                xGetElementById('dp2').value = fechaActual();
-//                cargarTodosHor();
-//            })
-
-//            $('#eliminarCor').confirmation('show');
             $('[data-toggle="confirmation"]').confirmation(
                 {
                     "placement" : "top",
@@ -128,9 +110,5 @@
                     "onConfirm" : function(){eliminarHor();}
                 }
             );
-//            $('#eliminarCor').confirmation('onComplete',function(){
-//                eliminarCor(1,2);
-//            });
-
         </script>
           

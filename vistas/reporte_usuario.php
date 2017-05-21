@@ -67,7 +67,6 @@
         function Header() {
             global $titulo;            
             $size = 15;
-//            $absx = (210 - $size) / 2;
             $this->SetFont('Arial','', 8);
             $this->Image('../img/logo_nacional.jpg', $absx, 5, 20);
             $this->Cell(190, 3, html_entity_decode("REP&Uacute;BLICA BOLIVARIANA DE VENEZUELA",ENT_QUOTES,"ISO-8859-1"), 0,1,C);
@@ -147,40 +146,6 @@
                                       
                 } 
                 $this->Ln(5);
-//                $total = $a+$e+$ne;
-//                
-//                $porcA = ($a*100)/$total;
-//                $porcE = ($e*100)/$total;
-//                $porcNE = ($ne*100)/$total;
-//                
-//              
-//                //GRAFICO
-//                include '../jpgraph/src/jpgraph.php';
-//                include '../jpgraph/src/jpgraph_pie.php';
-//                include '../jpgraph/src/jpgraph_pie3d.php';
-//                
-//                
-//                $data = array($porcA,$porcE,$porcNE);
-//                
-//                $grafico = new PieGraph(500, 300, "auto");
-//                $grafico->SetShadow();
-////                $grafico->title->Set("Notificaciones Registradas");
-//                $grafico->title->SetFont(FF_FONT1,FS_BOLD);
-//                
-//                $torta = new PiePlot3D($data);
-//                $torta->SetShadow();
-//                $torta->SetSize(0.3);
-//                $torta->SetCenter(0.5);
-//                $torta->SetLegends(array("Asignadas","Entregadas", "No Entregadas"));
-//                
-//                $grafico->Add($torta);
-//      
-//                $img = $grafico->Stroke( _IMG_HANDLER);
-//                $filename = "chart.png";
-//                $grafico->img->Stream($filename);
-//                $this->Image($filename);
-                //FIN GRAFICO
-                
             }else{
                 $this->SetFont('Arial','B',20);
                 $this->Cell(190, 5,'NO EXISTEN REGISTROS PARA MOSTRAR', 0, 1, 'C');
@@ -194,4 +159,3 @@
     $pdf->contenido($res);
     $nombre = "permisos";
     $pdf->Output($nombre,"I");
-?>

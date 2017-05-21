@@ -9,9 +9,6 @@
             </div>
         </legend>
         <div id="contmsj2"></div>         
-                    
-        <!--<legend><h1><small><b>Seleccione las fechas para generar el reporte</b></small></h1></legend>-->
-
          <div class="control-group">
             <div class="row">
                 <div class="span11 offset1">
