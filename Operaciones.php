@@ -33,7 +33,7 @@
         return $fecha;
     }
     switch ($_REQUEST['opcion']){
-            case 'validarSesion'://fina
+            case 'validarSesion':
                 $sql = "SELECT * FROM usuario WHERE nombreusu='".strtoupper($_REQUEST['usu'])."'";
                 if($objUsu->buscar($sql, $conexion)){
                     $fila = $conexion->devolver_recordset();
@@ -57,7 +57,7 @@
                     $res = 0;
                 }
                 break;
-            case 'buscarUsu'://fina
+            case 'buscarUsu':
                 $sql = "SELECT * FROM personal WHERE cedper='".$_REQUEST['ced']."'";
                 if($objUsu->buscar($sql, $conexion)){
                     $res = $conexion->devolver_recordset();
@@ -69,7 +69,7 @@
                     $res =0;
                 }
                 break;
-            case 'guardarUsu'://fina
+            case 'guardarUsu':
                 $sql = "SELECT * FROM usuario WHERE nombreusu='".strtoupper($_REQUEST['usu'])."'";
                 if($objUsu->buscar($sql, $conexion)){
                     $res = 2;
@@ -78,7 +78,6 @@
                     if($objUsu->buscar($sql, $conexion)){
                         $res = 3;
                     }else{
-//                        $codigo = $objUsu->maxId('usuario', 'idusuario', $conexion);
                         $clave = $objUsu->combinarClave($_REQUEST['cla'], 8);
                         $objUsu->setPropiedades($_REQUEST['usu'], $clave, $_REQUEST['tip'], $_REQUEST['idPer']);
                         if($objUsu->ingresar($conexion)){
@@ -115,9 +114,8 @@
                     $res = 2;//HUBO UN ERROR
                 }
                 break;
-            case 'buscarTodosUsu'://fina
+            case 'buscarTodosUsu':
                 $sql = "SELECT * FROM usuario ORDER BY nombreusu ASC";
-//                print_r($sql); exit();
                 if($objUsu->buscar($sql, $conexion)){
                     if($conexion->registros > 0){
                         $i = 0;
@@ -130,7 +128,6 @@
                             $objPer->buscar($sql, $conexion);
                             $res[$i]['p'] = $conexion->devolver_recordset();
                         }
-//                        print_r($res); exit();
                     }else{
                         $res = 0;
                     }
@@ -165,7 +162,7 @@
                     $res = 0;
                 }
                 break;
-            case 'cambiarClave'://fina
+            case 'cambiarClave':
                 $sql = "SELECT * FROM usuario WHERE nombreusu='".strtoupper($_REQUEST['log'])."'";
                 if($objUsu->buscar($sql, $conexion)){
                     $fila = $conexion->devolver_recordset();
@@ -191,14 +188,12 @@
                         $res = $conexion->devolver_recordset();
                         $objPer->buscar("SELECT * FROM horario_persona WHERE idper='".$res['idper']."'", $conexion);
                         $res['h'] = $conexion->devolver_recordset();
-//                        $res = 0;//existe una persona con la cedula
                     }else{
                         $res = 2;
                     }
                 }else{
                     $res = 2;
                 }
-                
                 break;
             case 'buscarPerMod':
                 $sql = "SELECT * FROM personal WHERE idper='".$_REQUEST['cod']."'";
@@ -207,7 +202,6 @@
                         $res = $conexion->devolver_recordset();
                         $objPer->buscar("SELECT * FROM horario_persona WHERE idper='".$_REQUEST['cod']."'", $conexion);
                         $res['h'] = $conexion->devolver_recordset();
-//                        $res = 0;//existe una persona con la cedula
                     }else{
                         $res = 0;
                     }
@@ -217,18 +211,16 @@
                 break;
             case 'guardarPer':
                 
-                if($_REQUEST['idPer'] != ''){//MODIFICAR
-                    
-                }else{//GUARDAR
+                if($_REQUEST['idPer'] != ''){
+                    $res = 3;
+                }else{
                     $objPer->setPropiedades($_REQUEST['doc'], $_REQUEST['nom'], $_REQUEST['ape'], $_REQUEST['cor'], $_REQUEST['dep'], $_REQUEST['tel'], $_REQUEST['car'], $_REQUEST['con'], $_REQUEST['sta']);
                     if($objPer->ingresar($conexion)){
                         $sql = "SELECT * FROM personal WHERE cedper = '".$_REQUEST['doc']."'";
-//                        print_r($sql);                        die();
                         $objPer->buscar($sql, $conexion);
                         $res = $conexion->devolver_recordset();
                         $objHorPer->setPropiedades($res['idper'], $_REQUEST['hor']);
                         $objHorPer->ingresar($conexion);
-                        
                         $res = 1;
                     }else{
                         $res = 2;
@@ -248,16 +240,12 @@
                 }
                 if($w == 1){
                     $sql = "UPDATE personal SET cedper='".$_REQUEST['ced']."', nomper='".$_REQUEST['nom']."', apeper='".$_REQUEST['ape']."', emailper='".$_REQUEST['cor']."', dependencia='".$_REQUEST['dep']."', telfper='".$_REQUEST['tel']."', cargo='".$_REQUEST['car']."', condicion='".$_REQUEST['con']."', status='".$_REQUEST['sta']."' WHERE idper='".$_REQUEST['idPer']."'";
-//                    print_r($sql); exit();
                     $objPer->modificar($sql, $conexion);
-                    
                     $sql = "SELECT * FROM horario_persona WHERE idper = '".$_REQUEST['idPer']."'";
                     if($objHorPer->buscar($sql, $conexion)){
-//                        print_r('consiguio algo'); exit();
                         $sql = "UPDATE horario_persona SET idhor = '".$_REQUEST['hor']."' WHERE idper = '".$_REQUEST['idPer']."'";
                         $objHorPer->modificar($sql, $conexion);
                     }else{
-//                        print_r('NOOOOO consiguio algo'); exit();
                         $objHorPer->setPropiedades($_REQUEST['idPer'], $_REQUEST['hor']);
                         $objHorPer->ingresar($conexion);
                     }
@@ -266,7 +254,7 @@
                     $res = 0;//existe una persona con la misma cedula modificada
                 }
                 break;
-            case 'buscarTodosPer'://fina
+            case 'buscarTodosPer':
                 if($objPer->buscar("SELECT * FROM personal ORDER BY nomper,apeper DESC", $conexion)){
                     if($conexion->registros > 0){
                         $i = 0;
@@ -288,7 +276,6 @@
                 break;
             case 'buscarxTipo':
                 $sql = "SELECT * FROM personal WHERE tipoper='".$_REQUEST['tip']."'";
-//                print_r($sql);
                 if($objPer->buscar($sql, $conexion)){
                     $fila = $conexion->devolver_recordset();
                     
@@ -305,12 +292,11 @@
                     $res = 0;
                 }
                 break;
-            case 'eliminarPer'://fina
+            case 'eliminarPer':
                 if($_REQUEST['param'] != ''){
                     $si = 0;
                     $no = 0;
                     $ids = explode(',', $_REQUEST['param']);
-//                    print_r($ids);
                     $cant = count($ids);
                     for($i = 0;$i < $cant; $i++){
                         $sql = "SELECT * FROM asistencia WHERE idper = '".$ids[$i]."'";
@@ -403,7 +389,6 @@
                 break;
             case 'guardarFes':
                 $sql = "SELECT * FROM diasfestivo WHERE fecha = '".cambiarFormatoFecha($_REQUEST['fec'],'bdd')."' AND fecha2 = '".cambiarFormatoFecha($_REQUEST['fec2'],'bdd')."'";
-//                print_r($sql);
                 if ($objFes->buscar($sql, $conexion)){
                     $res = 2;
                 }else{
@@ -416,7 +401,7 @@
                 }
                 
             break;
-            case 'buscarTodosFes'://fina
+            case 'buscarTodosFes':
                 if($objFes->buscar("SELECT * FROM diasfestivo ORDER BY descfest DESC", $conexion)){
                     if($conexion->registros > 0){
                         $i = 0;
@@ -431,7 +416,7 @@
                     $res = 0;
                 }          
                 break;
-            case 'eliminarFes'://fina
+            case 'eliminarFes':
                 if($_REQUEST['param'] != ''){
                     $ids = explode(',', $_REQUEST['param']);
                     for($i = 0;$i < count($ids); $i++){
@@ -445,7 +430,6 @@
                 break;
             case 'modificarFes':
                 $sql = "UPDATE diasfestivo SET descfest='".$_REQUEST['des']."', fecha='".$_REQUEST['fec']."', fecha2='".$_REQUEST['fec2']."' WHERE idfestivo='".$_REQUEST['id']."'";
-//                print_r($sql);exit();
                 $objFes->modificar($sql, $conexion);
                 $res = 1;
                 break;
@@ -481,7 +465,7 @@
                     $res = 0;
                 }
                 break;
-            case 'guardarH'://fina
+            case 'guardarH':
                 $sql = "SELECT * FROM horario WHERE descripcionhor = '".strtoupper($_REQUEST['des'])."'";
                 if($objHor->buscar($sql, $conexion)){
                     $res = -1;
@@ -530,7 +514,7 @@
                 }
                 
                 break;
-            case 'buscarTodosHor'://fina
+            case 'buscarTodosHor':
                 if($objHor->buscar("SELECT * FROM horario ORDER BY descripcionhor DESC", $conexion)){
                     if($conexion->registros > 0){
                         $i = 0;
@@ -545,36 +529,29 @@
                     $res = 0;
                 }          
                 break;
-            case 'eliminarHor'://fina
+            case 'eliminarHor':
                 $si = 0;
                 $no = 0;
-//                print_r($_REQUEST['param']); exit();
                 if($_REQUEST['param'] != ''){
                     $ids = explode(',', $_REQUEST['param']);
-//                    print_r($ids); exit();
-//                    print_r($ids);
                     $cant = count($ids);
-//                    print_r('///cantidad: '.$cant.'///');
                     for($i = 0;$i < $cant; $i++){
                         $sql = "SELECT * FROM horario_persona WHERE idhor = '".$ids[$i]."'";
-//                        print_r($sql);                            exit();
                         if($objHor->buscar($sql, $conexion)){
                             $no++;
                         }else{
                             $sql = "DELETE FROM horario WHERE idhor='".$ids[$i]."'";
-//                            print_r('///si hay///');
                             $objFes->modificar($sql, $conexion);
                             $si++;
                         }
                     }
-//                    print_r('si: '.$si); exit();
                     if($si != 0){
-                        if($si == $cant){//SE ELIMINARON todos los registros
+                        if($si == $cant){
                             $res = 1;
-                        }else{//SE ELIMINARON ALGUNOS
+                        }else{
                             $res = 2;
                         }
-                    }else{//NO SE ELIMINARON NINGUN REGISTRO
+                    }else{
                         $res = 0;
                     }
                 }else{
@@ -599,7 +576,6 @@
                         }while(($conexion->siguiente()) && ($i != $conexion->registros));
                         for ($i = 0; $i < count($res);$i++){
                             $sql = "SELECT * FROM personal WHERE idper='".$res[$i]['idpersona']."'";
-//                            print_r($sql);                            exit();
                             $objPer->buscar($sql, $conexion);
                             $res[$i]['p'] = $conexion->devolver_recordset();
                         }
@@ -611,13 +587,10 @@
                 }        
                 break;
             case 'registrarAsis':
-                
-                
                 $sql = "SELECT * FROM personal WHERE cedper = '".$_REQUEST['ced']."'";
                 if($objAsi->buscar($sql, $conexion)){
                     if($conexion->registros > 0){
                         $res = $conexion->devolver_recordset();
-                        
                         $sql = "SELECT count(*) as total FROM asistencia WHERE idper ='".$res['idper']."' AND fecha='".date('Y-m-d')."'";
                         if ($objAsi->buscar($sql, $conexion)){
                             if($conexion->registros > 0){
@@ -711,12 +684,6 @@
                             $res[$i]['p'] = $res[$i] = $conexion->devolver_recordset();
                             $i++;
                         }while(($conexion->siguiente()) && ($i != $conexion->registros));
-//                        for($i = 0;$i < count($res); $i++){
-//                            $sql = "SELECT * FROM personal WHERE idper='".$res[$i]['idper']."'";
-//                            $objPer->buscar($sql, $conexion);
-//                            $res[$i]['p'] = $conexion->devolver_recordset();
-//                        }
-//                        print_r($res); exit();
                     }else{
                         $res = 0;
                     }
